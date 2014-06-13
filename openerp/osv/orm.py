@@ -864,10 +864,10 @@ class BaseModel(object):
                             ))
                         break
 
-             if module:
-                 cr.execute("SELECT name FROM ir_model_data WHERE module=%s AND model=%s AND res_id=%s", (module, 'ir.model.fields', field_id))
-                 for xmlid, in cr.fetchall():
-                     self.pool.model_data_reference_ids[(module, xmlid)] = ('ir.model.fields', field_id)
+            if module:
+                cr.execute("SELECT name FROM ir_model_data WHERE module=%s AND model=%s AND res_id=%s", (module, 'ir.model.fields', field_id))
+                for xmlid, in cr.fetchall():
+                    self.pool.model_data_reference_ids[(module, xmlid)] = ('ir.model.fields', field_id)
 
 
     #
