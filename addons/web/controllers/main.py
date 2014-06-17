@@ -1295,7 +1295,8 @@ class Binary(http.Controller):
             uid = openerp.SUPERUSER_ID
 
         if not dbname:
-            image_data = self.placeholder('logo.png')
+            # prev-clean: logo.png
+            image_data = self.placeholder('placeholder.png')
         else:
             try:
                 # create an empty registry
@@ -1311,9 +1312,11 @@ class Binary(http.Controller):
                     if row and row[0]:
                         image_data = str(row[0]).decode('base64')
                     else:
-                        image_data = self.placeholder('nologo.png')
+                        # prev-clean: nologo.png
+                        image_data = self.placeholder('placeholder.png')
             except Exception:
-                image_data = self.placeholder('logo.png')
+                # prev-clean: logo.png
+                image_data = self.placeholder('placeholder.png')
 
         headers = [
             ('Content-Type', 'image/png'),
