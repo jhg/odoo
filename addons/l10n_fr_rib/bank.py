@@ -46,7 +46,7 @@ class res_partner_bank(osv.osv):
             table = dict((ord(a), b) for a, b in zip(
                 u'abcdefghijklmnopqrstuvwxyz', u'12345678912345678923456789'))
             rib = rib.lower().translate(table)
-            # compute the key    
+            # compute the key
             key = 97 - (100 * int(rib)) % 97
             if int(bank_acc.key) != key:
                 raise osv.except_osv(_('Error!'),
@@ -97,7 +97,7 @@ class res_bank(osv.osv):
         # Merge the results
         results = list(set(results + self.name_get(cr, user, ids, context)))
         return results
-        
+
     _columns = {
         'rib_code': fields.char('RIB Bank Code', size=64),
     }

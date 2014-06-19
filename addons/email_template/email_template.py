@@ -437,15 +437,12 @@ class email_template(osv.osv):
             context = {}
         if fields is None:
             fields = ['subject', 'body_html', 'email_from', 'email_to', 'partner_to', 'email_cc', 'reply_to']
-
         report_xml_pool = self.pool.get('ir.actions.report.xml')
         res_ids_to_templates = self.get_email_template_batch(cr, uid, template_id, res_ids, context)
-
         # templates: res_id -> template; template -> res_ids
         templates_to_res_ids = {}
         for res_id, template in res_ids_to_templates.iteritems():
             templates_to_res_ids.setdefault(template, []).append(res_id)
-
         results = dict()
         for template, template_res_ids in templates_to_res_ids.iteritems():
             # generate fields value for all res_ids linked to the current template
@@ -475,7 +472,6 @@ class email_template(osv.osv):
                     res_id=res_id or False,
                     attachment_ids=[attach.id for attach in template.attachment_ids],
                 )
-
             # Add report in attachments: generate once for all template_res_ids
             if template.report_template:
                 for res_id in template_res_ids:
@@ -487,13 +483,11 @@ class email_template(osv.osv):
                     ctx = context.copy()
                     if template.lang:
                         ctx['lang'] = self.render_template_batch(cr, uid, template.lang, template.model, [res_id], context)[res_id]  # take 0 ?
-
                     if report.report_type in ['qweb-html', 'qweb-pdf']:
                         result, format = self.pool['report'].get_pdf(cr, uid, [res_id], report_service, context=ctx), 'pdf'
                     else:
                         result, format = openerp.report.render_report(cr, uid, [res_id], report_service, {'model': template.model}, ctx)
-            
-                    # TODO in trunk, change return format to binary to match message_post expected format
+                        # TODO in trunk, change return format to binary to match message_post expected format
                     result = base64.b64encode(result)
                     if not report_name:
                         report_name = 'report.' + report_service
@@ -502,7 +496,6 @@ class email_template(osv.osv):
                         report_name += ext
                     attachments.append((report_name, result))
                     results[res_id]['attachments'] = attachments
-
         return results
 
     def send_mail(self, cr, uid, template_id, res_id, force_send=False, raise_exception=False, context=None):

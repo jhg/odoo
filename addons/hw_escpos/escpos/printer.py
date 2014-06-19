@@ -31,7 +31,7 @@ class Usb(Escpos):
         self.interface = interface
         self.in_ep     = in_ep
         self.out_ep    = out_ep
-    self.open()
+        self.open()
 
 
     def open(self):
@@ -134,3 +134,4 @@ class Network(Escpos):
     def __del__(self):
         """ Close TCP connection """
         self.device.close()
+
