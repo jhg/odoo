@@ -738,7 +738,6 @@ class Database(http.Controller):
             params['db_original_name'],
             params['db_name'],
         )
-
         return request.session.proxy("db").duplicate_database(*duplicate_attrs)
 
     @http.route('/web/database/drop', type='json', auth="none")
@@ -746,7 +745,6 @@ class Database(http.Controller):
         password, db = operator.itemgetter(
             'drop_pwd', 'drop_db')(
                 dict(map(operator.itemgetter('name', 'value'), fields)))
-        
         try:
             if request.session.proxy("db").drop(password, db):
                 return True
@@ -818,7 +816,6 @@ class Session(http.Controller):
     @http.route('/web/session/authenticate', type='json', auth="none")
     def authenticate(self, db, login, password, base_location=None):
         request.session.authenticate(db, login, password)
-
         return self.session_info()
 
     @http.route('/web/session/change_password', type='json', auth="user")
@@ -902,7 +899,6 @@ class Menu(http.Controller):
         s = request.session
         Menus = s.model('ir.ui.menu')
         menu_domain = [('parent_id', '=', False)]
-
         return Menus.search(menu_domain, 0, False, False, request.context)
 
     @http.route('/web/menu/load', type='json', auth="user")
@@ -913,7 +909,6 @@ class Menu(http.Controller):
         :rtype: dict('children': menu_nodes)
         """
         Menus = request.session.model('ir.ui.menu')
-
         fields = ['name', 'sequence', 'parent_id', 'action']
         menu_root_ids = self.get_user_roots()
         menu_roots = Menus.read(menu_root_ids, fields, request.context) if menu_root_ids else []
@@ -936,7 +931,6 @@ class Menu(http.Controller):
         # mapping, resulting in children being correctly set on the roots.
         menu_items.extend(menu_roots)
         menu_root['all_menu_ids'] = menu_ids # includes menu_root_ids!
-
         # make a tree using parent_id
         menu_items_map = dict(
             (menu_item["id"], menu_item) for menu_item in menu_items)
@@ -948,12 +942,10 @@ class Menu(http.Controller):
             if parent in menu_items_map:
                 menu_items_map[parent].setdefault(
                     'children', []).append(menu_item)
-
         # sort by sequence a tree using parent_id
         for menu_item in menu_items:
             menu_item.setdefault('children', []).sort(
                 key=operator.itemgetter('sequence'))
-
         return menu_root
 
     @http.route('/web/menu/load_needaction', type='json', auth="user")
@@ -988,7 +980,6 @@ class DataSet(http.Controller):
         :rtype: list
         """
         Model = request.session.model(model)
-
         records = Model.search_read(domain, fields, offset or 0, limit or False, sort or False,
                            request.context)
         if not records:
@@ -1425,7 +1416,6 @@ class Export(http.Controller):
                 if not import_compat or field['type'] == 'one2many':
                     # m2m field in import_compat is childless
                     record['children'] = True
-
         return records
 
     @http.route('/web/export/namelist', type='json', auth="user")
@@ -1448,7 +1438,6 @@ class Export(http.Controller):
         fields = self.fields_get(model)
         if ".id" in export_fields:
             fields['.id'] = fields.pop('id', {'string': 'ID'})
-
         # To make fields retrieval more efficient, fetch all sub-fields of a
         # given field at the same time. Because the order in the export list is
         # arbitrary, this requires ordering all sub-fields of a given field
@@ -1489,7 +1478,6 @@ class Export(http.Controller):
                 ))
             elif base in fields:
                 info[base] = fields[base]['string']
-
         return info
 
     def graft_subfields(self, model, prefix, prefix_string, fields):
@@ -1528,19 +1516,14 @@ class ExportFormat(object):
             operator.itemgetter('model', 'fields', 'ids', 'domain',
                                 'import_compat')(
                 simplejson.loads(data))
-
         Model = request.session.model(model)
         ids = ids or Model.search(domain, 0, False, False, request.context)
-
         field_names = map(operator.itemgetter('name'), fields)
         import_data = Model.export_data(ids, field_names, self.raw_data, context=request.context).get('datas',[])
-
         if import_compat:
             columns_headers = field_names
         else:
             columns_headers = [val['label'].strip() for val in fields]
-
-
         return request.make_response(self.from_data(columns_headers, import_data),
             headers=[('Content-Disposition',
                             content_disposition(self.filename(model))),
@@ -1564,9 +1547,7 @@ class CSVExport(ExportFormat, http.Controller):
     def from_data(self, fields, rows):
         fp = StringIO()
         writer = csv.writer(fp, quoting=csv.QUOTE_ALL)
-
         writer.writerow([name.encode('utf-8') for name in fields])
-
         for data in rows:
             row = []
             for d in data:
@@ -1579,7 +1560,6 @@ class CSVExport(ExportFormat, http.Controller):
                 if d is False: d = None
                 row.append(d)
             writer.writerow(row)
-
         fp.seek(0)
         data = fp.read()
         fp.close()
@@ -1604,15 +1584,12 @@ class ExcelExport(ExportFormat, http.Controller):
     def from_data(self, fields, rows):
         workbook = xlwt.Workbook()
         worksheet = workbook.add_sheet('Sheet 1')
-
         for i, fieldname in enumerate(fields):
             worksheet.write(0, i, fieldname)
             worksheet.col(i).width = 8000 # around 220 pixels
-
         base_style = xlwt.easyxf('align: wrap yes')
         date_style = xlwt.easyxf('align: wrap yes', num_format_str='YYYY-MM-DD')
         datetime_style = xlwt.easyxf('align: wrap yes', num_format_str='YYYY-MM-DD HH:mm:SS')
-
         for row_index, row in enumerate(rows):
             for cell_index, cell_value in enumerate(row):
                 cell_style = base_style
@@ -1623,7 +1600,6 @@ class ExcelExport(ExportFormat, http.Controller):
                 elif isinstance(cell_value, datetime.date):
                     cell_style = date_style
                 worksheet.write(row_index + 1, cell_index, cell_value, cell_style)
-
         fp = StringIO()
         workbook.save(fp)
         fp.seek(0)
@@ -1646,11 +1622,9 @@ class Reports(http.Controller):
     @serialize_exception
     def index(self, action, token):
         action = simplejson.loads(action)
-
         report_srv = request.session.proxy("report")
         context = dict(request.context)
         context.update(action["context"])
-
         report_data = {}
         report_ids = context.get("active_ids", None)
         if 'report_type' in action:
@@ -1659,21 +1633,17 @@ class Reports(http.Controller):
             if 'ids' in action['datas']:
                 report_ids = action['datas'].pop('ids')
             report_data.update(action['datas'])
-
         report_id = report_srv.report(
             request.session.db, request.session.uid, request.session.password,
             action["report_name"], report_ids,
             report_data, context)
-
         report_struct = None
         while True:
             report_struct = report_srv.report_get(
                 request.session.db, request.session.uid, request.session.password, report_id)
             if report_struct["state"]:
                 break
-
             time.sleep(self.POLLING_DELAY)
-
         report = base64.b64decode(report_struct['result'])
         if report_struct.get('code') == 'zlib':
             report = zlib.decompress(report)
@@ -1689,7 +1659,6 @@ class Reports(http.Controller):
             else:
                 file_name = action['report_name']
         file_name = '%s.%s' % (file_name, report_struct['format'])
-
         return request.make_response(report,
              headers=[
                  ('Content-Disposition', content_disposition(file_name)),
@@ -1712,16 +1681,13 @@ class Apps(http.Controller):
             app_id = ir_model_data.get_object_reference('base', 'module_%s' % app)[1]
         except ValueError:
             app_id = False
-
         if action and app_id:
             action['res_id'] = app_id
             action['view_mode'] = 'form'
             action['views'] = [(False, u'form')]
-
         sakey = Session().save_session_action(action)
         debug = '?debug' if req.debug else ''
         return werkzeug.utils.redirect('/web{0}#sa={1}'.format(debug, sakey))
-        
 
 
 # vim:expandtab:tabstop=4:softtabstop=4:shiftwidth=4:
