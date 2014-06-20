@@ -326,6 +326,7 @@ class XmpInformation(PdfObject):
     # <p>Stability: Added in v1.12, will exist for all future v1.x releases.
     xmpmm_instanceId = property(_getter_single(XMPMM_NAMESPACE, "InstanceID", _converter_string))
 
+
     def custom_properties(self):
         if not hasattr(self, "_custom_properties"):
             self._custom_properties = {}
