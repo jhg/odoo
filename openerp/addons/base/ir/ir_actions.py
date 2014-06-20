@@ -320,22 +320,24 @@ class ir_actions_act_window(osv.osv):
             ids = [ids]
         results = super(ir_actions_act_window, self).read(cr, uid, ids, fields=fields, context=context, load=load)
 
-        if not fields or 'help' in fields:
-            context = dict(context or {})
-            eval_dict = {
-                'active_model': context.get('active_model'),
-                'active_id': context.get('active_id'),
-                'active_ids': context.get('active_ids'),
-                'uid': uid,
-            }
-            for res in results:
-                model = res.get('res_model')
-                if model and self.pool.get(model):
-                    try:
-                        with tools.mute_logger("openerp.tools.safe_eval"):
-                            eval_context = eval(res['context'] or "{}", eval_dict) or {}
-                    except Exception:
-                        continue
+        context = dict(context or {})
+        eval_dict = {
+            'active_model': context.get('active_model'),
+            'active_id': context.get('active_id'),
+            'active_ids': context.get('active_ids'),
+            'uid': uid,
+            'context': context,
+        }
+        for res in results:
+            model = res.get('res_model')
+            if model and self.pool.get(model):
+                try:
+                    with tools.mute_logger("openerp.tools.safe_eval"):
+                        eval_context = eval(res['context'] or "{}", eval_dict) or {}
+                        res['context'] = str(eval_context)
+                except Exception:
+                    continue
+                if not fields or 'help' in fields:
                     custom_context = dict(context, **eval_context)
                     res['help'] = self.pool.get(model).get_empty_list_help(cr, uid, res.get('help', ""), context=custom_context)
         if ids_int:
@@ -1058,9 +1060,10 @@ class ir_actions_todo(osv.osv):
         'state': fields.selection(TODO_STATES, string='Status', required=True),
         'name': fields.char('Name', size=64),
         'type': fields.selection(TODO_TYPES, 'Type', required=True,
-            help="""Manual: Launched manually.
-Automatic: Runs whenever the system is reconfigured.
-Launch Manually Once: after having been launched manually, it sets automatically to Done."""),
+            help="Launch Manually : Manually user has to launch the wizard.\n"
+            "Launch Manually Once : Having launched manually,\n"
+            "It sets wizard status to 'Done' automatically.\n"
+            "Launch Automatically : Runs the wizard whenever the system is reconfigured."),
         'groups_id': fields.many2many('res.groups', 'res_groups_action_rel', 'uid', 'gid', 'Groups'),
         'note': fields.text('Text', translate=True),
     }
