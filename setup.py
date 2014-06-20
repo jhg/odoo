@@ -19,8 +19,13 @@
 #
 ##############################################################################
 
-import glob, os, re, setuptools, sys
+import glob
+import os
+import re
+import setuptools
+import sys
 from os.path import join
+
 
 # List all data files
 def data():
@@ -29,10 +34,8 @@ def data():
         for filename in filenames:
             if not re.match(r'.*(\.pyc|\.pyo|\~)$', filename):
                 r.setdefault(root, []).append(os.path.join(root, filename))
-
     if os.name == 'nt':
         r["Microsoft.VC90.CRT"] = glob.glob('C:\Microsoft.VC90.CRT\*.*')
-
         import babel
         # Add data, but also some .py files py2exe won't include automatically.
         # TODO This should probably go under `packages`, instead of `data`,
@@ -43,40 +46,45 @@ def data():
         r["babel"] = map(lambda f: os.path.join(os.path.dirname(babel.__file__), f), others)
         others = ['frontend.py', 'mofile.py']
         r["babel/messages"] = map(lambda f: os.path.join(os.path.dirname(babel.__file__), "messages", f), others)
-
         import pytz
         tzdir = os.path.dirname(pytz.__file__)
         for root, _, filenames in os.walk(os.path.join(tzdir, "zoneinfo")):
             base = os.path.join('pytz', root[len(tzdir) + 1:])
             r[base] = [os.path.join(root, f) for f in filenames]
-
         import docutils
         dudir = os.path.dirname(docutils.__file__)
         for root, _, filenames in os.walk(dudir):
             base = os.path.join('docutils', root[len(dudir) + 1:])
             r[base] = [os.path.join(root, f) for f in filenames if not f.endswith(('.py', '.pyc', '.pyo'))]
-
     return r.items()
 
+
 def gen_manifest():
-    file_list="\n".join(data())
-    open('MANIFEST','w').write(file_list)
+    file_list = "\n".join(data())
+    open('MANIFEST', 'w').write(file_list)
 
 if os.name == 'nt':
     sys.path.append("C:\Microsoft.VC90.CRT")
+
 
 def py2exe_options():
     if os.name == 'nt':
         import py2exe
         return {
-            "console" : [ { "script": "openerp-server", "icon_resources": [(1, join("install","openerp-icon.ico"))], },
-                          { "script": "openerp-gevent" },
-                          { "script": "odoo.py" },
+            "console": [
+                {
+                    "script": "openerp-server",
+                    "icon_resources": [
+                        (1, join("install", "openerp-icon.ico"))
+                    ],
+                },
+                {"script": "openerp-gevent"},
+                {"script": "odoo.py"},
             ],
-            'options' : {
+            'options': {
                 "py2exe": {
                     "skip_archive": 1,
-                    "optimize": 0, # keep the assert running, because the integrated tests rely on them.
+                    "optimize": 0,  # keep the assert running, because the integrated tests rely on them.
                     "dist_dir": 'dist',
                     "packages": [
                         "HTMLParser",
@@ -115,7 +123,7 @@ def py2exe_options():
                         "xml", "xml.dom",
                         "yaml",
                     ],
-                    "excludes" : ["Tkconstants","Tkinter","tcl"],
+                    "excludes": ["Tkconstants", "Tkinter", "tcl"],
                 }
             }
         }
@@ -138,60 +146,60 @@ execfile(join(os.path.dirname(__file__), 'openerp', 'release.py'))
 # Both python2.7 32bits and 64bits are known to work.
 
 setuptools.setup(
-      name             = 'openerp',
-      version          = version,
-      description      = description,
-      long_description = long_desc,
-      url              = url,
-      author           = author,
-      author_email     = author_email,
-      classifiers      = filter(None, classifiers.split("\n")),
-      license          = license,
-      scripts          = ['openerp-server', 'openerp-gevent', 'odoo.py'],
-      data_files       = data(),
-      packages         = setuptools.find_packages(),
-      dependency_links = ['http://download.gna.org/pychart/'],
-      #include_package_data = True,
-      install_requires = [
-          'pychart', # not on pypi, use: pip install http://download.gna.org/pychart/PyChart-1.39.tar.gz
-          'babel >= 1.0',
-          'docutils',
-          'feedparser',
-          'gdata',
-          'gevent',
-          'psycogreen',
-          'Jinja2',
-          'lxml', # windows binary http://www.lfd.uci.edu/~gohlke/pythonlibs/
-          'mako',
-          'mock',
-          'passlib',
-          'pillow', # windows binary http://www.lfd.uci.edu/~gohlke/pythonlibs/
-          'psutil', # windows binary code.google.com/p/psutil/downloads/list
-          'psycopg2 >= 2.2',
-          'pydot',
-          'pyparsing < 2',
-          'pyserial',
-          'python-dateutil < 2',
-          'python-ldap', # optional
-          'python-openid',
-          'pytz',
-          'pyusb >= 1.0.0b1',
-          'pyyaml',
-          'qrcode',
-          'reportlab', # windows binary pypi.python.org/pypi/reportlab
-          'requests',
-          'simplejson',
-          'unittest2',
-          'vatnumber',
-          'vobject',
-          'werkzeug',
-          'xlwt',
-      ],
-      extras_require = {
-          'SSL' : ['pyopenssl'],
-      },
-      tests_require = ['unittest2', 'mock'],
-      **py2exe_options()
+    name='openerp',
+    version=version,
+    description=description,
+    long_description=long_desc,
+    url=url,
+    author=author,
+    author_email=author_email,
+    classifiers=filter(None, classifiers.split("\n")),
+    license=license,
+    scripts=['openerp-server', 'openerp-gevent', 'odoo.py'],
+    data_files=data(),
+    packages=setuptools.find_packages(),
+    dependency_links=['http://download.gna.org/pychart/'],
+    #include_package_data = True,
+    install_requires=[
+        'pychart',  # not on pypi, use: pip install http://download.gna.org/pychart/PyChart-1.39.tar.gz
+        'babel >= 1.0',
+        'docutils',
+        'feedparser',
+        'gdata',
+        'gevent',
+        'psycogreen',
+        'Jinja2',
+        'lxml',  # windows binary http://www.lfd.uci.edu/~gohlke/pythonlibs/
+        'mako',
+        'mock',
+        'passlib',
+        'pillow',  # windows binary http://www.lfd.uci.edu/~gohlke/pythonlibs/
+        'psutil',  # windows binary code.google.com/p/psutil/downloads/list
+        'psycopg2 >= 2.2',
+        'pydot',
+        'pyparsing < 2',
+        'pyserial',
+        'python-dateutil < 2',
+        'python-ldap',  # optional
+        'python-openid',
+        'pytz',
+        'pyusb >= 1.0.0b1',
+        'pyyaml',
+        'qrcode',
+        'reportlab',  # windows binary pypi.python.org/pypi/reportlab
+        'requests',
+        'simplejson',
+        'unittest2',
+        'vatnumber',
+        'vobject',
+        'werkzeug',
+        'xlwt',
+    ],
+    extras_require={
+        'SSL': ['pyopenssl'],
+    },
+    tests_require=['unittest2', 'mock'],
+    **py2exe_options()
 )
 
 
