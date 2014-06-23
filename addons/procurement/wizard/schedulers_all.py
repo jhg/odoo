@@ -37,7 +37,7 @@ class procurement_compute_all(osv.osv_memory):
         """
         proc_obj = self.pool.get('procurement.order')
         #As this function is in a new thread, i need to open a new cursor, because the old one may be closed
-        
+
         new_cr = self.pool.cursor()
         user = self.pool.get('res.users').browse(new_cr, uid, uid, context=context)
         comps = [x.id for x in user.company_ids]

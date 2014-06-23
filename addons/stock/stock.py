@@ -1296,10 +1296,10 @@ class stock_picking(osv.osv):
                 todo_move_ids = []
                 if not all_op_processed:
                     todo_move_ids += self._create_extra_moves(cr, uid, picking, context=context)
-                    
+
                 picking.refresh()
                 #split move lines eventually
-                
+
                 toassign_move_ids = []
                 for move in picking.move_lines:
                     remaining_qty = move.remaining_qty
