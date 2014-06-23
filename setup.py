@@ -146,62 +146,6 @@ execfile(join(os.path.dirname(__file__), 'openerp', 'release.py'))
 # Both python2.7 32bits and 64bits are known to work.
 
 setuptools.setup(
-<<<<<<< HEAD
-    name='openerp',
-    version=version,
-    description=description,
-    long_description=long_desc,
-    url=url,
-    author=author,
-    author_email=author_email,
-    classifiers=filter(None, classifiers.split("\n")),
-    license=license,
-    scripts=['openerp-server', 'openerp-gevent', 'odoo.py'],
-    data_files=data(),
-    packages=setuptools.find_packages(),
-    dependency_links=['http://download.gna.org/pychart/'],
-    #include_package_data = True,
-    install_requires=[
-        'pychart',  # not on pypi, use: pip install http://download.gna.org/pychart/PyChart-1.39.tar.gz
-        'babel >= 1.0',
-        'docutils',
-        'feedparser',
-        'gdata',
-        'gevent',
-        'psycogreen',
-        'Jinja2',
-        'lxml',  # windows binary http://www.lfd.uci.edu/~gohlke/pythonlibs/
-        'mako',
-        'mock',
-        'passlib',
-        'pillow',  # windows binary http://www.lfd.uci.edu/~gohlke/pythonlibs/
-        'psutil',  # windows binary code.google.com/p/psutil/downloads/list
-        'psycopg2 >= 2.2',
-        'pydot',
-        'pyparsing < 2',
-        'pyserial',
-        'python-dateutil < 2',
-        'python-ldap',  # optional
-        'python-openid',
-        'pytz',
-        'pyusb >= 1.0.0b1',
-        'pyyaml',
-        'qrcode',
-        'reportlab',  # windows binary pypi.python.org/pypi/reportlab
-        'requests',
-        'simplejson',
-        'unittest2',
-        'vatnumber',
-        'vobject',
-        'werkzeug',
-        'xlwt',
-    ],
-    extras_require={
-        'SSL': ['pyopenssl'],
-    },
-    tests_require=['unittest2', 'mock'],
-    **py2exe_options()
-=======
       name             = 'openerp',
       version          = version,
       description      = description,
@@ -256,7 +200,6 @@ setuptools.setup(
       },
       tests_require = ['unittest2', 'mock'],
       **py2exe_options()
->>>>>>> e862ff7033dd001a84d7e0a192d0da7b11384bd9
 )
 
 
