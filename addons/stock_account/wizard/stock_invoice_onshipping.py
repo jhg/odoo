@@ -28,7 +28,7 @@ class stock_invoice_onshipping(osv.osv_memory):
         journal_type = self._get_journal_type(cr, uid, context=context)
         journals = journal_obj.search(cr, uid, [('type', '=', journal_type)])
         return journals and journals[0] or False
-    
+
     def _get_journal_type(self, cr, uid, context=None):
         if context is None:
             context = {}
@@ -85,7 +85,7 @@ class stock_invoice_onshipping(osv.osv_memory):
     def open_invoice(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        
+
         invoice_ids = self.create_invoice(cr, uid, ids, context=context)
         if not invoice_ids:
             raise osv.except_osv(_('Error!'), _('No invoice created!'))
@@ -94,7 +94,7 @@ class stock_invoice_onshipping(osv.osv_memory):
 
         action_model = False
         action = {}
-        
+
         journal2type = {'sale':'out_invoice', 'purchase':'in_invoice' , 'sale_refund':'out_refund', 'purchase_refund':'in_refund'}
         inv_type = journal2type.get(data.journal_type) or 'out_invoice'
         data_pool = self.pool.get('ir.model.data')
