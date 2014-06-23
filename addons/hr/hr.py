@@ -225,7 +225,7 @@ class hr_employee(osv.osv):
                  "resized as a 128x128px image, with aspect ratio preserved. "\
                  "Use this field in form views or some kanban views."),
         'image_small': fields.function(_get_image, fnct_inv=_set_image,
-            string="Smal-sized photo", type="binary", multi="_get_image",
+            string="Small-sized photo", type="binary", multi="_get_image",
             store = {
                 'hr.employee': (lambda self, cr, uid, ids, c={}: ids, ['image'], 10),
             },
@@ -248,13 +248,13 @@ class hr_employee(osv.osv):
         'image': _get_default_image,
         'color': 0,
     }
-    
+
     def copy_data(self, cr, uid, ids, default=None, context=None):
         if default is None:
             default = {}
         default.update({'child_ids': False})
         return super(hr_employee, self).copy_data(cr, uid, ids, default, context=context)
-        
+
     def _broadcast_welcome(self, cr, uid, employee_id, context=None):
         """ Broadcast the welcome message to all users in the employee company. """
         employee = self.browse(cr, uid, employee_id, context=context)
@@ -445,7 +445,7 @@ class res_users(osv.osv):
             default = {}
         default.update({'employee_ids': False})
         return super(res_users, self).copy_data(cr, uid, ids, default, context=context)
-    
+
     _columns = {
         'employee_ids': fields.one2many('hr.employee', 'user_id', 'Related employees'),
     }

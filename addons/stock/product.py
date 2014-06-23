@@ -26,7 +26,7 @@ import openerp.addons.decimal_precision as dp
 
 class product_product(osv.osv):
     _inherit = "product.product"
-        
+
     def _stock_move_count(self, cr, uid, ids, field_name, arg, context=None):
         res = dict([(id, {'reception_count': 0, 'delivery_count': 0}) for id in ids])
         move_pool=self.pool.get('stock.move')
@@ -171,13 +171,13 @@ class product_product(osv.osv):
     def _product_available_text(self, cr, uid, ids, field_names=None, arg=False, context=None):
         res = {}
         for product in self.browse(cr, uid, ids, context=context):
-            res[product.id] = str(product.qty_available) +  _(" In Stock")
+            res[product.id] = str(product.qty_available) +  _(" On Hand")
         return res
 
     _columns = {
         'reception_count': fields.function(_stock_move_count, string="Reception", type='integer', multi='pickings'),
         'delivery_count': fields.function(_stock_move_count, string="Delivery", type='integer', multi='pickings'),
-        'qty_in_stock': fields.function(_product_available_text, type='char'),
+        'qty_available_text': fields.function(_product_available_text, type='char'),
         'qty_available': fields.function(_product_available, multi='qty_available',
             type='float', digits_compute=dp.get_precision('Product Unit of Measure'),
             string='Quantity On Hand',
@@ -188,6 +188,8 @@ class product_product(osv.osv):
                  "In a context with a single Warehouse, this includes "
                  "goods stored in the Stock Location of this Warehouse, or any "
                  "of its children.\n"
+                 "stored in the Stock Location of the Warehouse of this Shop, "
+                 "or any of its children.\n"
                  "Otherwise, this includes goods stored in any Stock Location "
                  "with 'internal' type."),
         'virtual_available': fields.function(_product_available, multi='qty_available',
@@ -195,7 +197,7 @@ class product_product(osv.osv):
             string='Forecast Quantity',
             fnct_search=_search_product_quantity,
             help="Forecast quantity (computed as Quantity On Hand "
-                 "- Outgoing + Incoming).\n"
+                 "- Outgoing + Incoming)\n"
                  "In a context with a single Stock Location, this includes "
                  "goods stored in this location, or any of its children.\n"
                  "In a context with a single Warehouse, this includes "
@@ -207,7 +209,7 @@ class product_product(osv.osv):
             type='float', digits_compute=dp.get_precision('Product Unit of Measure'),
             string='Incoming',
             fnct_search=_search_product_quantity,
-            help="Quantity of products that are planned to arrive. \n"
+            help="Quantity of products that are planned to arrive.\n"
                  "In a context with a single Stock Location, this includes "
                  "goods arriving to this Location, or any of its children.\n"
                  "In a context with a single Warehouse, this includes "
@@ -275,10 +277,16 @@ class product_product(osv.osv):
                         res['fields']['qty_available']['string'] = _('Produced Qty')
         return res
 
+
+    def action_view_routes(self, cr, uid, ids, context=None):
+        template_obj = self.pool.get("product.template")
+        templ_ids = list(set([x.product_tmpl_id.id for x in self.browse(cr, uid, ids, context=context)]))
+        return template_obj.action_view_routes(cr, uid, templ_ids, context=context)
+
 class product_template(osv.osv):
     _name = 'product.template'
     _inherit = 'product.template'
-    
+
     def _product_available(self, cr, uid, ids, name, arg, context=None):
         res = dict.fromkeys(ids, 0)
         for product in self.browse(cr, uid, ids, context=context):
@@ -316,12 +324,7 @@ class product_template(osv.osv):
         return res
 
     _columns = {
-        'valuation':fields.selection([('manual_periodic', 'Periodical (manual)'),
-            ('real_time','Real Time (automated)'),], 'Inventory Valuation',
-            help="If real-time valuation is enabled for a product, the system will automatically write journal entries corresponding to stock moves." \
-                 "The inventory variation account set on the product category will represent the current inventory value, and the stock input and stock output account will hold the counterpart moves for incoming and outgoing products."
-            , required=True),
-        'type': fields.selection([('product', 'Stockable Product'), ('consu', 'Consumable'), ('service', 'Service')], 'Product Type', required=True, help="Consumable: Will not imply stock management for this product.\nStockable product: Will imply stock management for this product.\nService: Will not appear in the various stock operations (eg. Consulting Service)."),
+        'type': fields.selection([('product', 'Stockable Product'), ('consu', 'Consumable'), ('service', 'Service')], 'Product Type', required=True, help="Consumable: Will not imply stock management for this product. \nStockable product: Will imply stock management for this product."),
         'property_stock_procurement': fields.property(
             type='many2one',
             relation='stock.location',
@@ -347,7 +350,7 @@ class product_template(osv.osv):
         'track_incoming': fields.boolean('Track Incoming Lots', help="Forces to specify a Serial Number for all moves containing this product and coming from a Supplier Location"),
         'track_outgoing': fields.boolean('Track Outgoing Lots', help="Forces to specify a Serial Number for all moves containing this product and going to a Customer Location"),
         'track_all': fields.boolean('Full Lots Traceability', help="Forces to specify a Serial Number on each and every operation related to this product"),
-        
+
         # sum of product variant qty
         # 'reception_count': fields.function(_product_available, multi='qty_available',
         #     fnct_search=_search_product_quantity, type='float', string='Quantity On Hand'),
@@ -361,14 +364,13 @@ class product_template(osv.osv):
             fnct_search=_search_product_quantity, type='float', string='Incoming'),
         'outgoing_qty': fields.function(_product_available, multi='qty_available',
             fnct_search=_search_product_quantity, type='float', string='Outgoing'),
-        
+
         'route_ids': fields.many2many('stock.location.route', 'stock_route_product', 'product_id', 'route_id', 'Routes', domain="[('product_selectable', '=', True)]",
                                     help="Depending on the modules installed, this will allow you to define the route of the product: whether it will be bought, manufactured, MTO/MTS,..."),
     }
 
     _defaults = {
         'sale_delay': 7,
-        'valuation': 'manual_periodic',
     }
 
     def action_view_routes(self, cr, uid, ids, context=None):

@@ -270,8 +270,6 @@ class WebRequest(object):
            to abitrary responses. Anything returned (except None) will
            be used as response.""" 
         self._failed = exception # prevent tx commit
-        if isinstance(exception, werkzeug.exceptions.HTTPException):
-            return exception
         raise
 
     def _call_function(self, *args, **kwargs):
@@ -405,7 +403,7 @@ class JsonRequest(WebRequest):
         self.jsonp = jsonp
         request = None
         request_id = args.get('id')
-        
+
         if jsonp and self.httprequest.method == 'POST':
             # jsonp 2 steps step1 POST: save call
             def handler():
@@ -537,6 +535,15 @@ class HttpRequest(WebRequest):
         params.update(self.httprequest.files.to_dict())
         params.pop('session_id', None)
         self.params = params
+
+    def _handle_exception(self, exception):
+        """Called within an except block to allow converting exceptions
+           to abitrary responses. Anything returned (except None) will
+           be used as response."""
+        try:
+            return super(HttpRequest, self)._handle_exception(exception)
+        except werkzeug.exceptions.HTTPException, e:
+            return e
 
     def dispatch(self):
         if request.httprequest.method == 'OPTIONS' and request.endpoint and request.endpoint.routing.get('cors'):
@@ -757,7 +764,7 @@ class Model(object):
             if not request.db or not request.uid or self.session.db != request.db \
                 or self.session.uid != request.uid:
                 raise Exception("Trying to use Model with badly configured database or user.")
-                
+
             mod = request.registry.get(self.model)
             if method.startswith('_'):
                 raise Exception("Access denied")
@@ -1037,6 +1044,15 @@ mimetypes.add_type('application/font-woff', '.woff')
 mimetypes.add_type('application/vnd.ms-fontobject', '.eot')
 mimetypes.add_type('application/x-font-ttf', '.ttf')
 
+class Retry(RuntimeError):
+    """ Exception raised during QWeb rendering to signal that the rendering
+    should be retried with the provided ``render_updates`` dict merged into
+    the previous rendering context
+    """
+    def __init__(self, name, render_updates=None):
+        super(Retry, self).__init__(name)
+        self.updates = render_updates or {}
+
 class Response(werkzeug.wrappers.Response):
     """ Response object passed through controller route chain.
 
@@ -1077,7 +1093,13 @@ class Response(werkzeug.wrappers.Response):
     def render(self):
         view_obj = request.registry["ir.ui.view"]
         uid = self.uid or request.uid or openerp.SUPERUSER_ID
-        return view_obj.render(request.cr, uid, self.template, self.qcontext, context=request.context)
+        while True:
+            try:
+                return view_obj.render(
+                    request.cr, uid, self.template, self.qcontext,
+                    context=request.context)
+            except Retry, e:
+                self.qcontext.update(e.updates)
 
     def flatten(self):
         self.response.append(self.render())

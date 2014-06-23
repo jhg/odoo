@@ -305,7 +305,8 @@ class crm_lead(format_address, osv.osv):
         if partner_id:
             partner = self.pool.get('res.partner').browse(cr, uid, partner_id, context=context)
             values = {
-                'partner_name': partner.name,
+                'partner_name': partner.parent_id.name if partner.parent_id else partner.name,
+                'contact_name': partner.name if partner.parent_id else False,
                 'street': partner.street,
                 'street2': partner.street2,
                 'city': partner.city,
@@ -720,6 +721,8 @@ class crm_lead(format_address, osv.osv):
             partner_id = self._lead_create_contact(cr, uid, lead, lead.partner_name, True, context=context)
         elif not lead.partner_name and lead.contact_name:
             partner_id = self._lead_create_contact(cr, uid, lead, lead.contact_name, False, context=context)
+        elif not lead.partner_name and not lead.contact_name and context.get('contact_name'):
+            partner_id = self._lead_create_contact(cr, uid, lead, context.get('contact_name'), False, context=context)
         elif lead.email_from and self.pool.get('res.partner')._parse_partner_name(lead.email_from, context=context)[0]:
             contact_name = self.pool.get('res.partner')._parse_partner_name(lead.email_from, context=context)[0]
             partner_id = self._lead_create_contact(cr, uid, lead, contact_name, False, context=context)
@@ -749,7 +752,7 @@ class crm_lead(format_address, osv.osv):
                 partner_ids[lead.id] = lead.partner_id.id
                 continue
             if not partner_id and action == 'create':
-                partner_id = self._create_lead_partner(cr, uid, lead, context)
+                partner_id = self._create_lead_partner(cr, uid, lead, context=context)
                 self.pool['res.partner'].write(cr, uid, partner_id, {'section_id': lead.section_id and lead.section_id.id or False})
             if partner_id:
                 lead.write({'partner_id': partner_id}, context=context)
@@ -934,8 +937,10 @@ class crm_lead(format_address, osv.osv):
 
     def message_get_reply_to(self, cr, uid, ids, context=None):
         """ Override to get the reply_to of the parent project. """
-        return [lead.section_id.message_get_reply_to()[0] if lead.section_id else False
-                    for lead in self.browse(cr, SUPERUSER_ID, ids, context=context)]
+        leads = self.browse(cr, SUPERUSER_ID, ids, context=context)
+        section_ids = set([lead.section_id.id for lead in leads if lead.section_id])
+        aliases = self.pool['crm.case.section'].message_get_reply_to(cr, uid, list(section_ids), context=context)
+        return dict((lead.id, aliases.get(lead.section_id and lead.section_id.id or 0, False)) for lead in leads)
 
     def get_formview_id(self, cr, uid, id, context=None):
         obj = self.browse(cr, uid, id, context=context)

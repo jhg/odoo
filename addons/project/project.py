@@ -709,7 +709,7 @@ class task(osv.osv):
                 new_name = _("%s (copy)") % (default.get('name', ''))
                 default.update({'name':new_name})
         return super(task, self).copy_data(cr, uid, id, default, context)
-    
+
     def copy(self, cr, uid, id, default=None, context=None):
         if context is None:
             context = {}
@@ -810,7 +810,7 @@ class task(osv.osv):
         'partner_id': lambda self, cr, uid, ctx=None: self._get_default_partner(cr, uid, context=ctx),
     }
     _order = "priority, sequence, date_start, name, id"
-    
+
     def _check_recursion(self, cr, uid, ids, context=None):
         for id in ids:
             visited_branch = set()
@@ -1101,8 +1101,10 @@ class task(osv.osv):
 
     def message_get_reply_to(self, cr, uid, ids, context=None):
         """ Override to get the reply_to of the parent project. """
-        return [task.project_id.message_get_reply_to()[0] if task.project_id else False
-                    for task in self.browse(cr, uid, ids, context=context)]
+        tasks = self.browse(cr, SUPERUSER_ID, ids, context=context)
+        project_ids = set([task.project_id.id for task in tasks if task.project_id])
+        aliases = self.pool['project.project'].message_get_reply_to(cr, uid, list(project_ids), context=context)
+        return dict((task.id, aliases.get(task.project_id and task.project_id.id or 0, False)) for task in tasks)
 
     def message_new(self, cr, uid, msg, custom_values=None, context=None):
         """ Override to updates the document according to the email. """

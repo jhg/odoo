@@ -137,7 +137,7 @@ class project_work(osv.osv):
                 amount = vals_line['unit_amount']
                 prod_id = vals_line['product_id']
                 unit = False
-                timeline_id = timesheet_obj.create(cr, uid, vals=vals_line, context=context)
+                timeline_id = timesheet_obj.create(cr, uid, vals_line, context=context)
 
                 # Compute based on pricetype
                 amount_unit = timesheet_obj.on_change_unit_amount(cr, uid, timeline_id,
@@ -275,9 +275,9 @@ class account_analytic_line(osv.osv):
             employee = emp_obj.browse(cr, uid, emp_ids, context=context)[0]
             if employee.product_id:return employee.product_id.id
         return False
-   
+
    _defaults = {'product_id': get_product,}
-   
+
    def on_change_account_id(self, cr, uid, ids, account_id):
        res = {}
        if not account_id:
