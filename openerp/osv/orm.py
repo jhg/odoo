@@ -869,7 +869,6 @@ class BaseModel(object):
                 for xmlid, in cr.fetchall():
                     self.pool.model_data_reference_ids[(module, xmlid)] = ('ir.model.fields', field_id)
 
-
     #
     # Goal: try to apply inheritance at the instanciation level and
     #       put objects in the pool var
