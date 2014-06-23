@@ -188,6 +188,8 @@ class product_product(osv.osv):
                  "In a context with a single Warehouse, this includes "
                  "goods stored in the Stock Location of this Warehouse, or any "
                  "of its children.\n"
+                 "stored in the Stock Location of the Warehouse of this Shop, "
+                 "or any of its children.\n"
                  "Otherwise, this includes goods stored in any Stock Location "
                  "with 'internal' type."),
         'virtual_available': fields.function(_product_available, multi='qty_available',
@@ -195,7 +197,7 @@ class product_product(osv.osv):
             string='Forecast Quantity',
             fnct_search=_search_product_quantity,
             help="Forecast quantity (computed as Quantity On Hand "
-                 "- Outgoing + Incoming).\n"
+                 "- Outgoing + Incoming)\n"
                  "In a context with a single Stock Location, this includes "
                  "goods stored in this location, or any of its children.\n"
                  "In a context with a single Warehouse, this includes "
@@ -207,7 +209,7 @@ class product_product(osv.osv):
             type='float', digits_compute=dp.get_precision('Product Unit of Measure'),
             string='Incoming',
             fnct_search=_search_product_quantity,
-            help="Quantity of products that are planned to arrive. \n"
+            help="Quantity of products that are planned to arrive.\n"
                  "In a context with a single Stock Location, this includes "
                  "goods arriving to this Location, or any of its children.\n"
                  "In a context with a single Warehouse, this includes "
@@ -327,7 +329,7 @@ class product_template(osv.osv):
             help="If real-time valuation is enabled for a product, the system will automatically write journal entries corresponding to stock moves." \
                  "The inventory variation account set on the product category will represent the current inventory value, and the stock input and stock output account will hold the counterpart moves for incoming and outgoing products."
             , required=True),
-        'type': fields.selection([('product', 'Stockable Product'), ('consu', 'Consumable'), ('service', 'Service')], 'Product Type', required=True, help="Consumable: Will not imply stock management for this product.\nStockable product: Will imply stock management for this product.\nService: Will not appear in the various stock operations (eg. Consulting Service)."),
+        'type': fields.selection([('product', 'Stockable Product'), ('consu', 'Consumable'), ('service', 'Service')], 'Product Type', required=True, help="Consumable: Will not imply stock management for this product. \nStockable product: Will imply stock management for this product."),
         'property_stock_procurement': fields.property(
             type='many2one',
             relation='stock.location',
