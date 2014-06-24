@@ -213,7 +213,7 @@ class account_analytic_plan_instance(osv.osv):
         if context and 'journal_id' in context:
             journal = journal_obj.browse(cr, uid, context['journal_id'], context=context)
 
-            pids = ana_plan_instance_obj.search(cr, uid, [('name','=',vals['name']), ('code','=',vals['code']), ('plan_id','<>',False)], context=context)
+            pids = ana_plan_instance_obj.search(cr, uid, [('name','=',vals['name']), ('code','=',vals['code']), ('plan_id','!=',False)], context=context)
             if pids:
                 raise osv.except_osv(_('Error!'), _('A model with this name and code already exists.'))
 
@@ -261,7 +261,7 @@ class account_analytic_plan_instance_line(osv.osv):
     _rec_name = "analytic_account_id"
     _columns = {
         'plan_id': fields.many2one('account.analytic.plan.instance', 'Plan Id'),
-        'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account', required=True, domain=[('type','<>','view')]),
+        'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account', required=True, domain=[('type','!=','view')]),
         'rate': fields.float('Rate (%)', required=True),
     }
     _defaults = {

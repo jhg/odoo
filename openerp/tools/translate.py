@@ -388,7 +388,7 @@ class TinyPoFile(object):
                           '''"Report-Msgid-Bugs-To: \\n"\n''' \
                           '''"POT-Creation-Date: %(now)s\\n"\n'''        \
                           '''"PO-Revision-Date: %(now)s\\n"\n'''         \
-                          '''"Last-Translator: <>\\n"\n''' \
+                          '''"Last-Translator: !=\\n"\n''' \
                           '''"Language-Team: \\n"\n'''   \
                           '''"MIME-Version: 1.0\\n"\n''' \
                           '''"Content-Type: text/plain; charset=UTF-8\\n"\n'''   \

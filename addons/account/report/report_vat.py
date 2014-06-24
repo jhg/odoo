@@ -123,7 +123,7 @@ class tax_report(report_sxw.rml_parse, common_report_header):
                         account_move AS move \
                         LEFT JOIN account_invoice invoice ON \
                             (invoice.move_id = move.id) \
-                    WHERE line.state<>%s \
+                    WHERE line.state!=%s \
                         AND line.tax_code_id = %s  \
                         AND line.account_id = account.id \
                         AND account.company_id = %s \
@@ -144,7 +144,7 @@ class tax_report(report_sxw.rml_parse, common_report_header):
                         account.code AS code \
                     FROM account_move_line AS line, \
                         account_account AS account \
-                    WHERE line.state <> %s \
+                    WHERE line.state != %s \
                         AND line.tax_code_id = %s  \
                         AND line.account_id = account.id \
                         AND account.company_id = %s \

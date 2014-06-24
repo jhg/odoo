@@ -119,12 +119,12 @@ class hr_employee(osv.Model):
     def run_employee_evaluation(self, cr, uid, automatic=False, use_new_cursor=False, context=None):  # cronjob
         now = parser.parse(datetime.now().strftime('%Y-%m-%d'))
         obj_evaluation = self.pool.get('hr_evaluation.evaluation')
-        emp_ids = self.search(cr, uid, [('evaluation_plan_id', '<>', False), ('evaluation_date', '=', False)], context=context)
+        emp_ids = self.search(cr, uid, [('evaluation_plan_id', '!=', False), ('evaluation_date', '=', False)], context=context)
         for emp in self.browse(cr, uid, emp_ids, context=context):
             first_date = (now + relativedelta(months=emp.evaluation_plan_id.month_first)).strftime('%Y-%m-%d')
             self.write(cr, uid, [emp.id], {'evaluation_date': first_date}, context=context)
 
-        emp_ids = self.search(cr, uid, [('evaluation_plan_id', '<>', False), ('evaluation_date', '<=', time.strftime("%Y-%m-%d"))], context=context)
+        emp_ids = self.search(cr, uid, [('evaluation_plan_id', '!=', False), ('evaluation_date', '<=', time.strftime("%Y-%m-%d"))], context=context)
         for emp in self.browse(cr, uid, emp_ids, context=context):
             next_date = (now + relativedelta(months=emp.evaluation_plan_id.month_next)).strftime('%Y-%m-%d')
             self.write(cr, uid, [emp.id], {'evaluation_date': next_date}, context=context)

@@ -41,7 +41,7 @@ class account_move_line_reconcile_select(osv.osv_memory):
          """
         data = self.read(cr, uid, ids, context=context)[0]
         return {
-            'domain': "[('account_id','=',%d),('reconcile_id','=',False),('state','<>','draft')]" % data['account_id'],
+            'domain': "[('account_id','=',%d),('reconcile_id','=',False),('state','!=','draft')]" % data['account_id'],
             'name': _('Reconciliation'),
             'view_type': 'form',
             'view_mode': 'tree,form',

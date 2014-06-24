@@ -58,7 +58,7 @@ class report_document_user(osv.osv):
                      min(d.type) as type,
                      f.write_date as change_date
                  FROM ir_attachment f
-                     left join document_directory d on (f.parent_id=d.id and d.name<>'')
+                     left join document_directory d on (f.parent_id=d.id and d.name!='')
                  group by to_char(f.create_date, 'YYYY'), to_char(f.create_date, 'MM'),d.name,f.parent_id,d.type,f.create_date,f.user_id,f.file_size,d.type,f.write_date,f.datas_fname
              )
         """)

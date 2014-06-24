@@ -28,7 +28,7 @@ import re
 import base64
 
 from com.sun.star.task import XJobExecutor
-if __name__<>"package":
+if __name__!="package":
     from lib.gui import *
     from LoginTest import *
     from lib.logreport import *
@@ -89,7 +89,7 @@ class ConvertBracesToField( unohelper.Base, XJobExecutor ):
             nCount += 1
         getList(oRepeatInObjects,sHost,nCount)
         for ro in oRepeatInObjects:
-            if ro.find("(")<>-1:
+            if ro.find("(")!=-1:
                 saRepeatInList.append( [ ro[:ro.find("(")], ro[ro.find("(")+1:ro.find(")")] ])
         try:
             oParEnum = doc.getTextFields().createEnumeration()
@@ -98,13 +98,13 @@ class ConvertBracesToField( unohelper.Base, XJobExecutor ):
                 if oPar.supportsService("com.sun.star.text.TextField.DropDown"):
                     for reg in regexes:
                         res=re.findall(reg[0],oPar.Items[1])
-                        if len(res) <> 0:
+                        if len(res) != 0:
                             if res[0][0] == "objects":
                                 sTemp = docinfo.getUserFieldValue(3)
                                 sTemp = "|-." + sTemp[sTemp.rfind(".")+1:] + ".-|"
                                 oPar.Items=(sTemp.encode("utf-8"),oPar.Items[1].replace(' ',""))
                                 oPar.update()
-                            elif type(res[0]) <> type(u''):
+                            elif type(res[0]) != type(u''):
 
                                 sObject = self.getRes(self.sock, docinfo.getUserFieldValue(3), res[0][0][res[0][0].find(".")+1:].replace(".","/"))
                                 r = self.sock.execute(database, uid, self.password, docinfo.getUserFieldValue(3) , 'fields_get')
@@ -123,8 +123,8 @@ class ConvertBracesToField( unohelper.Base, XJobExecutor ):
                                 except Exception,e:
                                     r = "TTT"
                                     self.logobj.log_write('ConvertBracesToField', LOG_ERROR, str(e))
-                                if len(r) <> 0:
-                                    if r <> "TTT":
+                                if len(r) != 0:
+                                    if r != "TTT":
                                         if len(res)>1:
                                             sExpr=""
                                             print res
@@ -221,7 +221,7 @@ class ConvertBracesToField( unohelper.Base, XJobExecutor ):
                     if found.String not in [r[0] for r in aReportSyntex] and len(res) == 1 :
                         text=found.getText()
                         oInputList = doc.createInstance("com.sun.star.text.TextField.DropDown")
-                        if reg[1]<>"Expression":
+                        if reg[1]!="Expression":
                             oInputList.Items=(u""+found.String,u""+found.String)
                         else:
                             oInputList.Items=(u"?",u""+found.String)
@@ -244,7 +244,7 @@ class ConvertBracesToField( unohelper.Base, XJobExecutor ):
                         text=found.getText()
 
                         oInputList = doc.createInstance("com.sun.star.text.TextField.DropDown")
-                        if res[1]<>"Expression":
+                        if res[1]!="Expression":
                             oInputList.Items=(u""+found.String,u""+found.String)
                         else:
                             oInputList.Items=(u"?",u""+found.String)
@@ -257,7 +257,7 @@ class ConvertBracesToField( unohelper.Base, XJobExecutor ):
             info = reduce(lambda x, y: x+y, traceback.format_exception(sys.exc_type, sys.exc_value, sys.exc_traceback))
             self.logobj.log_write('ConvertBraceToField', LOG_ERROR, info)
 
-if __name__<>"package":
+if __name__!="package":
     ConvertBracesToField(None)
 else:
     g_ImplementationHelper.addImplementation( ConvertBracesToField, "org.openoffice.openerp.report.convertBF", ("com.sun.star.task.Job",),)

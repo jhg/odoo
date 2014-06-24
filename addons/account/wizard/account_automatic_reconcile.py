@@ -156,11 +156,11 @@ class account_automatic_reconcile(osv.osv_memory):
             params = (account_id.id,)
             if not allow_write_off:
                 query = """SELECT partner_id FROM account_move_line WHERE account_id=%s AND reconcile_id IS NULL
-                AND state <> 'draft' GROUP BY partner_id
+                AND state != 'draft' GROUP BY partner_id
                 HAVING ABS(SUM(debit-credit)) = 0.0 AND count(*)>0"""
             else:
                 query = """SELECT partner_id FROM account_move_line WHERE account_id=%s AND reconcile_id IS NULL
-                AND state <> 'draft' GROUP BY partner_id
+                AND state != 'draft' GROUP BY partner_id
                 HAVING ABS(SUM(debit-credit)) < %s AND count(*)>0"""
                 params += (max_amount,)
             # reconcile automatically all transactions from partners whose balance is 0
@@ -172,7 +172,7 @@ class account_automatic_reconcile(osv.osv_memory):
                     "FROM account_move_line " \
                     "WHERE account_id=%s " \
                     "AND partner_id=%s " \
-                    "AND state <> 'draft' " \
+                    "AND state != 'draft' " \
                     "AND reconcile_id IS NULL",
                     (account_id.id, partner_id))
                 line_ids = [id for (id,) in cr.fetchall()]
@@ -189,7 +189,7 @@ class account_automatic_reconcile(osv.osv_memory):
                 "FROM account_move_line " \
                 "WHERE account_id=%s " \
                 "AND reconcile_id IS NULL " \
-                "AND state <> 'draft' " \
+                "AND state != 'draft' " \
                 "AND partner_id IS NOT NULL " \
                 "GROUP BY partner_id " \
                 "HAVING count(*)>1",
@@ -204,7 +204,7 @@ class account_automatic_reconcile(osv.osv_memory):
                     "WHERE account_id=%s " \
                     "AND partner_id=%s " \
                     "AND reconcile_id IS NULL " \
-                    "AND state <> 'draft' " \
+                    "AND state != 'draft' " \
                     "AND debit > 0 " \
                     "ORDER BY date_maturity",
                     (account_id.id, partner_id))
@@ -217,7 +217,7 @@ class account_automatic_reconcile(osv.osv_memory):
                     "WHERE account_id=%s " \
                     "AND partner_id=%s " \
                     "AND reconcile_id IS NULL " \
-                    "AND state <> 'draft' " \
+                    "AND state != 'draft' " \
                     "AND credit > 0 " \
                     "ORDER BY date_maturity",
                     (account_id.id, partner_id))
@@ -235,7 +235,7 @@ class account_automatic_reconcile(osv.osv_memory):
                 "FROM account_move_line " \
                 "WHERE account_id=%s " \
                 "AND reconcile_id IS NULL " \
-                "AND state <> 'draft' " + partner_filter,
+                "AND state != 'draft' " + partner_filter,
                 (account_id.id,))
             additional_unrec = cr.fetchone()[0]
             unreconciled = unreconciled + additional_unrec

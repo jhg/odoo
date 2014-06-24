@@ -33,7 +33,7 @@ class base_report_sxw(osv.osv_memory):
     _name = 'base.report.sxw'
 
     _columns = {
-        'report_id': fields.many2one('ir.actions.report.xml', "Report", required=True,domain=[('report_sxw_content','<>',False)],),
+        'report_id': fields.many2one('ir.actions.report.xml', "Report", required=True,domain=[('report_sxw_content','!=',False)],),
     }
 
 

@@ -30,7 +30,7 @@ import base64, tempfile
 from com.sun.star.task import XJobExecutor
 import os
 import sys
-if __name__<>'package':
+if __name__!='package':
     from lib.gui import *
     from lib.error import *
     from lib.functions import *
@@ -72,7 +72,7 @@ class SendtoServer(unohelper.Base, XJobExecutor):
 
         report_name = ""
         name=""
-        if docinfo.getUserFieldValue(2)<>"" :
+        if docinfo.getUserFieldValue(2)!="" :
             try:
                 fields=['name','report_name']
                 self.res_other = self.sock.execute(database, uid, self.password, 'ir.actions.report.xml', 'read', [int(docinfo.getUserFieldValue(2))],fields)
@@ -82,7 +82,7 @@ class SendtoServer(unohelper.Base, XJobExecutor):
                 import traceback,sys
                 info = reduce(lambda x, y: x+y, traceback.format_exception(sys.exc_type, sys.exc_value, sys.exc_traceback))
                 self.logob.log_write('ServerParameter', LOG_ERROR, info)
-        elif docinfo.getUserFieldValue(3) <> "":
+        elif docinfo.getUserFieldValue(3) != "":
             name = ""
             result =  "rnd"
             for i in range(5):
@@ -120,7 +120,7 @@ class SendtoServer(unohelper.Base, XJobExecutor):
         self.win.endExecute()
 
     def btnOk_clicked(self, oActionEvent):
-        if self.win.getEditText("txtName") <> "" and self.win.getEditText("txtReportName") <> "":
+        if self.win.getEditText("txtName") != "" and self.win.getEditText("txtReportName") != "":
             desktop=getDesktop()
             oDoc2 = desktop.getCurrentComponent()
             docinfo=oDoc2.getDocumentInfo()
@@ -171,7 +171,7 @@ class SendtoServer(unohelper.Base, XJobExecutor):
                 'name': self.win.getEditText("txtName"),
                 'model': docinfo.getUserFieldValue(3),
                 'report_name': self.win.getEditText("txtReportName"),
-                'header': (self.win.getCheckBoxState("chkHeader") <> 0),
+                'header': (self.win.getCheckBoxState("chkHeader") != 0),
                 'report_type': self.Kind[self.win.getListBoxSelectedItem("lstResourceType")],
             }
             if self.win.getListBoxSelectedItem("lstResourceType")=='OpenOffice':
@@ -215,7 +215,7 @@ class SendtoServer(unohelper.Base, XJobExecutor):
                 if nVal==0:
                     oPar.update()
 
-if __name__<>"package" and __name__=="__main__":
+if __name__!="package" and __name__=="__main__":
     SendtoServer(None)
 elif __name__=="package":
     g_ImplementationHelper.addImplementation( SendtoServer, "org.openoffice.openerp.report.sendtoserver", ("com.sun.star.task.Job",),)

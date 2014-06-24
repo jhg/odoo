@@ -236,7 +236,7 @@ class YamlInterpreter(object):
                     if not success:
                         msg = 'Assertion "%s" FAILED\ntest: %s\n'
                         args = (assertion.string, test)
-                        for aop in ('==', '!=', '<>', 'in', 'not in', '>=', '<=', '>', '<'):
+                        for aop in ('==', '!=', '!=', 'in', 'not in', '>=', '<=', '>', '<'):
                             if aop in test:
                                 left, right = test.split(aop,1)
                                 lmsg = ''

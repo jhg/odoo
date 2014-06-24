@@ -243,14 +243,14 @@ class product_pricelist(osv.osv):
                 if rule.min_quantity and qty<rule.min_quantity:
                     continue
                 if is_product_template:
-                    if rule.product_tmpl_id and product.id<>rule.product_tmpl_id.id:
+                    if rule.product_tmpl_id and product.id!=rule.product_tmpl_id.id:
                         continue
                     if rule.product_id:
                         continue
                 else:
-                    if rule.product_tmpl_id and product.product_tmpl_id.id<>rule.product_tmpl_id.id:
+                    if rule.product_tmpl_id and product.product_tmpl_id.id!=rule.product_tmpl_id.id:
                         continue
-                    if rule.product_id and product.id<>rule.product_id.id:
+                    if rule.product_id and product.id!=rule.product_id.id:
                         continue
 
                 if rule.categ_id:
@@ -275,7 +275,7 @@ class product_pricelist(osv.osv):
                                 context=context)
                 elif rule.base == -2:
                     for seller in product.seller_ids:
-                        if (not partner) or (seller.name.id<>partner):
+                        if (not partner) or (seller.name.id!=partner):
                             continue
                         qty_in_seller_uom = qty
                         from_uom = context.get('uom') or product.uom_id.id
@@ -369,7 +369,7 @@ class product_pricelist_version(osv.osv):
                     'WHERE '+' and '.join(where) + (where and ' and ' or '')+
                         'pricelist_id = %s ' \
                         'AND active ' \
-                        'AND id <> %s', (
+                        'AND id != %s', (
                             pricelist_version.pricelist_id.id,
                             pricelist_version.id))
             if cursor.fetchall():

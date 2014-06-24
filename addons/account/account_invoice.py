@@ -152,7 +152,7 @@ class account_invoice(osv.osv):
                     ids_line = line.reconcile_partial_id.line_partial_ids
                 l = map(lambda x: x.id, ids_line)
                 partial_ids.append(line.id)
-                res[id] =[x for x in l if x <> line.id and x not in partial_ids]
+                res[id] =[x for x in l if x != line.id and x not in partial_ids]
         return res
 
     def _get_invoice_line(self, cr, uid, ids, context=None):
@@ -266,7 +266,7 @@ class account_invoice(osv.osv):
             help="If you use payment terms, the due date will be computed automatically at the generation "\
                 "of accounting entries. If you keep the payment term and the due date empty, it means direct payment. "\
                 "The payment term may compute several due dates, for example 50% now, 50% in one month."),
-        'period_id': fields.many2one('account.period', 'Force Period', domain=[('state','<>','done')], help="Keep empty to use the period of the validation(invoice) date.", readonly=True, states={'draft':[('readonly',False)]}),
+        'period_id': fields.many2one('account.period', 'Force Period', domain=[('state','!=','done')], help="Keep empty to use the period of the validation(invoice) date.", readonly=True, states={'draft':[('readonly',False)]}),
 
         'account_id': fields.many2one('account.account', 'Account', required=True, readonly=True, states={'draft':[('readonly',False)]}, help="The partner account used for this invoice."),
         'invoice_line': fields.one2many('account.invoice.line', 'invoice_id', 'Invoice Lines', readonly=True, states={'draft':[('readonly',False)]}),
@@ -956,7 +956,7 @@ class account_invoice(osv.osv):
                 if inv.type == 'out_refund':
                     entry_type = 'cont_voucher'
 
-            diff_currency_p = inv.currency_id.id <> company_currency
+            diff_currency_p = inv.currency_id.id != company_currency
             # create one move line for the total and possibly adjust the other lines amount
             total = 0
             total_currency = 0
@@ -1419,7 +1419,7 @@ class account_invoice_line(osv.osv):
         'invoice_id': fields.many2one('account.invoice', 'Invoice Reference', ondelete='cascade', select=True),
         'uos_id': fields.many2one('product.uom', 'Unit of Measure', ondelete='set null', select=True),
         'product_id': fields.many2one('product.product', 'Product', ondelete='set null', select=True),
-        'account_id': fields.many2one('account.account', 'Account', required=True, domain=[('type','<>','view'), ('type', '<>', 'closed')], help="The income or expense account related to the selected product."),
+        'account_id': fields.many2one('account.account', 'Account', required=True, domain=[('type','!=','view'), ('type', '!=', 'closed')], help="The income or expense account related to the selected product."),
         'price_unit': fields.float('Unit Price', required=True, digits_compute= dp.get_precision('Product Price')),
         'price_subtotal': fields.function(_amount_line, string='Amount', type="float",
             digits_compute= dp.get_precision('Account'), store=True),
@@ -1647,11 +1647,11 @@ class account_invoice_tax(osv.osv):
                 'factor_base': 1.0,
                 'factor_tax': 1.0,
             }
-            if invoice_tax.amount <> 0.0:
+            if invoice_tax.amount != 0.0:
                 factor_tax = invoice_tax.tax_amount / invoice_tax.amount
                 res[invoice_tax.id]['factor_tax'] = factor_tax
 
-            if invoice_tax.base <> 0.0:
+            if invoice_tax.base != 0.0:
                 factor_base = invoice_tax.base_amount / invoice_tax.base
                 res[invoice_tax.id]['factor_base'] = factor_base
 
@@ -1660,7 +1660,7 @@ class account_invoice_tax(osv.osv):
     _columns = {
         'invoice_id': fields.many2one('account.invoice', 'Invoice Line', ondelete='cascade', select=True),
         'name': fields.char('Tax Description', size=64, required=True),
-        'account_id': fields.many2one('account.account', 'Tax Account', required=True, domain=[('type','<>','view'),('type','<>','income'), ('type', '<>', 'closed')]),
+        'account_id': fields.many2one('account.account', 'Tax Account', required=True, domain=[('type','!=','view'),('type','!=','income'), ('type', '!=', 'closed')]),
         'account_analytic_id': fields.many2one('account.analytic.account', 'Analytic account'),
         'base': fields.float('Base', digits_compute=dp.get_precision('Account')),
         'amount': fields.float('Amount', digits_compute=dp.get_precision('Account')),

@@ -31,7 +31,7 @@ import base64, tempfile
 from com.sun.star.task import XJobExecutor
 import os
 import sys
-if __name__<>'package':
+if __name__!='package':
     from lib.gui import *
     from lib.error import *
     from LoginTest import *
@@ -79,10 +79,10 @@ class ModifyExistingReport(unohelper.Base, XJobExecutor):
         self.report_with_id = []
 
         for report in self.reports:
-            if report['name']<>"":
+            if report['name']!="":
                 model_ids = self.sock.execute(database, uid, self.password, 'ir.model' ,  'search', [('model','=', report['model'])])
                 model_res_other =self.sock.execute(database, uid, self.password, 'ir.model', 'read', model_ids, [ 'name', 'model' ] )
-                if model_res_other <> []:
+                if model_res_other != []:
                     name = model_res_other[0]['name'] + " - " + report['name']
                 else:
                     name = report['name'] + " - " + report['model']
@@ -181,7 +181,7 @@ class ModifyExistingReport(unohelper.Base, XJobExecutor):
 
 
 
-if __name__<>"package" and __name__=="__main__":
+if __name__!="package" and __name__=="__main__":
     ModifyExistingReport(None)
 elif __name__=="package":
     g_ImplementationHelper.addImplementation( ModifyExistingReport, "org.openoffice.openerp.report.modifyreport", ("com.sun.star.task.Job",),)

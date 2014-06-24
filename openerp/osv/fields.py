@@ -696,7 +696,7 @@ class one2many(_column):
                 # Must use write() to recompute parent_store structure if needed
                 obj.write(cr, user, act[2], {self._fields_id:id}, context=context or {})
                 ids2 = act[2] or [0]
-                cr.execute('select id from '+_table+' where '+self._fields_id+'=%s and id <> ALL (%s)', (id,ids2))
+                cr.execute('select id from '+_table+' where '+self._fields_id+'=%s and id != ALL (%s)', (id,ids2))
                 ids3 = map(lambda x:x[0], cr.fetchall())
                 obj.write(cr, user, ids3, {self._fields_id:False}, context=context or {})
         return result

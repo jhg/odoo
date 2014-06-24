@@ -66,7 +66,7 @@ class ir_model_fields_anonymization(osv.osv):
     ]
 
     def _get_global_state(self, cr, uid, context=None):
-        ids = self.search(cr, uid, [('state', '<>', 'not_existing')], context=context)
+        ids = self.search(cr, uid, [('state', '!=', 'not_existing')], context=context)
         fields = self.browse(cr, uid, ids, context=context)
         if not len(fields) or len(fields) == len([f for f in fields if f.state == 'clear']):
             state = 'clear' # all fields are clear
@@ -270,7 +270,7 @@ class ir_model_fields_anonymize_wizard(osv.osv_memory):
         anon_field_obj = self.pool.get('ir.model.fields.anonymization')
         ir_model_fields_obj = self.pool.get('ir.model.fields')
 
-        anon_field_ids = anon_field_obj.search(cr, uid, [('state', '<>', 'not_existing')], context=context)
+        anon_field_ids = anon_field_obj.search(cr, uid, [('state', '!=', 'not_existing')], context=context)
         anon_fields = anon_field_obj.browse(cr, uid, anon_field_ids, context=context)
 
         field_ids = [anon_field.field_id.id for anon_field in anon_fields if anon_field.field_id]
@@ -398,7 +398,7 @@ class ir_model_fields_anonymize_wizard(osv.osv_memory):
         abs_filepath = os.path.abspath(os.path.join(dirpath, rel_filepath))
 
         ir_model_fields_anonymization_model = self.pool.get('ir.model.fields.anonymization')
-        field_ids = ir_model_fields_anonymization_model.search(cr, uid, [('state', '<>', 'not_existing')], context=context)
+        field_ids = ir_model_fields_anonymization_model.search(cr, uid, [('state', '!=', 'not_existing')], context=context)
         fields = ir_model_fields_anonymization_model.browse(cr, uid, field_ids, context=context)
 
         if not fields:
@@ -574,7 +574,7 @@ class ir_model_fields_anonymize_wizard(osv.osv_memory):
 
             # update the anonymization fields:
             ir_model_fields_anonymization_model = self.pool.get('ir.model.fields.anonymization')
-            field_ids = ir_model_fields_anonymization_model.search(cr, uid, [('state', '<>', 'not_existing')], context=context)
+            field_ids = ir_model_fields_anonymization_model.search(cr, uid, [('state', '!=', 'not_existing')], context=context)
             values = {
                 'state': 'clear',
             }

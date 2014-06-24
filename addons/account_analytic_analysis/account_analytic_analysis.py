@@ -110,7 +110,7 @@ class account_analytic_account(osv.osv):
                 max_user = cr.fetchone()[0]
                 if parent_ids:
                     cr.execute('SELECT DISTINCT("user") FROM account_analytic_analysis_summary_user ' \
-                               'WHERE account_id IN %s AND unit_amount <> 0.0', (parent_ids,))
+                               'WHERE account_id IN %s AND unit_amount != 0.0', (parent_ids,))
                     result = cr.fetchall()
                 else:
                     result = []
@@ -119,7 +119,7 @@ class account_analytic_account(osv.osv):
             elif f == 'month_ids':
                 if parent_ids:
                     cr.execute('SELECT DISTINCT(month_id) FROM account_analytic_analysis_summary_month ' \
-                               'WHERE account_id IN %s AND unit_amount <> 0.0', (parent_ids,))
+                               'WHERE account_id IN %s AND unit_amount != 0.0', (parent_ids,))
                     result = cr.fetchall()
                 else:
                     result = []

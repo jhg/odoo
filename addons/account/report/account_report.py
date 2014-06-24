@@ -62,7 +62,7 @@ class report_account_receivable(osv.osv):
                 left join
                     account_account a on (l.account_id=a.id)
                 where
-                    l.state <> 'draft'
+                    l.state != 'draft'
                 group by
                     to_char(date,'YYYY:IW'), a.type
             )""")

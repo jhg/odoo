@@ -222,7 +222,7 @@ class hr_timesheet_sheet(osv.osv):
                     FROM hr_timesheet_sheet_sheet \
                     WHERE (date_from <= %s and %s <= date_to) \
                         AND user_id=%s \
-                        AND id <> %s',(sheet.date_to, sheet.date_from, new_user_id, sheet.id))
+                        AND id != %s',(sheet.date_to, sheet.date_from, new_user_id, sheet.id))
                 if cr.fetchall():
                     return False
         return True
@@ -251,7 +251,7 @@ class hr_timesheet_sheet(osv.osv):
         for sheet in sheets:
             if sheet['state'] in ('confirm', 'done'):
                 raise osv.except_osv(_('Invalid Action!'), _('You cannot delete a timesheet which is already confirmed.'))
-            elif sheet['total_attendance'] <> 0.00:
+            elif sheet['total_attendance'] != 0.00:
                 raise osv.except_osv(_('Invalid Action!'), _('You cannot delete a timesheet which have attendance entries.'))
         return super(hr_timesheet_sheet, self).unlink(cr, uid, ids, context=context)
 
@@ -551,7 +551,7 @@ class hr_timesheet_sheet_sheet_day(osv.osv):
                         SUM(total_timesheet) as total_timesheet,
                         CASE WHEN SUM(total_attendance) < 0
                             THEN (SUM(total_attendance) +
-                                CASE WHEN current_date <> name
+                                CASE WHEN current_date != name
                                     THEN 1440
                                     ELSE (EXTRACT(hour FROM current_time AT TIME ZONE 'UTC') * 60) + EXTRACT(minute FROM current_time AT TIME ZONE 'UTC')
                                 END

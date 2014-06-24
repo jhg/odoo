@@ -201,7 +201,7 @@ class document_directory(osv.osv):
     }
     _sql_constraints = [
         ('dirname_uniq', 'unique (name,parent_id,ressource_id,ressource_parent_type_id)', 'The directory name must be unique !'),
-        ('no_selfparent', 'check(parent_id <> id)', 'Directory cannot be parent of itself!'),
+        ('no_selfparent', 'check(parent_id != id)', 'Directory cannot be parent of itself!'),
     ]
     def name_get(self, cr, uid, ids, context=None):
         res = []
@@ -333,7 +333,7 @@ class document_directory(osv.osv):
                     ressource_parent_type_id=directory.ressource_parent_type_id and directory.ressource_parent_type_id.id or False
                 if not ressource_id:
                     ressource_id=directory.ressource_id and directory.ressource_id or 0
-                res=self.search(cr,uid,[('id','<>',directory.id),('name','=',name),('parent_id','=',parent_id),('ressource_parent_type_id','=',ressource_parent_type_id),('ressource_id','=',ressource_id)])
+                res=self.search(cr,uid,[('id','!=',directory.id),('name','=',name),('parent_id','=',parent_id),('ressource_parent_type_id','=',ressource_parent_type_id),('ressource_id','=',ressource_id)])
                 if len(res):
                     return False
         if op=='create':
@@ -978,7 +978,7 @@ def mkdosname(company_name, default='noname'):
     """ convert a string to a dos-like name"""
     if not company_name:
         return default
-    badchars = ' !@#$%^`~*()+={}[];:\'"/?.<>'
+    badchars = ' !@#$%^`~*()+={}[];:\'"/?.!='
     n = ''
     for c in company_name[:8]:
         n += (c in badchars and '_') or c

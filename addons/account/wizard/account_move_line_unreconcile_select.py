@@ -30,7 +30,7 @@ class account_move_line_unreconcile_select(osv.osv_memory):
     def action_open_window(self, cr, uid, ids, context=None):
         data = self.read(cr, uid, ids, context=context)[0]
         return {
-                'domain': "[('account_id','=',%d),('reconcile_id','<>',False),('state','<>','draft')]" % data['account_id'],
+                'domain': "[('account_id','=',%d),('reconcile_id','!=',False),('state','!=','draft')]" % data['account_id'],
                 'name': 'Unreconciliation',
                 'view_type': 'form',
                 'view_mode': 'tree,form',

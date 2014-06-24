@@ -147,9 +147,9 @@ OR_OPERATOR = '|'
 AND_OPERATOR = '&'
 DOMAIN_OPERATORS = (NOT_OPERATOR, OR_OPERATOR, AND_OPERATOR)
 
-# List of available term operators. It is also possible to use the '<>'
+# List of available term operators. It is also possible to use the '!='
 # operator, which is strictly the same as '!='; the later should be prefered
-# for consistency. This list doesn't contain '<>' as it is simpified to '!='
+# for consistency. This list doesn't contain '!=' as it is simpified to '!='
 # by the normalize_operator() function (so later part of the code deals with
 # only one representation).
 # Internals (i.e. not available to the user) 'inselect' and 'not inselect'
@@ -365,7 +365,7 @@ def normalize_leaf(element):
     left, operator, right = element
     original = operator
     operator = operator.lower()
-    if operator == '<>':
+    if operator == '!=':
         operator = '!='
     if isinstance(right, bool) and operator in ('in', 'not in'):
         _logger.warning("The domain term '%s' should use the '=' or '!=' operator." % ((left, original, right),))
@@ -393,7 +393,7 @@ def is_leaf(element, internal=False):
 
         Note: OLD TODO change the share wizard to use this function.
     """
-    INTERNAL_OPS = TERM_OPERATORS + ('<>',)
+    INTERNAL_OPS = TERM_OPERATORS + ('!=',)
     if internal:
         INTERNAL_OPS += ('inselect', 'not inselect')
     return (isinstance(element, tuple) or isinstance(element, list)) \

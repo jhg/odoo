@@ -264,7 +264,7 @@ class account_followup_print(osv.osv_memory):
                 "ON (l.account_id=a.id) "\
             "WHERE (l.reconcile_id IS NULL) "\
                 "AND (a.type='receivable') "\
-                "AND (l.state<>'draft') "\
+                "AND (l.state!='draft') "\
                 "AND (l.partner_id is NOT NULL) "\
                 "AND (a.active) "\
                 "AND (l.debit > 0) "\

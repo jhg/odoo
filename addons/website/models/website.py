@@ -351,7 +351,7 @@ class website(osv.osv):
             values = [{}]
             convitems = converters.items()
             # converters with a domain are processed after the other ones
-            gd = lambda x: hasattr(x[1], 'domain') and (x[1].domain <> '[]')
+            gd = lambda x: hasattr(x[1], 'domain') and (x[1].domain != '[]')
             convitems.sort(lambda x, y: cmp(gd(x), gd(y)))
             for (name, converter) in convitems:
                 newval = []

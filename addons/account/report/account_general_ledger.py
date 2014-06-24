@@ -120,10 +120,10 @@ class general_ledger(report_sxw.rml_parse, common_report_header):
             sold_account = self._sum_balance_account(child_account)
             self.sold_accounts[child_account.id] = sold_account
             if self.display_account == 'movement':
-                if child_account.type != 'view' and num_entry <> 0:
+                if child_account.type != 'view' and num_entry != 0:
                     res.append(child_account)
             elif self.display_account == 'not_zero':
-                if child_account.type != 'view' and num_entry <> 0:
+                if child_account.type != 'view' and num_entry != 0:
                     if not currency_obj.is_zero(self.cr, self.uid, currency, sold_account):
                         res.append(child_account)
             else:
@@ -145,7 +145,7 @@ class general_ledger(report_sxw.rml_parse, common_report_header):
                                           FROM account_move_line m2
                                           LEFT JOIN account_account a ON (m2.account_id=a.id)
                                           WHERE m2.move_id = m1.move_id
-                                          AND m2.account_id<>%%s), ', ') AS counterpart
+                                          AND m2.account_id!=%%s), ', ') AS counterpart
                 FROM (SELECT move_id
                         FROM account_move_line l
                         LEFT JOIN account_move am ON (am.id = l.move_id)

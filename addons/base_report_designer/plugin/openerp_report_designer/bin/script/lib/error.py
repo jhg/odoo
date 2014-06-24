@@ -21,7 +21,7 @@
 #
 ##############################################################################
 
-if __name__<>"package":
+if __name__!="package":
     from gui import *
 class ErrorDialog:
     def __init__(self, sErrorMsg, sErrorHelpMsg="", sTitle="Error Message"):

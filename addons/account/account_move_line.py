@@ -80,17 +80,17 @@ class account_move_line(osv.osv):
                 context['periods'] = fiscalperiod_obj.build_ctx_periods(cr, uid, context['period_from'], context['period_to'])
         if context.get('periods', False):
             if initial_bal:
-                query = obj+".state <> 'draft' AND "+obj+".period_id IN (SELECT id FROM account_period WHERE fiscalyear_id IN (%s)) %s %s" % (fiscalyear_clause, where_move_state, where_move_lines_by_date)
+                query = obj+".state != 'draft' AND "+obj+".period_id IN (SELECT id FROM account_period WHERE fiscalyear_id IN (%s)) %s %s" % (fiscalyear_clause, where_move_state, where_move_lines_by_date)
                 period_ids = fiscalperiod_obj.search(cr, uid, [('id', 'in', context['periods'])], order='date_start', limit=1)
                 if period_ids and period_ids[0]:
                     first_period = fiscalperiod_obj.browse(cr, uid, period_ids[0], context=context)
                     ids = ','.join([str(x) for x in context['periods']])
-                    query = obj+".state <> 'draft' AND "+obj+".period_id IN (SELECT id FROM account_period WHERE fiscalyear_id IN (%s) AND date_start <= '%s' AND id NOT IN (%s)) %s %s" % (fiscalyear_clause, first_period.date_start, ids, where_move_state, where_move_lines_by_date)
+                    query = obj+".state != 'draft' AND "+obj+".period_id IN (SELECT id FROM account_period WHERE fiscalyear_id IN (%s) AND date_start <= '%s' AND id NOT IN (%s)) %s %s" % (fiscalyear_clause, first_period.date_start, ids, where_move_state, where_move_lines_by_date)
             else:
                 ids = ','.join([str(x) for x in context['periods']])
-                query = obj+".state <> 'draft' AND "+obj+".period_id IN (SELECT id FROM account_period WHERE fiscalyear_id IN (%s) AND id IN (%s)) %s %s" % (fiscalyear_clause, ids, where_move_state, where_move_lines_by_date)
+                query = obj+".state != 'draft' AND "+obj+".period_id IN (SELECT id FROM account_period WHERE fiscalyear_id IN (%s) AND id IN (%s)) %s %s" % (fiscalyear_clause, ids, where_move_state, where_move_lines_by_date)
         else:
-            query = obj+".state <> 'draft' AND "+obj+".period_id IN (SELECT id FROM account_period WHERE fiscalyear_id IN (%s)) %s %s" % (fiscalyear_clause, where_move_state, where_move_lines_by_date)
+            query = obj+".state != 'draft' AND "+obj+".period_id IN (SELECT id FROM account_period WHERE fiscalyear_id IN (%s)) %s %s" % (fiscalyear_clause, where_move_state, where_move_lines_by_date)
 
         if initial_bal and not context.get('periods', False) and not where_move_lines_by_date:
             #we didn't pass any filter in the context, and the initial balance can't be computed using only the fiscalyear otherwise entries will be summed twice
@@ -392,7 +392,7 @@ class account_move_line(osv.osv):
             if x[1] != 'in':
                 if (x[2] is False) and (x[1] == '='):
                     qu1.append('(i.id IS NULL)')
-                elif (x[2] is False) and (x[1] == '<>' or x[1] == '!='):
+                elif (x[2] is False) and (x[1] == '!=' or x[1] == '!='):
                     qu1.append('(i.id IS NOT NULL)')
                 else:
                     qu1.append('(i.id %s %s)' % (x[1], '%s'))
@@ -451,7 +451,7 @@ class account_move_line(osv.osv):
         'product_id': fields.many2one('product.product', 'Product'),
         'debit': fields.float('Debit', digits_compute=dp.get_precision('Account')),
         'credit': fields.float('Credit', digits_compute=dp.get_precision('Account')),
-        'account_id': fields.many2one('account.account', 'Account', required=True, ondelete="cascade", domain=[('type','<>','view'), ('type', '<>', 'closed')], select=2),
+        'account_id': fields.many2one('account.account', 'Account', required=True, ondelete="cascade", domain=[('type','!=','view'), ('type', '!=', 'closed')], select=2),
         'move_id': fields.many2one('account.move', 'Journal Entry', ondelete="cascade", help="The move of this entry line.", select=2, required=True),
         'narration': fields.related('move_id','narration', type='text', relation='account.move', string='Internal Note'),
         'ref': fields.related('move_id', 'ref', string='Reference', type='char', size=64, store=True),
@@ -764,7 +764,7 @@ class account_move_line(osv.osv):
                 RIGHT JOIN res_partner p ON (l.partner_id = p.id)
                     WHERE a.reconcile IS TRUE
                     AND l.reconcile_id IS NULL
-                    AND l.state <> 'draft'
+                    AND l.state != 'draft'
                     GROUP BY l.partner_id, p.last_reconciliation_date
                 ) AS s
                 WHERE debit > 0 AND credit > 0 AND (last_reconciliation_date IS NULL OR max_date > last_reconciliation_date)
@@ -847,7 +847,7 @@ class account_move_line(osv.osv):
                 raise osv.except_osv(_('Warning!'), _('To reconcile the entries company should be the same for all entries.'))
             company_list.append(line.company_id.id)
         for line in unrec_lines:
-            if line.state <> 'valid':
+            if line.state != 'valid':
                 raise osv.except_osv(_('Error!'),
                         _('Entry "%s" is not valid !') % line.name)
             credit += line['credit']
@@ -1139,7 +1139,7 @@ class account_move_line(osv.osv):
         done = {}
         for line in self.browse(cr, uid, ids, context=context):
             err_msg = _('Move name (id): %s (%s)') % (line.move_id.name, str(line.move_id.id))
-            if line.move_id.state <> 'draft' and (not line.journal_id.entry_posted):
+            if line.move_id.state != 'draft' and (not line.journal_id.entry_posted):
                 raise osv.except_osv(_('Error!'), _('You cannot do this modification on a confirmed entry. You can just change some non legal fields or you must unconfirm the journal entry first.\n%s.') % err_msg)
             if line.reconcile_id:
                 raise osv.except_osv(_('Error!'), _('You cannot do this modification on a reconciled entry. You can just change some non legal fields or you must unreconcile first.\n%s.') % err_msg)

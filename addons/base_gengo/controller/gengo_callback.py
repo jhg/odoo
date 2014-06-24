@@ -16,7 +16,7 @@ class website_gengo(http.Controller):
             tid = job.get('custom_data', False)
             if (job.get('status') == 'approved') and tid:
                 term = translation_pool.browse(cr, uid, int(tid), context=context)
-                if term.job_id <> job.get('job_id'):
+                if term.job_id != job.get('job_id'):
                     raise 'Error'
                 vals = {'state': 'translated', 'value': job.get('body_tgt')}
                 translation_pool.write(cr, uid, [int(tid)], vals, context=context)

@@ -137,7 +137,7 @@ class journal_print(report_sxw.rml_parse, common_report_header):
         self.cr.execute('SELECT SUM(l.debit) FROM account_move_line l '
                         'LEFT JOIN account_move am ON (l.move_id=am.id) '
                         'WHERE am.state IN %s AND l.period_id=%s AND l.journal_id IN %s ' + self.query_get_clause + ' ' \
-                        'AND l.state<>\'draft\'',
+                        'AND l.state!=\'draft\'',
                         (tuple(move_state), period_id, tuple(journals)))
         return self.cr.fetchone()[0] or 0.0
 
@@ -154,7 +154,7 @@ class journal_print(report_sxw.rml_parse, common_report_header):
         self.cr.execute('SELECT SUM(l.credit) FROM account_move_line l '
                         'LEFT JOIN account_move am ON (l.move_id=am.id) '
                         'WHERE am.state IN %s AND l.period_id=%s AND l.journal_id IN %s '+ self.query_get_clause + ' ' \
-                        'AND l.state<>\'draft\'',
+                        'AND l.state!=\'draft\'',
                         (tuple(move_state), period_id, tuple(journals)))
         return self.cr.fetchone()[0] or 0.0
 

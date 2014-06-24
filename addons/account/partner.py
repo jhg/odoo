@@ -90,8 +90,8 @@ class account_fiscal_position_account(osv.osv):
     _rec_name = 'position_id'
     _columns = {
         'position_id': fields.many2one('account.fiscal.position', 'Fiscal Position', required=True, ondelete='cascade'),
-        'account_src_id': fields.many2one('account.account', 'Account Source', domain=[('type','<>','view')], required=True),
-        'account_dest_id': fields.many2one('account.account', 'Account Destination', domain=[('type','<>','view')], required=True)
+        'account_src_id': fields.many2one('account.account', 'Account Source', domain=[('type','!=','view')], required=True),
+        'account_dest_id': fields.many2one('account.account', 'Account Destination', domain=[('type','!=','view')], required=True)
     }
 
     _sql_constraints = [
@@ -195,7 +195,7 @@ class res_partner(osv.osv):
             AND p.id = %s
             AND l.reconcile_id IS NULL
             AND (p.last_reconciliation_date IS NULL OR l.date > p.last_reconciliation_date)
-            AND l.state <> 'draft'
+            AND l.state != 'draft'
             GROUP BY l.partner_id''', (partner_id,))
         res = cr.dictfetchone()
         if res:

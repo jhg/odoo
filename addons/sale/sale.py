@@ -131,7 +131,7 @@ class sale_order(osv.osv):
             if (arg[1] == '=' and arg[2]) or (arg[1] == '!=' and not arg[2]):
                 clause += 'AND inv.state = \'paid\''
             else:
-                clause += 'AND inv.state != \'cancel\' AND sale.state != \'cancel\'  AND inv.state <> \'paid\'  AND rel.order_id = sale.id '
+                clause += 'AND inv.state != \'cancel\' AND sale.state != \'cancel\'  AND inv.state != \'paid\'  AND rel.order_id = sale.id '
                 sale_clause = ',  sale_order AS sale '
                 no_invoiced = True
 
@@ -492,7 +492,7 @@ class sale_order(osv.osv):
 
     def test_no_product(self, cr, uid, order, context):
         for line in order.order_line:
-            if line.product_id and (line.product_id.type<>'service'):
+            if line.product_id and (line.product_id.type!='service'):
                 return False
         return True
 
@@ -513,7 +513,7 @@ class sale_order(osv.osv):
             context['date_invoice'] = date_invoice
         for o in self.browse(cr, uid, ids, context=context):
             currency_id = o.pricelist_id.currency_id.id
-            if (o.partner_id.id in partner_currency) and (partner_currency[o.partner_id.id] <> currency_id):
+            if (o.partner_id.id in partner_currency) and (partner_currency[o.partner_id.id] != currency_id):
                 raise osv.except_osv(
                     _('Error!'),
                     _('You cannot group sales having different currencies for the same partner.'))

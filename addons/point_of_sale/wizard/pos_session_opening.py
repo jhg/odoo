@@ -98,7 +98,7 @@ class pos_session_opening(osv.osv_memory):
 
     def default_get(self, cr, uid, fieldnames, context=None):
         so = self.pool.get('pos.session')
-        session_ids = so.search(cr, uid, [('state','<>','closed'), ('user_id','=',uid)], context=context)
+        session_ids = so.search(cr, uid, [('state','!=','closed'), ('user_id','=',uid)], context=context)
         if session_ids:
             result = so.browse(cr, uid, session_ids[0], context=context).config_id.id
         else:

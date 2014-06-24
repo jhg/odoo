@@ -59,7 +59,7 @@ class account_invoice_report(osv.osv):
         'product_qty':fields.float('Qty', readonly=True),
         'uom_name': fields.char('Reference Unit of Measure', size=128, readonly=True),
         'payment_term': fields.many2one('account.payment.term', 'Payment Term', readonly=True),
-        'period_id': fields.many2one('account.period', 'Force Period', domain=[('state','<>','done')], readonly=True),
+        'period_id': fields.many2one('account.period', 'Force Period', domain=[('state','!=','done')], readonly=True),
         'fiscal_position': fields.many2one('account.fiscal.position', 'Fiscal Position', readonly=True),
         'currency_id': fields.many2one('res.currency', 'Currency', readonly=True),
         'categ_id': fields.many2one('product.category','Category of Product', readonly=True),
@@ -115,7 +115,7 @@ class account_invoice_report(osv.osv):
                     ai.date_invoice AS date,
                     ail.product_id, ai.partner_id, ai.payment_term, ai.period_id,
                     CASE
-                     WHEN u.uom_type::text <> 'reference'::text
+                     WHEN u.uom_type::text != 'reference'::text
                         THEN ( SELECT product_uom.name
                                FROM product_uom
                                WHERE product_uom.uom_type::text = 'reference'::text
@@ -142,7 +142,7 @@ class account_invoice_report(osv.osv):
                         THEN SUM(- ail.price_subtotal)
                         ELSE SUM(ail.price_subtotal)
                     END / CASE
-                           WHEN SUM(ail.quantity / u.factor) <> 0::numeric
+                           WHEN SUM(ail.quantity / u.factor) != 0::numeric
                                THEN CASE
                                      WHEN ai.type::text = ANY (ARRAY['out_refund'::character varying::text, 'in_invoice'::character varying::text])
                                         THEN SUM((- ail.quantity) / u.factor)
@@ -158,7 +158,7 @@ class account_invoice_report(osv.osv):
                            WHEN (( SELECT count(l.id) AS count
                                    FROM account_invoice_line l
                                    LEFT JOIN account_invoice a ON a.id = l.invoice_id
-                                   WHERE a.id = ai.id)) <> 0
+                                   WHERE a.id = ai.id)) != 0
                                THEN ( SELECT count(l.id) AS count
                                       FROM account_invoice_line l
                                       LEFT JOIN account_invoice a ON a.id = l.invoice_id

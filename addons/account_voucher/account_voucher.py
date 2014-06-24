@@ -995,7 +995,7 @@ class account_voucher(osv.osv):
         """
         company_currency = self._get_company_currency(cr, uid, voucher_id, context)
         current_currency = self._get_current_currency(cr, uid, voucher_id, context)
-        if current_currency <> company_currency:
+        if current_currency != company_currency:
             context_multi_currency = context.copy()
             voucher = self.pool.get('account.voucher').browse(cr, uid, voucher_id, context)
             context_multi_currency.update({'date': voucher.date})
@@ -1036,8 +1036,8 @@ class account_voucher(osv.osv):
                 'journal_id': voucher.journal_id.id,
                 'period_id': voucher.period_id.id,
                 'partner_id': voucher.partner_id.id,
-                'currency_id': company_currency <> current_currency and  current_currency or False,
-                'amount_currency': company_currency <> current_currency and sign * voucher.amount or 0.0,
+                'currency_id': company_currency != current_currency and  current_currency or False,
+                'amount_currency': company_currency != current_currency and sign * voucher.amount or 0.0,
                 'date': voucher.date,
                 'date_maturity': voucher.date_due
             }
@@ -1106,7 +1106,7 @@ class account_voucher(osv.osv):
         if line.account_id.currency_id:
             account_currency_id = line.account_id.currency_id.id
         else:
-            account_currency_id = company_currency <> current_currency and current_currency or False
+            account_currency_id = company_currency != current_currency and current_currency or False
         move_line = {
             'journal_id': line.voucher_id.journal_id.id,
             'period_id': line.voucher_id.period_id.id,
@@ -1210,7 +1210,7 @@ class account_voucher(osv.osv):
                 'account_id': line.account_id.id,
                 'move_id': move_id,
                 'partner_id': voucher.partner_id.id,
-                'currency_id': line.move_line_id and (company_currency <> line.move_line_id.currency_id.id and line.move_line_id.currency_id.id) or False,
+                'currency_id': line.move_line_id and (company_currency != line.move_line_id.currency_id.id and line.move_line_id.currency_id.id) or False,
                 'analytic_account_id': line.account_analytic_id and line.account_analytic_id.id or False,
                 'quantity': 1,
                 'credit': 0.0,
@@ -1332,8 +1332,8 @@ class account_voucher(osv.osv):
                 'date': voucher.date,
                 'credit': diff > 0 and diff or 0.0,
                 'debit': diff < 0 and -diff or 0.0,
-                'amount_currency': company_currency <> current_currency and (sign * -1 * voucher.writeoff_amount) or 0.0,
-                'currency_id': company_currency <> current_currency and current_currency or False,
+                'amount_currency': company_currency != current_currency and (sign * -1 * voucher.writeoff_amount) or 0.0,
+                'currency_id': company_currency != current_currency and current_currency or False,
                 'analytic_account_id': voucher.analytic_id and voucher.analytic_id.id or False,
             }
 

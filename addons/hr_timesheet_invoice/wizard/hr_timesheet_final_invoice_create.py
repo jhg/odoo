@@ -47,7 +47,7 @@ class final_invoice_create(osv.osv_memory):
         # hack for fixing small issue (context should not propagate implicitly between actions)
         if 'default_type' in context:
             del context['default_type']
-        ids = self.pool.get('account.analytic.line').search(cr, uid, [('invoice_id','=',False),('to_invoice','<>', False), ('account_id', 'in', context['active_ids'])], context=context)
+        ids = self.pool.get('account.analytic.line').search(cr, uid, [('invoice_id','=',False),('to_invoice','!=', False), ('account_id', 'in', context['active_ids'])], context=context)
         invs = self.pool.get('account.analytic.line').invoice_cost_create(cr, uid, ids, data, context=context)
         mod_obj = self.pool.get('ir.model.data')
         act_obj = self.pool.get('ir.actions.act_window')

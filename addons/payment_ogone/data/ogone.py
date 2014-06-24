@@ -81,7 +81,7 @@ OGONE_ERROR_MAP = {
     '30001091': "ZIP check required by front end and returned invalid by acquirer",
     '30001092': "Address check required by front end and returned as invalid by acquirer.",
     '30001100': "Unauthorized buyer's country",
-    '30001101': "IP country <> card country",
+    '30001101': "IP country != card country",
     '30001102': "Number of different countries too high",
     '30001103': "unauthorized card country",
     '30001104': "unauthorized ip address country",

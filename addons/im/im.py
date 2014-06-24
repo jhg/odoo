@@ -266,13 +266,13 @@ class im_user(osv.osv):
     def search_users(self, cr, uid, text_search, fields, limit, context=None):
         my_id = self.get_my_id(cr, uid, None, context)
         group_employee = self.pool['ir.model.data'].get_object_reference(cr, uid, 'base', 'group_user')[1]
-        found = self.search(cr, uid, [["name", "ilike", text_search], ["id", "<>", my_id], ["uuid", "=", False], ["im_status", "=", True], ["user_id.groups_id", "in", [group_employee]]],
+        found = self.search(cr, uid, [["name", "ilike", text_search], ["id", "!=", my_id], ["uuid", "=", False], ["im_status", "=", True], ["user_id.groups_id", "in", [group_employee]]],
             order="name asc", limit=limit, context=context)
         if len(found) < limit:
-            found += self.search(cr, uid, [["name", "ilike", text_search], ["id", "<>", my_id], ["uuid", "=", False], ["im_status", "=", True], ["id", "not in", found]],
+            found += self.search(cr, uid, [["name", "ilike", text_search], ["id", "!=", my_id], ["uuid", "=", False], ["im_status", "=", True], ["id", "not in", found]],
                 order="name asc", limit=limit, context=context)
         if len(found) < limit:
-            found += self.search(cr, uid, [["name", "ilike", text_search], ["id", "<>", my_id], ["uuid", "=", False], ["im_status", "=", False], ["id", "not in", found]],
+            found += self.search(cr, uid, [["name", "ilike", text_search], ["id", "!=", my_id], ["uuid", "=", False], ["im_status", "=", False], ["id", "not in", found]],
                 order="name asc", limit=limit-len(found), context=context)
         users = self.read(cr,openerp.SUPERUSER_ID, found, ["name", "user_id", "uuid", "im_status"], context=context)
         users.sort(key=lambda obj: found.index(obj['id']))

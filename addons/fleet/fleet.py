@@ -246,8 +246,8 @@ class fleet_vehicle(osv.Model):
     def _search_get_overdue_contract_reminder(self, cr, uid, obj, name, args, context):
         res = []
         for field, operator, value in args:
-            assert operator in ('=', '!=', '<>') and value in (True, False), 'Operation not supported'
-            if (operator == '=' and value == True) or (operator in ('<>', '!=') and value == False):
+            assert operator in ('=', '!=', '!=') and value in (True, False), 'Operation not supported'
+            if (operator == '=' and value == True) or (operator in ('!=', '!=') and value == False):
                 search_operator = 'in'
             else:
                 search_operator = 'not in'
@@ -260,8 +260,8 @@ class fleet_vehicle(osv.Model):
     def _search_contract_renewal_due_soon(self, cr, uid, obj, name, args, context):
         res = []
         for field, operator, value in args:
-            assert operator in ('=', '!=', '<>') and value in (True, False), 'Operation not supported'
-            if (operator == '=' and value == True) or (operator in ('<>', '!=') and value == False):
+            assert operator in ('=', '!=', '!=') and value in (True, False), 'Operation not supported'
+            if (operator == '=' and value == True) or (operator in ('!=', '!=') and value == False):
                 search_operator = 'in'
             else:
                 search_operator = 'not in'

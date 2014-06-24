@@ -26,7 +26,7 @@ class validate_account_move(osv.osv_memory):
     _description = "Validate Account Move"
     _columns = {
         'journal_ids': fields.many2many('account.journal', 'wizard_validate_account_move_journal', 'wizard_id', 'journal_id', 'Journal', required=True),
-        'period_ids': fields.many2many('account.period', 'wizard_validate_account_move_period', 'wizard_id', 'period_id', 'Period', required=True, domain=[('state','<>','done')]),
+        'period_ids': fields.many2many('account.period', 'wizard_validate_account_move_period', 'wizard_id', 'period_id', 'Period', required=True, domain=[('state','!=','done')]),
     }
 
     def validate_move(self, cr, uid, ids, context=None):

@@ -174,7 +174,7 @@ class WorkflowItem(object):
         elif activity['kind'] == WorkflowActivity.KIND_STOPALL:
             if self.workitem['state']=='active':
                 self._state_set(activity, 'running')
-                cr.execute('delete from wkf_workitem where inst_id=%s and id<>%s', (self.workitem['inst_id'], self.workitem['id']))
+                cr.execute('delete from wkf_workitem where inst_id=%s and id!=%s', (self.workitem['inst_id'], self.workitem['id']))
                 if activity['action']:
                     self.wkf_expr_execute(activity)
                 self._state_set(activity, 'complete')

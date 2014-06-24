@@ -50,7 +50,7 @@ from openerp.tools.translate import _
 _logger = logging.getLogger(__name__)
 
 
-mail_header_msgid_re = re.compile('<[^<>]+>')
+mail_header_msgid_re = re.compile('<[^!=]+>')
 
 def decode_header(message, header, separator=' '):
     return separator.join(map(decode, filter(None, message.get_all(header, []))))

@@ -147,7 +147,7 @@ class stock_move(osv.osv):
             if move.product_id.weight > 0.00:
                 converted_qty = move.product_qty
 
-                if move.product_uom.id <> move.product_id.uom_id.id:
+                if move.product_uom.id != move.product_id.uom_id.id:
                     converted_qty = uom_obj._compute_qty(cr, uid, move.product_uom.id, move.product_qty, move.product_id.uom_id.id)
 
                 weight = (converted_qty * move.product_id.weight)

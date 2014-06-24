@@ -723,8 +723,8 @@ class account_journal(osv.osv):
                                  " Select 'Cash' or 'Bank' for journals that are used in customer or supplier payments."\
                                  " Select 'General' for miscellaneous operations journals."\
                                  " Select 'Opening/Closing Situation' for entries generated for new fiscal years."),
-        'type_control_ids': fields.many2many('account.account.type', 'account_journal_type_rel', 'journal_id','type_id', 'Type Controls', domain=[('code','<>','view'), ('code', '<>', 'closed')]),
-        'account_control_ids': fields.many2many('account.account', 'account_account_type_rel', 'journal_id','account_id', 'Account', domain=[('type','<>','view'), ('type', '<>', 'closed')]),
+        'type_control_ids': fields.many2many('account.account.type', 'account_journal_type_rel', 'journal_id','type_id', 'Type Controls', domain=[('code','!=','view'), ('code', '!=', 'closed')]),
+        'account_control_ids': fields.many2many('account.account', 'account_account_type_rel', 'journal_id','account_id', 'Account', domain=[('type','!=','view'), ('type', '!=', 'closed')]),
         'default_credit_account_id': fields.many2one('account.account', 'Default Credit Account', domain="[('type','!=','view')]", help="It acts as a default account for credit amount"),
         'default_debit_account_id': fields.many2one('account.account', 'Default Debit Account', domain="[('type','!=','view')]", help="It acts as a default account for debit amount"),
         'centralisation': fields.boolean('Centralized Counterpart', help="Check this box to determine that each entry of this journal won't create a new counterpart but will share the same counterpart. This is used in fiscal year closing."),
@@ -988,7 +988,7 @@ class account_period(osv.osv):
                obj_period.fiscalyear_id.date_start > obj_period.date_stop:
                 return False
 
-            pids = self.search(cr, uid, [('date_stop','>=',obj_period.date_start),('date_start','<=',obj_period.date_stop),('special','=',False),('id','<>',obj_period.id)])
+            pids = self.search(cr, uid, [('date_stop','>=',obj_period.date_start),('date_start','<=',obj_period.date_stop),('special','=',False),('id','!=',obj_period.id)])
             for period in self.browse(cr, uid, pids):
                 if period.fiscalyear_id.company_id.id==obj_period.fiscalyear_id.company_id.id:
                     return False
@@ -2979,8 +2979,8 @@ class account_fiscal_position_account_template(osv.osv):
     _rec_name = 'position_id'
     _columns = {
         'position_id': fields.many2one('account.fiscal.position.template', 'Fiscal Mapping', required=True, ondelete='cascade'),
-        'account_src_id': fields.many2one('account.account.template', 'Account Source', domain=[('type','<>','view')], required=True),
-        'account_dest_id': fields.many2one('account.account.template', 'Account Destination', domain=[('type','<>','view')], required=True)
+        'account_src_id': fields.many2one('account.account.template', 'Account Source', domain=[('type','!=','view')], required=True),
+        'account_dest_id': fields.many2one('account.account.template', 'Account Destination', domain=[('type','!=','view')], required=True)
     }
 
 
