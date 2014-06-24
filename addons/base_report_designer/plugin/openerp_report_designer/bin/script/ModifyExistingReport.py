@@ -109,9 +109,9 @@ class ModifyExistingReport(unohelper.Base, XJobExecutor):
 
             res = self.sock.execute(database, uid, self.password, 'ir.actions.report.xml', 'report_get', id)
 
-            if res['file_type'] in ['sxw','odt'] :
+            if res['file_type'] in ['sxw','odt']:
                file_type = res['file_type']
-            else :
+            else:
                file_type = 'sxw'
 
             fp_name = tempfile.mktemp('.'+file_type)
@@ -169,7 +169,7 @@ class ModifyExistingReport(unohelper.Base, XJobExecutor):
          ids = self.sock.execute(database, uid, self.password, 'ir.values' ,  'search',[('value','=',str_value)])
          if ids:
             rec = self.sock.execute(database, uid, self.password, 'ir.values', 'unlink', ids,)
-         else :
+         else:
             pass
          if temp:
             ErrorDialog("Report", "The report could not be deleted:\n"+name+".", "Message !")

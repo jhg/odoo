@@ -487,7 +487,7 @@ class website_sale(http.Controller):
     @http.route(['/shop/payment'], type='http', auth="public", website=True)
     def payment(self, **post):
         """ Payment step. This page proposes several payment means based on available
-        payment.acquirer. State at this point :
+        payment.acquirer. State at this point:
 
          - a draft sale order with lines; otherwise, clean context / session and
            back to the shop
@@ -641,7 +641,7 @@ class website_sale(http.Controller):
     @http.route('/shop/payment/validate', type='http', auth="public", website=True)
     def payment_validate(self, transaction_id=None, sale_order_id=None, **post):
         """ Method that should be called by the server when receiving an update
-        for a transaction. State at this point :
+        for a transaction. State at this point:
 
          - UDPATE ME
         """
@@ -688,7 +688,7 @@ class website_sale(http.Controller):
     @http.route(['/shop/confirmation'], type='http', auth="public", website=True)
     def payment_confirmation(self, **post):
         """ End of checkout process controller. Confirmation is basically seing
-        the status of a sale.order. State at this point :
+        the status of a sale.order. State at this point:
 
          - should not have any context / session info: clean them
          - take a sale.order id, because we request a sale.order and are not

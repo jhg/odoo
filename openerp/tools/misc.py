@@ -1047,7 +1047,7 @@ class UnquoteEvalContext(defaultdict):
        failures, depending on what is evaluated.
 
        Example (notice that ``section_id`` is preserved in the final
-       result) :
+       result):
 
        >>> context_str = "{'default_user_id': uid, 'default_section_id': section_id}"
        >>> eval(context_str, UnquoteEvalContext(uid=1))

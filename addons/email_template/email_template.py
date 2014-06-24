@@ -116,7 +116,7 @@ class email_template(osv.osv):
                 new_url = urlparse.urlunparse((base_scheme, base_netloc, path, params, query, fragment))
             return new_url
 
-        # check all nodes, replace :
+        # check all nodes, replace:
         # - img src -> check URL
         # - a href -> check URL
         for node in root.iter():

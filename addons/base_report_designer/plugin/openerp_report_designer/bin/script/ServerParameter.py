@@ -104,7 +104,7 @@ class ServerParameter( unohelper.Base, XJobExecutor ):
             sDatabase=self.win.getListBoxSelectedItem("lstDatabase")
         self.sock=RPCSession(url)
         UID = self.sock.login(sDatabase,sLogin,sPassword)
-        if not UID or UID==-1 :
+        if not UID or UID==-1:
             ErrorDialog("Connection denied.", "Please enter valid login/password.")
           #  self.win.endExecute()
         ids_module =self.sock.execute(sDatabase, UID, sPassword, 'ir.module.module', 'search', [('name','=','base_report_designer'),('state', '=', 'installed')])

@@ -72,7 +72,7 @@ class SendtoServer(unohelper.Base, XJobExecutor):
 
         report_name = ""
         name=""
-        if docinfo.getUserFieldValue(2)!="" :
+        if docinfo.getUserFieldValue(2)!="":
             try:
                 fields=['name','report_name']
                 self.res_other = self.sock.execute(database, uid, self.password, 'ir.actions.report.xml', 'read', [int(docinfo.getUserFieldValue(2))],fields)
@@ -147,7 +147,7 @@ class SendtoServer(unohelper.Base, XJobExecutor):
                                 'user_id': uid
                             }
                         res = self.sock.execute(database, uid, self.password, 'ir.values' , 'create',rec )
-                    else :
+                    else:
                         ErrorDialog("This name is already used for another report.\nPlease try with another name.", "", "Error!")
                         self.logobj.log_write('SendToServer',LOG_WARNING, ': report name already used DB %s' % (database))
                         self.win.endExecute()

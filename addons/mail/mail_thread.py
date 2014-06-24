@@ -356,7 +356,7 @@ class mail_thread(osv.AbstractModel):
     #------------------------------------------------------
 
     def create(self, cr, uid, values, context=None):
-        """ Chatter override :
+        """ Chatter override:
             - subscribe uid
             - subscribe followers of parent
             - log a creation message
@@ -1366,7 +1366,7 @@ class mail_thread(osv.AbstractModel):
 
     def _message_add_suggested_recipient(self, cr, uid, result, obj, partner=None, email=None, reason='', context=None):
         """ Called by message_get_suggested_recipients, to add a suggested
-            recipient in the result dictionary. The form is :
+            recipient in the result dictionary. The form is:
                 partner_id, partner_name<partner_email> or partner_name, reason """
         if email and not partner:
             # get partner info from email
@@ -1399,7 +1399,7 @@ class mail_thread(osv.AbstractModel):
         return result
 
     def _find_partner_from_emails(self, cr, uid, id, emails, model=None, context=None, check_followers=True):
-        """ Utility method to find partners from email addresses. The rules are :
+        """ Utility method to find partners from email addresses. The rules are:
             1 - check in document (model | self, id) followers
             2 - try to find a matching partner that is also an user
             3 - try to find a matching partner

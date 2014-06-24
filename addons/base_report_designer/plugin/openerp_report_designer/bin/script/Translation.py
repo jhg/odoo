@@ -180,7 +180,7 @@ class AddLang(unohelper.Base, XJobExecutor ):
 
 
     def cmbVariable_selected(self, oItemEvent):
-        if self.count > 0 :
+        if self.count > 0:
             try:
                 desktop=getDesktop()
                 doc =desktop.getCurrentComponent()
@@ -216,7 +216,7 @@ class AddLang(unohelper.Base, XJobExecutor ):
         txtUName = self.win.getEditText("txtUName")
         sKey=u""+ txtUName
 
-        if itemSelected != "" and txtUName != "" and self.bModify==True :
+        if itemSelected != "" and txtUName != "" and self.bModify==True:
             oCurObj=cursor.TextField
             sObjName=self.insVariable.getText()
             sObjName=sObjName[:sObjName.find("(")]
@@ -224,7 +224,7 @@ class AddLang(unohelper.Base, XJobExecutor ):
             oCurObj.Items = (sKey,sValue)
             oCurObj.update()
             self.win.endExecute()
-        elif itemSelected != "" and txtUName != "" :
+        elif itemSelected != "" and txtUName != "":
             oInputList = doc.createInstance("com.sun.star.text.TextField.DropDown")
             sObjName=self.win.getComboBoxText("cmbVariable")
             sObjName=sObjName[:sObjName.find("(")]

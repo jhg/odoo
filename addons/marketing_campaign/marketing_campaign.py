@@ -165,7 +165,7 @@ Normal - the campaign runs normally and automatically sends all emails and repor
         segment_ids = self.pool.get('marketing.campaign.segment').search(cr, uid,
                                             [('campaign_id', 'in', ids),
                                             ('state', '=', 'running')])
-        if segment_ids :
+        if segment_ids:
             raise osv.except_osv(_("Error"), _("The campaign cannot be marked as done before all segments are closed."))
         self.write(cr, uid, ids, {'state': 'done'})
         return True

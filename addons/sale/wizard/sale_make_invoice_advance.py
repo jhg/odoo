@@ -82,7 +82,7 @@ class sale_advance_payment_inv(osv.osv_memory):
             res = val['value']
 
             # determine and check income account
-            if not wizard.product_id.id :
+            if not wizard.product_id.id:
                 prop = ir_property_obj.get(cr, uid,
                             'property_account_income_categ', 'product.category', context=context)
                 prop_id = prop and prop.id or False

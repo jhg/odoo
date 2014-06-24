@@ -225,13 +225,13 @@ TEXT_1_OUT = ["""--
 MySignature"""]
 
 TEXT_2 = """Salut Raoul!
-Le 28 oct. 2012 à 00:02, Raoul Grosbedon a écrit :
+Le 28 oct. 2012 à 00:02, Raoul Grosbedon a écrit:
 
 > I contact you about our meeting tomorrow. Here is the schedule I propose: (quote)
 
 Of course. This seems viable.
 
-> 2012/10/27 Bert Tartopoils :
+> 2012/10/27 Bert Tartopoils:
 >> blahblahblah (quote)?
 >> 
 >> blahblahblah (quote)
@@ -250,7 +250,7 @@ bert.tartopoils@miam.miam
 
 TEXT_2_IN = ["Salut Raoul!", "Of course. This seems viable."]
 TEXT_2_OUT = ["I contact you about our meeting tomorrow. Here is the schedule I propose: (quote)",
-    """> 2012/10/27 Bert Tartopoils :
+    """> 2012/10/27 Bert Tartopoils:
 >> blahblahblah (quote)?
 >> 
 >> blahblahblah (quote)

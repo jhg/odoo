@@ -159,7 +159,7 @@ class StyleStack:
 
     def pop(self):
         """ pop a style stack level """
-        if len(self.stack) > 1 :
+        if len(self.stack) > 1:
             self.stack = self.stack[:-1]
 
     def to_escpos(self):
@@ -691,7 +691,7 @@ class Escpos:
             if 'open-cashdrawer' in root.attrib and root.attrib['open-cashdrawer'] == 'true':
                 self.cashdraw(2)
                 self.cashdraw(5)
-            if not 'cut' in root.attrib or root.attrib['cut'] == 'true' :
+            if not 'cut' in root.attrib or root.attrib['cut'] == 'true':
                 self.cut()
 
         except Exception as e:
@@ -749,7 +749,7 @@ class Escpos:
             }
             remaining = copy.copy(encodings)
 
-            if not encoding :
+            if not encoding:
                 encoding = 'cp437'
 
             while True: # Trying all encoding until one succeeds

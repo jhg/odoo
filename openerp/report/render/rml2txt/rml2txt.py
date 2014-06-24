@@ -97,7 +97,7 @@ class textbox(object):
             lineoff+=" "
         for l in self.lines:
             lpad = ""
-            if pad and len(l) < pad :
+            if pad and len(l) < pad:
                 for i in range(pad - len(l)):
                     lpad += " "
                 #elif pad and len(l) > pad ?

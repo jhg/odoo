@@ -216,18 +216,18 @@ class rml_parse(object):
         raise GeneratorExit('Skip')
 
     def set_html_image(self,id,model=None,field=None,context=None):
-        if not id :
+        if not id:
             return ''
         if not model:
             model = 'ir.attachment'
-        try :
+        try:
             ids = [int(id)]
             res = self.pool[model].read(self.cr,self.uid,ids)[0]
-            if field :
+            if field:
                 return res[field]
-            elif model =='ir.attachment' :
+            elif model =='ir.attachment':
                 return res['datas']
-            else :
+            else:
                 return ''
         except Exception:
             return ''
@@ -360,7 +360,7 @@ class rml_parse(object):
             if found is not None and len(found):
                 if tag.get('position'):
                     found.append(tag)
-                else :
+                else:
                     found.getparent().replace(found,tag)
         return True
 
@@ -373,7 +373,7 @@ class rml_parse(object):
         self.ids = ids
         self.objects = objects
         if report_type:
-            if report_type=='odt' :
+            if report_type=='odt':
                 self.localcontext.update({'name_space' :common.odt_namespace})
             else:
                 self.localcontext.update({'name_space' :common.sxw_namespace})
@@ -570,7 +570,7 @@ class report_sxw(report_rml, preprocess.report):
         mime_type = sxw_z.read('mimetype')
         if mime_type == 'application/vnd.sun.xml.writer':
             mime_type = 'sxw'
-        else :
+        else:
             mime_type = 'odt'
         sxw_z.close()
 

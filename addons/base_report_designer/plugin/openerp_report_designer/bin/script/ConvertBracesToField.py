@@ -218,7 +218,7 @@ class ConvertBracesToField( unohelper.Base, XJobExecutor ):
                     res=re.findall(reg[0],found.String)
                     print len(res)
 
-                    if found.String not in [r[0] for r in aReportSyntex] and len(res) == 1 :
+                    if found.String not in [r[0] for r in aReportSyntex] and len(res) == 1:
                         text=found.getText()
                         oInputList = doc.createInstance("com.sun.star.text.TextField.DropDown")
                         if reg[1]!="Expression":

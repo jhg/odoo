@@ -153,7 +153,7 @@ class contentIndex(object):
 
         if not fobj:
             try:
-                if realfname :
+                if realfname:
                     fname = realfname
                 else:
                     try:

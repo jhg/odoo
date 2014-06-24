@@ -535,7 +535,7 @@ class _rml_canvas(object):
         self.path = self.canvas.beginPath()
         self.path.moveTo(**utils.attr_get(node, ['x','y']))
         for n in utils._child_get(node, self):
-            if not n.text :
+            if not n.text:
                 if n.tag=='moveto':
                     vals = utils.text_get(n).split()
                     self.path.moveTo(utils.unit_get(vals[0]), utils.unit_get(vals[1]))
@@ -983,7 +983,7 @@ class _rml_template(object):
                 if utils.attr_get(frame_el, ['last']):
                     frame.lastFrame = True
                 frames.append( frame )
-            try :
+            try:
                 gr = pt.findall('pageGraphics')\
                     or pt[1].findall('pageGraphics')
             except Exception: # FIXME: be even more specific, perhaps?

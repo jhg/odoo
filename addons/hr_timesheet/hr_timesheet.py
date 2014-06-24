@@ -151,7 +151,7 @@ class hr_analytic_timesheet(osv.osv):
         emp = emp_obj.browse(cr, uid, emp_id[0], context=context)
         if emp.journal_id:
             return emp.journal_id.id
-        else :
+        else:
             raise osv.except_osv(_('Warning!'), _('No analytic journal defined for \'%s\'.\nYou should assign an analytic journal on the employee form.')%(emp.name))
 
 

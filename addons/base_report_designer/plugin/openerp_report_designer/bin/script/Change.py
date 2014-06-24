@@ -98,7 +98,7 @@ class Change( unohelper.Base, XJobExecutor ):
             res=self.sock.listdb()
             self.win.endExecute()
             ServerParameter(aVal,url)
-        except :
+        except:
             import traceback,sys
             info = reduce(lambda x, y: x+y, traceback.format_exception(sys.exc_type, sys.exc_value, sys.exc_traceback))
             self.logobj.log_write('ServerParameter', LOG_ERROR, info)

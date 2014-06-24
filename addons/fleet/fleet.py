@@ -509,7 +509,7 @@ class fleet_vehicle_log_fuel(osv.Model):
             return {'value' : {'price_per_liter' : round(amount / liter,2),}}
         elif amount > 0 and price_per_liter > 0 and round(amount/price_per_liter,2) != liter:
             return {'value' : {'liter' : round(amount / price_per_liter,2),}}
-        else :
+        else:
             return {}
 
     def on_change_price_per_liter(self, cr, uid, ids, liter, price_per_liter, amount, context=None):
@@ -529,7 +529,7 @@ class fleet_vehicle_log_fuel(osv.Model):
             return {'value' : {'liter' : round(amount / price_per_liter,2),}}
         elif amount > 0 and liter > 0 and round(amount/liter,2) != price_per_liter:
             return {'value' : {'price_per_liter' : round(amount / liter,2),}}
-        else :
+        else:
             return {}
 
     def on_change_amount(self, cr, uid, ids, liter, price_per_liter, amount, context=None):
@@ -549,7 +549,7 @@ class fleet_vehicle_log_fuel(osv.Model):
             return {'value': {'liter': round(amount / price_per_liter,2),}}
         elif liter > 0 and price_per_liter > 0 and round(liter*price_per_liter,2) != amount:
             return {'value': {'amount': round(liter * price_per_liter,2),}}
-        else :
+        else:
             return {}
 
     def _get_default_service_type(self, cr, uid, context):

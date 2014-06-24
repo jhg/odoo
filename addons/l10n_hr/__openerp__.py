@@ -7,7 +7,7 @@
 #    mail:   goran.kliska(AT)slobodni-programi.hr
 #    Copyright: Slobodni programi d.o.o., Zagreb
 #    Contributions:
-#              Tomislav Bošnjaković, Storm Computers d.o.o. :
+#              Tomislav Bošnjaković, Storm Computers d.o.o.:
 #                 - account types
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as

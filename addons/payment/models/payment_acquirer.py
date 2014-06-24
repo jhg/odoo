@@ -462,7 +462,7 @@ class PaymentTransaction(osv.Model):
         :param dict cc_values: credit card values that are not stored into the
                                payment.transaction object. Acquirers should
                                handle receiving void or incorrect cc values.
-                               Should contain :
+                               Should contain:
 
                                 - holder_name
                                 - number

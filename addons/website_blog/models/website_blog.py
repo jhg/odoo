@@ -122,7 +122,7 @@ class BlogPost(osv.Model):
         if not len(root) and root.text is None and root.tail is None:
             return html, mapping
 
-        # check all nodes, replace :
+        # check all nodes, replace:
         # - img src -> check URL
         # - a href -> check URL
         for node in root.iter():

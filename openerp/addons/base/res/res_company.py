@@ -328,7 +328,7 @@ class res_company(osv.osv):
     _header3 = _header % (786, 525, 25, 555, 440, 555, "25 550 818 550")
 
     def _get_header(self,cr,uid,ids):
-        try :
+        try:
             header_file = tools.file_open(os.path.join('base', 'report', 'corporate_rml_header.rml'))
             try:
                 return header_file.read()

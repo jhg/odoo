@@ -201,7 +201,7 @@ def try_report_action(cr, uid, action_id, active_model=None, active_ids=None,
                 if field['type'] in ('one2many', 'many2many') \
                         and view_data.get(fk, False) \
                         and isinstance(view_data[fk], list) \
-                        and not isinstance(view_data[fk][0], tuple) :
+                        and not isinstance(view_data[fk][0], tuple):
                     view_data[fk] = [(6, 0, view_data[fk])]
 
             action_name = action.get('name')

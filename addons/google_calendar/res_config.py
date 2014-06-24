@@ -10,7 +10,7 @@ class calendar_config_settings(osv.TransientModel):
         'server_uri': fields.char('URI for tuto')
     }
 
-    def set_calset(self,cr,uid,ids,context=None) :
+    def set_calset(self,cr,uid,ids,context=None):
         params = self.pool['ir.config_parameter']
         myself = self.browse(cr,uid,ids[0],context=context)
         params.set_param(cr, uid, 'google_calendar_client_id', myself.cal_client_id or '', context=None)

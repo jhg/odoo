@@ -175,7 +175,7 @@ class lang(osv.osv):
         return grouping, thousands_sep, decimal_point
 
     def write(self, cr, uid, ids, vals, context=None):
-        for lang_id in ids :
+        for lang_id in ids:
             self._lang_data_get.clear_cache(self)
         return super(lang, self).write(cr, uid, ids, vals, context)
 

@@ -715,7 +715,7 @@ class calendar_event(osv.Model):
 
     def _get_display_time(self, cr, uid, start, stop, zduration, zallday, context=None):
         """
-            Return date and time (from to from) based on duration with timezone in string :
+            Return date and time (from to from) based on duration with timezone in string:
             eg.
             1) if user add duration for 2 hours, return : August-23-2013 at (04-30 To 06-30) (Europe/Brussels)
             2) if event all day ,return : AllDay, July-31-2013

@@ -429,7 +429,7 @@ class ir_actions_server(osv.osv):
     This allows to create server actions and run them in mass mode easily through
     the interface.
 
-    The available actions are :
+    The available actions are:
 
     - 'Execute Python Code': a block of python code that will be executed
     - 'Trigger a Workflow Signal': send a signal to a workflow

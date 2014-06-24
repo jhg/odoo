@@ -845,7 +845,7 @@ class task(osv.osv):
         obj_task = self.browse(cr, uid, ids[0], context=context)
         start = obj_task.date_start or False
         end = obj_task.date_end or False
-        if start and end :
+        if start and end:
             if start > end:
                 return False
         return True

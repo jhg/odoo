@@ -998,7 +998,7 @@ def convert_sql_import(cr, fp):
 
 def convert_csv_import(cr, module, fname, csvcontent, idref=None, mode='init',
         noupdate=False):
-    '''Import csv file :
+    '''Import csv file:
         quote: "
         delimiter: ,
         encoding: utf-8'''

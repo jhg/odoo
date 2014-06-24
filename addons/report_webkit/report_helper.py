@@ -41,16 +41,16 @@ class WebKitHelper(object):
         self.report_id = report_id
         self.context = context
 
-    def embed_image(self, type, img, width=0, height=0) :
+    def embed_image(self, type, img, width=0, height=0):
         "Transform a DB image into an embedded HTML image"
 
-        if width :
+        if width:
             width = 'width="%spx"'%(width)
-        else :
+        else:
             width = ' '
-        if height :
+        if height:
             height = 'height="%spx"'%(height)
-        else :
+        else:
             height = ' '
         toreturn = '<img %s %s src="data:image/%s;base64,%s" />'%(
             width,
@@ -68,7 +68,7 @@ class WebKitHelper(object):
                                             self.uid, 
                                             [('name','=',name)]
                                         )
-        if not header_img_id :
+        if not header_img_id:
             return u''
         if isinstance(header_img_id, list):
             header_img_id = header_img_id[0]

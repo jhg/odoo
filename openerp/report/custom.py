@@ -189,7 +189,7 @@ class report_custom(report_int):
                 res = self._row_get(cr, uid,[obj], new_fields, new_cond)
                 level.append(depth)
                 new_obj = eval('obj.'+report['field_parent'][1],{'obj': obj})
-                if not isinstance(new_obj, list) :
+                if not isinstance(new_obj, list):
                     new_obj = [new_obj]
                 for o in  new_obj:
                     if not isinstance(o, browse_null):
@@ -243,9 +243,9 @@ class report_custom(report_int):
                     if fields[idx]['name'] == report['sortby']:
                         sort_idx = idx
                         break
-                try :
+                try:
                     results.sort(lambda x,y : cmp(float(x[sort_idx]),float(y[sort_idx])))
-                except :
+                except:
                     results.sort(lambda x,y : cmp(x[sort_idx],y[sort_idx]))
                 if report['limitt']:
                     results = results[:int(report['limitt'])]

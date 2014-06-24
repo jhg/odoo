@@ -52,7 +52,7 @@ def check_root_user():
     """ Exit if the process's user is 'root' (on POSIX system)."""
     if os.name == 'posix':
         import pwd
-        if pwd.getpwuid(os.getuid())[0] == 'root' :
+        if pwd.getpwuid(os.getuid())[0] == 'root':
             sys.stderr.write("Running as user 'root' is a security risk, aborting.\n")
             sys.exit(1)
 

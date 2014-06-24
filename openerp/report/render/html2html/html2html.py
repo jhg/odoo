@@ -50,18 +50,18 @@ class html2html(object):
                     process_text(child, new_child)
                 else:
                     if new_child.tag=='img' and new_child.get('name'):
-                        if _regex.findall(new_child.get('name')) :
+                        if _regex.findall(new_child.get('name')):
                             src =  utils._process_text(self, new_child.get('name'))
-                            if src :
+                            if src:
                                 new_child.set('src','data:image/gif;base64,%s'%src)
                                 output = cStringIO.StringIO(base64.decodestring(src))
                                 img = ImageReader(output)
                                 (width,height) = img.getSize()
                                 if not new_child.get('width'):
                                     new_child.set('width',str(width))
-                                if not new_child.get('height') :
+                                if not new_child.get('height'):
                                     new_child.set('height',str(height))
-                            else :
+                            else:
                                 new_child.getparent().remove(new_child)
                     new_child.text  = utils._process_text(self, child.text)
                     new_child.tail  = utils._process_text(self, child.tail)
@@ -73,12 +73,12 @@ class html2html(object):
 
     def url_modify(self,root):
         for n in root:
-            if (n.text.find('<a ')>=0 or n.text.find('&lt;a')>=0) and n.text.find('href')>=0 and n.text.find('style')<=0 :
+            if (n.text.find('<a ')>=0 or n.text.find('&lt;a')>=0) and n.text.find('href')>=0 and n.text.find('style')<=0:
                 node = (n.tag=='span' and n.getparent().tag=='u') and n.getparent().getparent() or ((n.tag=='span') and n.getparent()) or n
                 style = node.get('color') and "style='color:%s; text-decoration: none;'"%node.get('color') or ''
                 if n.text.find('&lt;a')>=0:
                     t = '&lt;a '
-                else :
+                else:
                     t = '<a '
                 href = n.text.split(t)[-1]
                 n.text = ' '.join([t,style,href])

@@ -41,10 +41,10 @@ def _to_unicode(s):
 
 def textToString(element):
     buffer = u""
-    for node in element.childNodes :
-        if node.nodeType == xml.dom.Node.TEXT_NODE :
+    for node in element.childNodes:
+        if node.nodeType == xml.dom.Node.TEXT_NODE:
             buffer += node.nodeValue
-        elif node.nodeType == xml.dom.Node.ELEMENT_NODE :
+        elif node.nodeType == xml.dom.Node.ELEMENT_NODE:
             buffer += textToString(node)
     return buffer
 
@@ -69,11 +69,11 @@ class PptxIndex(indexer):
         return ['.pptx']
 
     def _doIndexFile(self, fname):
-        def toString () :
+        def toString ():
             """ Converts the document to a string. """
             buffer = u""
             for val in ["a:t"]:
-                for paragraph in content.getElementsByTagName(val) :
+                for paragraph in content.getElementsByTagName(val):
                     buffer += textToString(paragraph) + "\n"
             return buffer
 
@@ -119,11 +119,11 @@ class DocxIndex(indexer):
     def _doIndexFile(self, fname):
         zip = zipfile.ZipFile(fname)
         content = xml.dom.minidom.parseString(zip.read("word/document.xml"))
-        def toString () :
+        def toString ():
             """ Converts the document to a string. """
             buffer = u""
             for val in ["w:p", "w:h", "text:list"]:
-                for paragraph in content.getElementsByTagName(val) :
+                for paragraph in content.getElementsByTagName(val):
                     buffer += textToString(paragraph) + "\n"
             return buffer
 
@@ -144,11 +144,11 @@ class XlsxIndex(indexer):
     def _doIndexFile(self, fname):
         zip = zipfile.ZipFile(fname)
         content = xml.dom.minidom.parseString(zip.read("xl/sharedStrings.xml"))
-        def toString () :
+        def toString ():
             """ Converts the document to a string. """
             buffer = u""
             for val in ["t"]:
-                for paragraph in content.getElementsByTagName(val) :
+                for paragraph in content.getElementsByTagName(val):
                     buffer += textToString(paragraph) + "\n"
             return buffer
 

@@ -616,7 +616,7 @@ class graph(object):
         #make cut values of all tree edges to 0 to optimize feasible tree
         e = self.leave_edge()
 
-        while e :
+        while e:
             f = self.enter_edge(e)
             if e==f:
                 self.critical_edges.append(e)

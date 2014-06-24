@@ -28,7 +28,7 @@
 Base module for Hungarian localization
 ==========================================
 
-This module consists :
+This module consists:
 
  - Generic Hungarian chart of accounts
  - Hungarian taxes

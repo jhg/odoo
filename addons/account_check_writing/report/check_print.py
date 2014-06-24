@@ -54,7 +54,7 @@ class report_print_check(report_sxw.rml_parse):
                     'amount_unreconciled' : voucher_lines[i].amount_unreconciled and voucher_lines[i].amount_unreconciled or False,
                     'amount' : voucher_lines[i].amount and voucher_lines[i].amount or False,
                 }
-            else :
+            else:
                 res = {
                     'date_due' : False,
                     'name' : False,

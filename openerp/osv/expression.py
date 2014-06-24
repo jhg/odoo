@@ -346,7 +346,7 @@ def generate_table_alias(src_table_alias, joined_tables=[]):
 
 
 def get_alias_from_query(from_query):
-    """ :param string from_query: is something like :
+    """ :param string from_query: is something like:
         - '"res_partner"' OR
         - '"res_partner" as "res_users__partner_id"''
     """

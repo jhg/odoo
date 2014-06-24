@@ -167,33 +167,33 @@ class WebKitParser(report_sxw):
         command.append('--quiet')
         # default to UTF-8 encoding.  Use <meta charset="latin-1"> to override.
         command.extend(['--encoding', 'utf-8'])
-        if header :
+        if header:
             with tempfile.NamedTemporaryFile(suffix=".head.html",
                                              delete=False) as head_file:
                 head_file.write(self._sanitize_html(header.encode('utf-8')))
             file_to_del.append(head_file.name)
             command.extend(['--header-html', head_file.name])
-        if footer :
+        if footer:
             with tempfile.NamedTemporaryFile(suffix=".foot.html",
                                              delete=False) as foot_file:
                 foot_file.write(self._sanitize_html(footer.encode('utf-8')))
             file_to_del.append(foot_file.name)
             command.extend(['--footer-html', foot_file.name])
 
-        if webkit_header.margin_top :
+        if webkit_header.margin_top:
             command.extend(['--margin-top', str(webkit_header.margin_top).replace(',', '.')])
-        if webkit_header.margin_bottom :
+        if webkit_header.margin_bottom:
             command.extend(['--margin-bottom', str(webkit_header.margin_bottom).replace(',', '.')])
-        if webkit_header.margin_left :
+        if webkit_header.margin_left:
             command.extend(['--margin-left', str(webkit_header.margin_left).replace(',', '.')])
-        if webkit_header.margin_right :
+        if webkit_header.margin_right:
             command.extend(['--margin-right', str(webkit_header.margin_right).replace(',', '.')])
-        if webkit_header.orientation :
+        if webkit_header.orientation:
             command.extend(['--orientation', str(webkit_header.orientation).replace(',', '.')])
-        if webkit_header.format :
+        if webkit_header.format:
             command.extend(['--page-size', str(webkit_header.format).replace(',', '.')])
         count = 0
-        for html in html_list :
+        for html in html_list:
             with tempfile.NamedTemporaryFile(suffix="%d.body.html" %count,
                                              delete=False) as html_file:
                 count += 1
@@ -214,7 +214,7 @@ class WebKitParser(report_sxw):
                 error_message = _('No diagnosis message was provided')
             else:
                 error_message = _('The following diagnosis message was provided:\n') + error_message
-            if status :
+            if status:
                 raise except_osv(_('Webkit error' ),
                                  _("The command 'wkhtmltopdf' failed with error code = %s. Message: %s") % (status, error_message))
             with open(out_filename, 'rb') as pdf_file:
@@ -240,7 +240,7 @@ class WebKitParser(report_sxw):
             # no translation defined, fallback on None (backward compatibility)
             res = ir_translation._get_source(parser_instance.cr, parser_instance.uid,
                                              None, 'report', parser_instance.localcontext.get('lang', 'en_US'), src)
-        if not res :
+        if not res:
             return src
         return res
 
@@ -275,13 +275,13 @@ class WebKitParser(report_sxw):
 
         template =  False
 
-        if report_xml.report_file :
+        if report_xml.report_file:
             path = get_module_resource(*report_xml.report_file.split('/'))
-            if path and os.path.exists(path) :
+            if path and os.path.exists(path):
                 template = file(path).read()
-        if not template and report_xml.report_webkit_data :
+        if not template and report_xml.report_webkit_data:
             template =  report_xml.report_webkit_data
-        if not template :
+        if not template:
             raise except_osv(_('Error!'), _('Webkit report template not found!'))
         header = report_xml.webkit_header.html
         footer = report_xml.webkit_header.footer_html
@@ -290,13 +290,13 @@ class WebKitParser(report_sxw):
                   _('No header defined for this Webkit report!'),
                   _('Please set a header in company settings.')
               )
-        if not report_xml.header :
+        if not report_xml.header:
             header = ''
             default_head = get_module_resource('report_webkit', 'default_header.html')
             with open(default_head,'r') as f:
                 header = f.read()
         css = report_xml.webkit_header.css
-        if not css :
+        if not css:
             css = ''
 
         translate_call = partial(self.translate_call, parser_instance)
@@ -316,7 +316,7 @@ class WebKitParser(report_sxw):
             ctx = dict(parser_instance.localcontext)
             for obj in parser_instance.localcontext['objects']:
                 ctx['objects'] = [obj]
-                try :
+                try:
                     html = body_mako_tpl.render(dict(ctx))
                     htmls.append(html)
                 except Exception, e:
@@ -324,7 +324,7 @@ class WebKitParser(report_sxw):
                     _logger.error(msg)
                     raise except_osv(_('Webkit render!'), msg)
         else:
-            try :
+            try:
                 html = body_mako_tpl.render(dict(parser_instance.localcontext))
                 htmls.append(html)
             except Exception, e:
@@ -332,21 +332,21 @@ class WebKitParser(report_sxw):
                 _logger.error(msg)
                 raise except_osv(_('Webkit render!'), msg)
         head_mako_tpl = mako_template(header)
-        try :
+        try:
             head = head_mako_tpl.render(dict(parser_instance.localcontext, _debug=False))
         except Exception, e:
             raise except_osv(_('Webkit render!'), u"%s" % e)
         foot = False
-        if footer :
+        if footer:
             foot_mako_tpl = mako_template(footer)
-            try :
+            try:
                 foot = foot_mako_tpl.render(dict(parser_instance.localcontext))
             except Exception, e:
                 msg = u"%s" % e
                 _logger.error(msg)
                 raise except_osv(_('Webkit render!'), msg)
-        if report_xml.webkit_debug :
-            try :
+        if report_xml.webkit_debug:
+            try:
                 deb = head_mako_tpl.render(dict(parser_instance.localcontext, _debug=tools.ustr("\n".join(htmls))))
             except Exception, e:
                 msg = u"%s" % e

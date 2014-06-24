@@ -127,7 +127,7 @@ class RepeatIn( unohelper.Base, XJobExecutor ):
                     if tcur.TextTable:
                         if not component == "Document" and component[component.rfind(".") + 1:] == tcur.TextTable.Name:
                             VariableScope( tcur, self.aVariableList, self.aObjectList, self.aComponentAdd, self.aItemList, component )
-                except :
+                except:
                     import traceback,sys
                     info = reduce(lambda x, y: x+y, traceback.format_exception(sys.exc_type, sys.exc_value, sys.exc_traceback))
                     self.logobj.log_write('RepeatIn', LOG_ERROR, info)
@@ -194,7 +194,7 @@ class RepeatIn( unohelper.Base, XJobExecutor ):
 
     def cmbVariable_selected(self, oItemEvent):
 
-        if self.count > 0 :
+        if self.count > 0:
 
             desktop=getDesktop()
             doc =desktop.getCurrentComponent()

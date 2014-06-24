@@ -286,7 +286,7 @@ class ir_ui_menu(osv.osv):
         return res
 
     def get_needaction_data(self, cr, uid, ids, context=None):
-        """ Return for each menu entry of ids :
+        """ Return for each menu entry of ids:
             - if it uses the needaction mechanism (needaction_enabled)
             - the needaction counter of the related action, taking into account
               the action domain

@@ -111,7 +111,7 @@ class Scale(Thread):
                             self.weight_info = 'ok'
                         else:
                             self.weight_info = []
-                            if stat & 1 :
+                            if stat & 1:
                                 self.weight_info.append('moving')
                             if stat & 1 << 1:
                                 self.weight_info.append('over_capacity')
