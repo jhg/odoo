@@ -33,7 +33,7 @@ This module consists :
  - Generic Hungarian chart of accounts
  - Hungarian taxes
  - Hungarian Bank information
- 
+
  """,
     'author': 'InnOpen Group Kft',
     'website': 'http://www.innopen.eu',

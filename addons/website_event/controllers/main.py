@@ -208,7 +208,7 @@ class website_event(http.Controller):
         start_date = datetime.strptime(event.date_begin, tools.DEFAULT_SERVER_DATETIME_FORMAT).date()
         end_date = datetime.strptime(event.date_end, tools.DEFAULT_SERVER_DATETIME_FORMAT).date()
         return ('%s %s%s') % (start_date.strftime("%b"), start_date.strftime("%e"), (end_date != start_date and ("-"+end_date.strftime("%e")) or ""))
-    
+
     @http.route('/event/get_country_event_list', type='http', auth='public', website=True)
     def get_country_events(self ,**post):
         cr, uid, context, event_ids = request.cr, request.uid, request.context,[]

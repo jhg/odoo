@@ -413,7 +413,7 @@ class account_bank_statement(osv.osv):
     def number_of_lines_reconciled(self, cr, uid, id, context=None):
         bsl_obj = self.pool.get('account.bank.statement.line')
         return bsl_obj.search_count(cr, uid, [('statement_id', '=', id), ('journal_entry_id', '!=', False)], context=context)
-        
+
     def get_format_currency_js_function(self, cr, uid, id, context=None):
         """ Returns a string that can be used to instanciate a javascript function.
             That function formats a number according to the statement line's currency or the statement currency"""

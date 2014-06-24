@@ -759,7 +759,7 @@ class ir_actions_server(osv.osv):
         crud_model_name = False
         if crud_model_id:
             crud_model_name = self.pool.get('ir.model').browse(cr, uid, crud_model_id, context).model
-        
+
         values = {'link_field_id': False, 'crud_model_name': crud_model_name}
         return {'value': values}
 

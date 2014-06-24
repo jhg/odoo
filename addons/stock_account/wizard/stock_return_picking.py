@@ -43,7 +43,7 @@ class stock_return_picking(osv.osv_memory):
                     res.update({'invoice_state': 'none'})
         return res
 
-        
+
 
     def _create_returns(self, cr, uid, ids, context=None):
         if context is None:
