@@ -77,7 +77,7 @@ class account_asset_asset(osv.osv):
 
     def unlink(self, cr, uid, ids, context=None):
         for asset in self.browse(cr, uid, ids, context=context):
-            if asset.account_move_line_ids: 
+            if asset.account_move_line_ids:
                 raise osv.except_osv(_('Error!'), _('You cannot delete an asset that contains posted depreciation lines.'))
         return super(account_asset_asset, self).unlink(cr, uid, ids, context=context)
 
@@ -236,7 +236,7 @@ class account_asset_asset(osv.osv):
                 val['value_residual'] = purchase_value - salvage_value
             if salvage_value:
                 val['value_residual'] = purchase_value - salvage_value
-        return {'value': val}    
+        return {'value': val}
     def _entry_count(self, cr, uid, ids, field_name, arg, context=None):
         MoveLine = self.pool('account.move.line')
         return {

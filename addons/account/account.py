@@ -671,7 +671,7 @@ class account_account(osv.osv):
         return True
 
     # For legal reason (forbiden to modify journal entries which belongs to a closed fy or period), Forbid to modify
-    # the code of an account if journal entries have been already posted on this account. This cannot be simply 
+    # the code of an account if journal entries have been already posted on this account. This cannot be simply
     # 'configurable' since it can lead to a lack of confidence in OpenERP and this is what we want to change.
     def _check_allow_code_change(self, cr, uid, ids, context=None):
         line_obj = self.pool.get('account.move.line')
@@ -3085,7 +3085,7 @@ class wizard_multi_charts_accounts(osv.osv_memory):
                 if model_data:
                     chart_id = model_data[0]['res_id']
             chart = account_chart_template.browse(cr, uid, chart_id, context=context)
-            chart_hierarchy_ids = self._get_chart_parent_ids(cr, uid, chart, context=context) 
+            chart_hierarchy_ids = self._get_chart_parent_ids(cr, uid, chart, context=context)
             if 'chart_template_id' in fields:
                 res.update({'only_one_chart_template': len(ids) == 1,
                             'chart_template_id': chart_id})
@@ -3399,7 +3399,7 @@ class wizard_multi_charts_accounts(osv.osv_memory):
             for ref in (('product','list_price'),('product','standard_price'),('product','list0'),('purchase','list0')):
                 try:
                     tmp2 = obj_data.get_object_reference(cr, uid, *ref)
-                    if tmp2: 
+                    if tmp2:
                         self.pool[tmp2[0]].write(cr, uid, tmp2[1], {
                             'currency_id': obj_wizard.currency_id.id
                         })

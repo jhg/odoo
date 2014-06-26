@@ -814,7 +814,7 @@ class mail_thread(osv.AbstractModel):
         # Private message: should not contain any thread_id
         if not model and thread_id:
             if assert_model:
-                if thread_id: 
+                if thread_id:
                     raise ValueError('Routing: posting a message without model should be with a null res_id (private message), received %s.' % thread_id)
             _warn('posting a message without model should be with a null res_id (private message), received %s resetting thread_id' % thread_id)
             thread_id = 0
@@ -1928,7 +1928,7 @@ class mail_thread(osv.AbstractModel):
         :param new_res_id : the new res_id of the mail.message
         :param new_model : the name of the new model of the mail.message
 
-        Example :   self.pool.get("crm.lead").message_change_thread(self, cr, uid, 2, 4, "project.issue", context) 
+        Example :   self.pool.get("crm.lead").message_change_thread(self, cr, uid, 2, 4, "project.issue", context)
                     will transfert thread of the lead (id=2) to the issue (id=4)
         """
 

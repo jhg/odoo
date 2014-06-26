@@ -89,7 +89,7 @@ class configmanager(object):
         self.has_ssl = check_ssl()
 
         self._LOGLEVELS = dict([
-            (getattr(loglevels, 'LOG_%s' % x), getattr(logging, x)) 
+            (getattr(loglevels, 'LOG_%s' % x), getattr(logging, x))
             for x in ('CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG', 'NOTSET')
         ])
 

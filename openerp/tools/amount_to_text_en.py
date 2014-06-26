@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -51,7 +51,7 @@ def _convert_nn(val):
 
 def _convert_nnn(val):
     """
-        convert a value < 1000 to english, special cased because it is the level that kicks 
+        convert a value < 1000 to english, special cased because it is the level that kicks
         off the < 100 special case.  The rest are more general.  This also allows you to
         get strings in the form of 'forty-five hundred' if called directly.
     """

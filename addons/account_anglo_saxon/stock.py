@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -59,7 +59,7 @@ class stock_picking(osv.osv):
                     if ol.product_id:
                         oa = ol.product_id.property_stock_account_input and ol.product_id.property_stock_account_input.id
                         if not oa:
-                            oa = ol.product_id.categ_id.property_stock_account_input_categ and ol.product_id.categ_id.property_stock_account_input_categ.id        
+                            oa = ol.product_id.categ_id.property_stock_account_input_categ and ol.product_id.categ_id.property_stock_account_input_categ.id
                         if oa:
                             fpos = ol.invoice_id.fiscal_position or False
                             a = self.pool.get('account.fiscal.position').map_account(cr, uid, fpos, oa)

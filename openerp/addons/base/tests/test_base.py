@@ -82,11 +82,11 @@ class test_base(common.TransactionCase):
         p1street = 'Different street, 42'
         p1.write({'street': p1street,
                   'use_parent_address': False})
-        p1.refresh(), ghoststep.refresh() 
+        p1.refresh(), ghoststep.refresh()
         self.assertEqual(p1.street, p1street, 'Address fields must not be synced after turning sync off')
         self.assertNotEqual(ghoststep.street, p1street, 'Parent address must never be touched')
 
-        # turn on sync again       
+        # turn on sync again
         p1.write({'use_parent_address': True})
         p1.refresh()
         self.assertEqual(p1.street, ghoststep.street, 'Address fields must be synced again')
@@ -116,7 +116,7 @@ class test_base(common.TransactionCase):
         self.assertFalse(ironshield.is_company, 'Partners are not companies by default')
         self.assertFalse(ironshield.use_parent_address, 'use_parent_address defaults to False')
         self.assertEqual(ironshield.type, 'contact', 'Default type must be "contact"')
-        ironshield.write({'type': 'default'}) # force default type to double-check sync 
+        ironshield.write({'type': 'default'}) # force default type to double-check sync
         p1 = self.res_partner.browse(cr, uid, self.res_partner.create(cr, uid,
                                                                       {'name': 'Isen Hardearth',
                                                                        'street': 'Strongarm Avenue, 12',
@@ -224,7 +224,7 @@ class test_base(common.TransactionCase):
                         {'default': branch11.id}, 'Invalid address resolution, branch11 should now be default')
 
 
-    def test_50_res_partner_commercial_sync(self):    
+    def test_50_res_partner_commercial_sync(self):
         cr, uid = self.cr, self.uid
         p0 = self.res_partner.browse(cr, uid, self.res_partner.create(cr, uid,
                                                                       {'name': 'Sigurd Sunknife',
@@ -425,7 +425,7 @@ class test_translation(common.TransactionCase):
         cr, uid = self.cr, self.uid
         self.registry('ir.translation').load_module_terms(cr, ['base'], ['fr_FR'])
         self.cat_id = self.res_category.create(cr, uid, {'name': 'Customers'})
-        self.ir_translation.create(cr, uid, {'name': 'res.partner.category,name', 'module':'base', 
+        self.ir_translation.create(cr, uid, {'name': 'res.partner.category,name', 'module':'base',
             'value': 'Clients', 'res_id': self.cat_id, 'lang':'fr_FR', 'state':'translated', 'type': 'model'})
 
     def test_101_create_translated_record(self):

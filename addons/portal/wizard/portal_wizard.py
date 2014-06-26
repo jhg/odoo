@@ -38,7 +38,7 @@ You have been given access to %(company)s's %(portal)s.
 Your login account data is:
   Username: %(login)s
   Portal: %(portal_url)s
-  Database: %(db)s 
+  Database: %(db)s
 
 You can set or change your password via the following url:
    %(signup_url)s

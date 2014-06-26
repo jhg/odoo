@@ -39,13 +39,13 @@ class Scanner(Thread):
             7: ("6","^"),
             8: ("7","&"),
             9: ("8","*"),
-            10:("9","("), 
-            11:("0",")"), 
-            12:("-","_"), 
-            13:("=","+"), 
+            10:("9","("),
+            11:("0",")"),
+            12:("-","_"),
+            13:("=","+"),
             # 14 BACKSPACE
-            # 15 TAB 
-            16:("q","Q"), 
+            # 15 TAB
+            16:("q","Q"),
             17:("w","W"),
             18:("e","E"),
             19:("r","R"),
@@ -141,7 +141,7 @@ class Scanner(Thread):
         while True:
             try:
                 timestamp, barcode = self.barcodes.get(True, 5)
-                if timestamp > time.time() - 5: 
+                if timestamp > time.time() - 5:
                     return barcode
             except Empty:
                 return ''
@@ -153,7 +153,7 @@ class Scanner(Thread):
     def run(self):
         """ This will start a loop that catches all keyboard events, parse barcode
             sequences and put them on a timestamped queue that can be consumed by
-            the point of sale's requests for barcode events 
+            the point of sale's requests for barcode events
         """
 
         self.barcodes = Queue()
@@ -165,7 +165,7 @@ class Scanner(Thread):
         while True: # barcodes loop
             if device:  # ungrab device between barcodes and timeouts for plug & play
                 try:
-                    device.ungrab() 
+                    device.ungrab()
                 except Exception as e:
                     self.set_status('error',str(e))
             device = self.get_device()
@@ -187,7 +187,7 @@ class Scanner(Thread):
                             if event.type == evdev.ecodes.EV_KEY:
                                 #_logger.debug('Evdev Keyboard event %s',evdev.categorize(event))
                                 if event.value == 1: # keydown events
-                                    if event.code in self.keymap: 
+                                    if event.code in self.keymap:
                                         if shift:
                                             barcode.append(self.keymap[event.code][1])
                                         else:

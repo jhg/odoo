@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com) 
+# Copyright (c) 2010 Camptocamp SA (http://www.camptocamp.com)
 # All Right Reserved
 #
 # Author : Vincent Renaville
@@ -42,14 +42,14 @@ class report_webkit_actions(osv.osv_memory):
     _defaults = {
              'print_button': lambda *a: True,
              'open_action': lambda *a: False,
-    }    
+    }
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form', context=None, toolbar=False, submenu=False):
         """ Changes the view dynamically
          @param self: The object pointer.
          @param cr: A database cursor
          @param uid: ID of the user currently logged in
-         @param context: A standard dictionary 
+         @param context: A standard dictionary
          @return: New arch of view.
         """
         if not context: context = {}
@@ -61,22 +61,22 @@ class report_webkit_actions(osv.osv_memory):
             return res
 
         report = self.pool['ir.actions.report.xml'].browse(
-                                                    cr, 
-                                                    uid, 
-                                                    context.get('active_id'), 
+                                                    cr,
+                                                    uid,
+                                                    context.get('active_id'),
                                                     context=context
                                                 )
         ir_values_obj = self.pool['ir.values']
         ids = ir_values_obj.search(
-                            cr, 
-                            uid, 
+                            cr,
+                            uid,
                             [('value','=',report.type+','+str(context.get('active_id')))]
-                        )        
+                        )
 
         if ids:
             res['arch'] = '''<form string="Add Print Buttons">
                                  <label string="Report Action already exist for this report."/>
-                             </form> 
+                             </form>
                             '''
 
         return res
@@ -87,41 +87,41 @@ class report_webkit_actions(osv.osv_memory):
          @param cr: A database cursor
          @param uid: ID of the user currently logged in
          @param ids: List of report.webkit.actions's ID
-         @param context: A standard dictionary 
+         @param context: A standard dictionary
          @return: Dictionary of ir.values form.
         """
         if context is None:
-            context = {}        
+            context = {}
         report_obj = self.pool['ir.actions.report.xml']
         for current in self.browse(cr, uid, ids, context=context):
             report = report_obj.browse(
-                                                        cr, 
-                                                        uid, 
-                                                        context.get('active_id'), 
+                                                        cr,
+                                                        uid,
+                                                        context.get('active_id'),
                                                         context=context
                                                     )
             if current.print_button:
                 ir_values_obj = self.pool['ir.values']
                 res = ir_values_obj.set(
-                                cr, 
-                                uid, 
-                                'action', 
+                                cr,
+                                uid,
+                                'action',
                                 'client_print_multi',
-                                 report.report_name, 
-                                 [report.model], 
-                                 'ir.actions.report.xml,%d' % context.get('active_id', False), 
+                                 report.report_name,
+                                 [report.model],
+                                 'ir.actions.report.xml,%d' % context.get('active_id', False),
                                  isobject=True
                                 )
             else:
                 ir_values_obj = self.pool['ir.values']
                 res = ir_values_obj.set(
-                                    cr, 
-                                    uid, 
-                                    'action', 
-                                    'client_print_multi', 
-                                    report.report_name, 
-                                    [report.model,0], 
-                                    'ir.actions.report.xml,%d' % context.get('active_id', False), 
+                                    cr,
+                                    uid,
+                                    'action',
+                                    'client_print_multi',
+                                    report.report_name,
+                                    [report.model,0],
+                                    'ir.actions.report.xml,%d' % context.get('active_id', False),
                                     isobject=True
                                 )
             if res[0]:
@@ -136,7 +136,7 @@ class report_webkit_actions(osv.osv_memory):
                     'res_model': 'ir.values',
                     'view_id': False,
                     'type': 'ir.actions.act_window',
-                }                   
+                }
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

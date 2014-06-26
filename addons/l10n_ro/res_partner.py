@@ -29,7 +29,7 @@ class res_partner(osv.osv):
     }
 
     # The SQL constraints are no-ops but present only to display the right error message to the
-    # user when the partial unique indexes defined below raise errors/  
+    # user when the partial unique indexes defined below raise errors/
     # The real constraints need to be implemented with PARTIAL UNIQUE INDEXES (see auto_init),
     # due to the way accounting data is delegated by contacts to their companies in OpenERP 7.0.
     _sql_constraints = [

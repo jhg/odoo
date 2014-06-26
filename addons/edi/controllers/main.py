@@ -10,7 +10,7 @@ class EDI(openerp.http.Controller):
         # http://hostname:8069/edi/import_url?url=URIEncodedURL
         req = openerp.http.request
 
-        # `url` may contain a full URL with a valid query string, we basically want to watch out for XML brackets and double-quotes 
+        # `url` may contain a full URL with a valid query string, we basically want to watch out for XML brackets and double-quotes
         safe_url = werkzeug.url_quote_plus(url,':/?&;=')
 
         values = dict(init='s.edi.edi_import("%s");' % safe_url)

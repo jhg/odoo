@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009, P. Christeas, Tiny SPRL (<http://tiny.be>).
 #
@@ -16,7 +16,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -106,7 +106,7 @@ class textbox(object):
 
 
     def haplines(self,arr,offset,cc= ''):
-        """ Horizontaly append lines 
+        """ Horizontaly append lines
         """
         while len(self.lines) < len(arr):
             self.lines.append("")
@@ -115,7 +115,7 @@ class textbox(object):
             while len(self.lines[i]) < offset:
                 self.lines[i] += " "
         for i in range(len(arr)):
-            self.lines[i] += cc +arr[i] 
+            self.lines[i] += cc +arr[i]
 
 
 class _flowable(object):

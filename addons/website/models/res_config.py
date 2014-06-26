@@ -29,7 +29,7 @@ class website_config_settings(osv.osv_memory):
                 values[fname] = v[0] if v and self._columns[fname]._type == 'many2one' else v
         return {'value' : values}
 
-    # FIXME in trunk for god sake. Change the fields above to fields.char instead of fields.related, 
+    # FIXME in trunk for god sake. Change the fields above to fields.char instead of fields.related,
     # and create the function set_website who will set the value on the website_id
     # create does not forward the values to the related many2one. Write does.
     def create(self, cr, uid, vals, context=None):

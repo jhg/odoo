@@ -166,7 +166,7 @@ class website_event(http.Controller):
             </div>
         </div>
     </div>
-</section>''' % (e(post['track_name']), 
+</section>''' % (e(post['track_name']),
             e(post['description']), e(post['biography']))
 
         track_id = tobj.create(cr, openerp.SUPERUSER_ID, {
@@ -179,7 +179,7 @@ class website_event(http.Controller):
 
         tobj.message_post(cr, openerp.SUPERUSER_ID, [track_id], body="""Proposed By: %s<br/>
           Mail: <a href="mailto:%s">%s</a><br/>
-          Phone: %s""" % (e(post['partner_name']), e(post['email_from']), 
+          Phone: %s""" % (e(post['partner_name']), e(post['email_from']),
             e(post['email_from']), e(post['phone'])), context=context)
 
         track = tobj.browse(cr, uid, track_id, context=context)

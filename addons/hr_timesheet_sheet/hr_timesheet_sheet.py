@@ -111,7 +111,7 @@ class hr_timesheet_sheet(osv.osv):
                 date_attendances.append((1, name, att_tuple))
             elif att_tuple[0] in [2,3]:
                 date_attendances.append((0, self.pool['hr.attendance'].browse(cr, uid, att_tuple[1]).name, att_tuple))
-            else: 
+            else:
                 date_attendances.append((0, False, att_tuple))
         date_attendances.sort()
         return [att[2] for att in date_attendances]

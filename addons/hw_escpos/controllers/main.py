@@ -164,7 +164,7 @@ class EscposDriver(Thread):
                         self.queue.put((timestamp,task,data))
                     time.sleep(5)
                     continue
-                elif task == 'receipt': 
+                elif task == 'receipt':
                     if timestamp >= time.time() - 1 * 60 * 60:
                         self.print_receipt_body(printer,data)
                         printer.cut()
@@ -191,7 +191,7 @@ class EscposDriver(Thread):
     def print_status(self,eprint):
         localips = ['0.0.0.0','127.0.0.1','127.0.1.1']
         ips =  [ c.split(':')[1].split(' ')[0] for c in commands.getoutput("/sbin/ifconfig").split('\n') if 'inet addr' in c ]
-        ips =  [ ip for ip in ips if ip not in localips ] 
+        ips =  [ ip for ip in ips if ip not in localips ]
         eprint.text('\n\n')
         eprint.set(align='center',type='b',height=2,width=2)
         eprint.text('PosBox Status\n')
@@ -231,8 +231,8 @@ class EscposDriver(Thread):
                 return str(amount)
 
         def printline(left, right='', width=40, ratio=0.5, indent=0):
-            lwidth = int(width * ratio) 
-            rwidth = width - lwidth 
+            lwidth = int(width * ratio)
+            rwidth = width - lwidth
             lwidth = lwidth - indent
 
             left = left[:lwidth]
@@ -347,22 +347,22 @@ class EscposProxy(hw_proxy.Proxy):
 
     @http.route('/hw_proxy/open_cashbox', type='json', auth='none', cors='*')
     def open_cashbox(self):
-        _logger.info('ESC/POS: OPEN CASHBOX') 
+        _logger.info('ESC/POS: OPEN CASHBOX')
         driver.push_task('cashbox')
 
     @http.route('/hw_proxy/print_receipt', type='json', auth='none', cors='*')
     def print_receipt(self, receipt):
-        _logger.info('ESC/POS: PRINT RECEIPT') 
+        _logger.info('ESC/POS: PRINT RECEIPT')
         driver.push_task('receipt',receipt)
 
     @http.route('/hw_proxy/print_xml_receipt', type='json', auth='none', cors='*')
     def print_xml_receipt(self, receipt):
-        _logger.info('ESC/POS: PRINT XML RECEIPT') 
+        _logger.info('ESC/POS: PRINT XML RECEIPT')
         driver.push_task('xml_receipt',receipt)
 
     @http.route('/hw_proxy/escpos/add_supported_device', type='http', auth='none', cors='*')
     def add_supported_device(self, device_string):
-        _logger.info('ESC/POS: ADDED NEW DEVICE:'+device_string) 
+        _logger.info('ESC/POS: ADDED NEW DEVICE:'+device_string)
         driver.add_supported_device(device_string)
         return "The device:\n"+device_string+"\n has been added to the list of supported devices.<br/><a href='/hw_proxy/status'>Ok</a>"
 

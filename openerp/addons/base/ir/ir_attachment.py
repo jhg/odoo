@@ -60,7 +60,7 @@ class ir_attachment(osv.osv):
                 if res_name:
                     field = self._columns.get('res_name',False)
                     if field and len(res_name) > field.size:
-                        res_name = res_name[:30] + '...' 
+                        res_name = res_name[:30] + '...'
                 data[attachment.id] = res_name
             else:
                 data[attachment.id] = False

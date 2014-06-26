@@ -64,7 +64,7 @@ upgrade_template = """
             color: white;
             border-radius: 3px;
             text-align: center;
-            margin: 30px; 
+            margin: 30px;
             text-decoration: none;
             display: inline-block;
         }
@@ -97,7 +97,7 @@ class PosboxUpgrader(hw_proxy.Proxy):
 
     @http.route('/hw_proxy/upgrade', type='http', auth='none', )
     def upgrade(self):
-        return upgrade_template 
+        return upgrade_template
 
     @http.route('/hw_proxy/perform_upgrade', type='http', auth='none')
     def perform_upgrade(self):

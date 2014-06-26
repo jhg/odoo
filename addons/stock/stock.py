@@ -300,7 +300,7 @@ class stock_quant(osv.osv):
         # Used for negative quants to reconcile after compensated by a new positive one
         'propagated_from_id': fields.many2one('stock.quant', 'Linked Quant', help='The negative quant this is coming from', readonly=True, select=True),
         'negative_move_id': fields.many2one('stock.move', 'Move Negative Quant', help='If this is a negative quant, this will be the move that caused this negative quant.', readonly=True),
-        'negative_dest_location_id': fields.related('negative_move_id', 'location_dest_id', type='many2one', relation='stock.location', string="Negative Destination Location", readonly=True, 
+        'negative_dest_location_id': fields.related('negative_move_id', 'location_dest_id', type='many2one', relation='stock.location', string="Negative Destination Location", readonly=True,
                                                     help="Technical field used to record the destination location of a move that created a negative quant"),
     }
 
@@ -777,7 +777,7 @@ class stock_picking(osv.osv):
                 * Cancelled: has been cancelled, can't be confirmed anymore"""
         ),
         'priority': fields.function(get_min_max_date, multi="min_max_date", fnct_inv=_set_priority, type='selection', selection=procurement.PROCUREMENT_PRIORITIES, string='Priority',
-                                    store={'stock.move': (_get_pickings, ['priority'], 20)}, states={'done': [('readonly', True)], 'cancel': [('readonly', True)]}, select=1, help="Priority for this picking. Setting manually a value here would set it as priority for all the moves", 
+                                    store={'stock.move': (_get_pickings, ['priority'], 20)}, states={'done': [('readonly', True)], 'cancel': [('readonly', True)]}, select=1, help="Priority for this picking. Setting manually a value here would set it as priority for all the moves",
                                     track_visibility='onchange', required=True),
         'min_date': fields.function(get_min_max_date, multi="min_max_date", fnct_inv=_set_min_date,
                  store={'stock.move': (_get_pickings, ['date_expected'], 20)}, type='datetime', states={'done': [('readonly', True)], 'cancel': [('readonly', True)]}, string='Scheduled Date', select=1, help="Scheduled time for the first part of the shipment to be processed. Setting manually a value here would set it as expected date for all the stock moves.", track_visibility='onchange'),
@@ -1366,7 +1366,7 @@ class stock_picking(osv.osv):
 
     def action_pack(self, cr, uid, picking_ids, operation_filter_ids=None, context=None):
         """ Create a package with the current pack_operation_ids of the picking that aren't yet in a pack.
-        Used in the barcode scanner UI and the normal interface as well. 
+        Used in the barcode scanner UI and the normal interface as well.
         operation_filter_ids is used by barcode scanner interface to specify a subset of operation to pack"""
         if operation_filter_ids == None:
             operation_filter_ids = []
@@ -1673,7 +1673,7 @@ class stock_move(osv.osv):
         'split_from': fields.many2one('stock.move', string="Move Split From", help="Technical field used to track the origin of a split move, which can be useful in case of debug"),
         'backorder_id': fields.related('picking_id', 'backorder_id', type='many2one', relation="stock.picking", string="Back Order of", select=True),
         'origin': fields.char("Source"),
-        'procure_method': fields.selection([('make_to_stock', 'Default: Take From Stock'), ('make_to_order', 'Advanced: Apply Procurement Rules')], 'Supply Method', required=True, 
+        'procure_method': fields.selection([('make_to_stock', 'Default: Take From Stock'), ('make_to_order', 'Advanced: Apply Procurement Rules')], 'Supply Method', required=True,
                                            help="""By default, the system will take from the stock in the source location and passively wait for availability. The other possibility allows you to directly create a procurement on the source location (and thus ignore its current stock) to gather products. If we want to chain moves and have this one to wait for the previous, this second option should be chosen."""),
 
         # used for colors in tree views:
@@ -2780,12 +2780,12 @@ class stock_warehouse(osv.osv):
         'reception_steps': fields.selection([
             ('one_step', 'Receive goods directly in stock (1 step)'),
             ('two_steps', 'Unload in input location then go to stock (2 steps)'),
-            ('three_steps', 'Unload in input location, go through a quality control before being admitted in stock (3 steps)')], 'Incoming Shipments', 
+            ('three_steps', 'Unload in input location, go through a quality control before being admitted in stock (3 steps)')], 'Incoming Shipments',
                                             help="Default incoming route to follow", required=True),
         'delivery_steps': fields.selection([
             ('ship_only', 'Ship directly from stock (Ship only)'),
             ('pick_ship', 'Bring goods to output location before shipping (Pick + Ship)'),
-            ('pick_pack_ship', 'Make packages into a dedicated location, then bring them to the output location for shipping (Pick + Pack + Ship)')], 'Outgoing Shippings', 
+            ('pick_pack_ship', 'Make packages into a dedicated location, then bring them to the output location for shipping (Pick + Pack + Ship)')], 'Outgoing Shippings',
                                            help="Default outgoing route to follow", required=True),
         'wh_input_stock_loc_id': fields.many2one('stock.location', 'Input Location'),
         'wh_qc_stock_loc_id': fields.many2one('stock.location', 'Quality Control Location'),
@@ -2802,16 +2802,16 @@ class stock_warehouse(osv.osv):
         'delivery_route_id': fields.many2one('stock.location.route', 'Delivery Route'),
         'resupply_from_wh': fields.boolean('Resupply From Other Warehouses'),
         'resupply_wh_ids': fields.many2many('stock.warehouse', 'stock_wh_resupply_table', 'supplied_wh_id', 'supplier_wh_id', 'Resupply Warehouses'),
-        'resupply_route_ids': fields.one2many('stock.location.route', 'supplied_wh_id', 'Resupply Routes', 
+        'resupply_route_ids': fields.one2many('stock.location.route', 'supplied_wh_id', 'Resupply Routes',
                                               help="Routes will be created for these resupply warehouses and you can select them on products and product categories"),
         'default_resupply_wh_id': fields.many2one('stock.warehouse', 'Default Resupply Warehouse', help="Goods will always be resupplied from this warehouse"),
     }
 
     def onchange_filter_default_resupply_wh_id(self, cr, uid, ids, default_resupply_wh_id, resupply_wh_ids, context=None):
         resupply_wh_ids = set([x['id'] for x in (self.resolve_2many_commands(cr, uid, 'resupply_wh_ids', resupply_wh_ids, ['id']))])
-        if default_resupply_wh_id: #If we are removing the default resupply, we don't have default_resupply_wh_id 
+        if default_resupply_wh_id: #If we are removing the default resupply, we don't have default_resupply_wh_id
             resupply_wh_ids.add(default_resupply_wh_id)
-        resupply_wh_ids = list(resupply_wh_ids)        
+        resupply_wh_ids = list(resupply_wh_ids)
         return {'value': {'resupply_wh_ids': resupply_wh_ids}}
 
     def _get_external_transit_location(self, cr, uid, warehouse, context=None):
@@ -3159,7 +3159,7 @@ class stock_warehouse(osv.osv):
         if available_colors:
             color = available_colors[0]
 
-        #order the picking types with a sequence allowing to have the following suit for each warehouse: reception, internal, pick, pack, ship. 
+        #order the picking types with a sequence allowing to have the following suit for each warehouse: reception, internal, pick, pack, ship.
         max_sequence = self.pool.get('stock.picking.type').search_read(cr, uid, [], ['sequence'], order='sequence desc')
         max_sequence = max_sequence and max_sequence[0]['sequence'] or 0
 
@@ -3326,7 +3326,7 @@ class stock_warehouse(osv.osv):
         # Create or clean MTO rules
         mto_route_id = self._get_mto_route(cr, uid, context=context)
         if not change_to_multiple:
-            # If single delivery we should create the necessary MTO rules for the resupply 
+            # If single delivery we should create the necessary MTO rules for the resupply
             # pulls = pull_obj.search(cr, uid, ['&', ('route_id', '=', mto_route_id), ('location_id.usage', '=', 'transit'), ('location_src_id', '=', warehouse.lot_stock_id.id)], context=context)
             pull_recs = pull_obj.browse(cr, uid, pulls, context=context)
             transfer_locs = list(set([x.location_id for x in pull_recs]))
@@ -3366,7 +3366,7 @@ class stock_warehouse(osv.osv):
             change_to_one = (old_val != 'ship_only' and new_val == 'ship_only')
             change_to_multiple = (old_val == 'ship_only' and new_val != 'ship_only')
             if change_to_one or change_to_multiple:
-                new_location = change_to_one and warehouse.lot_stock_id.id or warehouse.wh_output_stock_loc_id.id 
+                new_location = change_to_one and warehouse.lot_stock_id.id or warehouse.wh_output_stock_loc_id.id
                 self._check_delivery_resupply(cr, uid, warehouse, new_location, change_to_multiple, context=context)
 
     def write(self, cr, uid, ids, vals, context=None):
@@ -3475,7 +3475,7 @@ class stock_location_path(osv.osv):
         'location_from_id': fields.many2one('stock.location', 'Source Location', ondelete='cascade', select=1, required=True),
         'location_dest_id': fields.many2one('stock.location', 'Destination Location', ondelete='cascade', select=1, required=True),
         'delay': fields.integer('Delay (days)', help="Number of days to do this transition"),
-        'picking_type_id': fields.many2one('stock.picking.type', 'Type of the new Operation', required=True, help="This is the picking type associated with the different pickings"), 
+        'picking_type_id': fields.many2one('stock.picking.type', 'Type of the new Operation', required=True, help="This is the picking type associated with the different pickings"),
         'auto': fields.selection(
             [('auto','Automatic Move'), ('manual','Manual Operation'),('transparent','Automatic No Step Added')],
             'Automatic Move',
@@ -3616,7 +3616,7 @@ class stock_package(osv.osv):
         'quant_ids': fields.one2many('stock.quant', 'package_id', 'Bulk Content', readonly=True),
         'parent_id': fields.many2one('stock.quant.package', 'Parent Package', help="The package containing this item", ondelete='restrict', readonly=True),
         'children_ids': fields.one2many('stock.quant.package', 'parent_id', 'Contained Packages', readonly=True),
-        'company_id': fields.function(_get_package_info, type="many2one", relation='res.company', string='Company', multi="package", 
+        'company_id': fields.function(_get_package_info, type="many2one", relation='res.company', string='Company', multi="package",
                                     store={
                                        'stock.quant': (_get_packages, ['company_id'], 10),
                                        'stock.quant.package': (_get_packages_to_relocate, ['quant_ids', 'children_ids', 'parent_id'], 10),
@@ -3828,7 +3828,7 @@ class stock_pack_operation(osv.osv):
         return res_id
 
     def action_drop_down(self, cr, uid, ids, context=None):
-        ''' Used by barcode interface to say that pack_operation has been moved from src location 
+        ''' Used by barcode interface to say that pack_operation has been moved from src location
             to destination location, if qty_done is less than product_qty than we have to split the
             operation in two to process the one with the qty moved
         '''
@@ -3900,7 +3900,7 @@ class stock_pack_operation(osv.osv):
             values = {
                 'picking_id': picking_id,
                 'product_qty': 0,
-                'location_id': picking.location_id.id, 
+                'location_id': picking.location_id.id,
                 'location_dest_id': picking.location_dest_id.id,
                 'qty_done': 1,
                 }

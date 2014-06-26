@@ -113,7 +113,7 @@ def validate_email(email, check_mx=False,verify=False):
                     break
                 except smtplib.SMTPConnectError:
                     continue
-    except (AssertionError, ServerError): 
+    except (AssertionError, ServerError):
         return False
     return True
 

@@ -2,10 +2,10 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    
+#
 #    Created by Luc De Meyer
 #    Copyright (c) 2010 Noviat nv/sa (www.noviat.be). All rights reserved.
-# 
+#
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
@@ -25,7 +25,7 @@ from openerp.osv import fields, osv
 import time
 from openerp.tools.translate import _
 
-class res_partner(osv.osv):  
+class res_partner(osv.osv):
     """ add field to indicate default 'Communication Type' on customer invoices """
     _inherit = 'res.partner'
 

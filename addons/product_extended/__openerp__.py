@@ -1,5 +1,5 @@
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #    Copyright (C) 2010-2011 OpenERP S.A. (<http://www.openerp.com>).
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 {
@@ -26,10 +26,10 @@
     "category" : "Generic Modules/Inventory Control",
     "description": """
 Product extension. This module adds:
-  * Last purchase order for each product supplier 
+  * Last purchase order for each product supplier
   * New functional field: Available stock (real+outgoing stock)
   * Computes standard price from the BoM of the product (optional for each product)
-  * Standard price is shown in the BoM and it can be computed with a wizard 
+  * Standard price is shown in the BoM and it can be computed with a wizard
 """,
     "init_xml" : [],
     "demo_xml" : [],

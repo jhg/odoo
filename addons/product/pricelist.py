@@ -120,7 +120,7 @@ class product_pricelist(osv.osv):
                        FROM ((
                                 SELECT pr.id, pr.name
                                 FROM product_pricelist pr JOIN
-                                     res_currency cur ON 
+                                     res_currency cur ON
                                          (pr.currency_id = cur.id)
                                 WHERE pr.name || ' (' || cur.name || ')' = %(name)s
                             )
@@ -133,7 +133,7 @@ class product_pricelist(osv.osv):
                                         tr.name = 'product.pricelist,name' AND
                                         tr.lang = %(lang)s
                                      ) JOIN
-                                     res_currency cur ON 
+                                     res_currency cur ON
                                          (pr.currency_id = cur.id)
                                 WHERE tr.value || ' (' || cur.name || ')' = %(name)s
                             )

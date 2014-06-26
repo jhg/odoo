@@ -134,7 +134,7 @@ class config(osv.Model):
                     urllib2.urlopen(req)
                 except urllib2.HTTPError:
                     pass
-        return res 
+        return res
 
     def get_google_drive_config(self, cr, uid, res_model, res_id, context=None):
         '''

@@ -89,7 +89,7 @@ def graph_get(cr, graph, wkf_ids, nested, workitem, witm_trans, processed_subflo
             args['arrowtail']='inv'
 
         if activities[t['act_to']]['join_mode']=='AND':
-            args['arrowhead']='crow' 
+            args['arrowhead']='crow'
         if t['id'] in witm_trans:
             args['color'] = 'red'
 

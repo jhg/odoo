@@ -168,7 +168,7 @@ class hr_payslip_run(osv.osv):
         if not default:
             default = {}
         default.update({'available_advice': False})
-        return super(hr_payslip_run, self).copy(cr, uid, id, default, context=context)    
+        return super(hr_payslip_run, self).copy(cr, uid, id, default, context=context)
 
     def draft_payslip_run(self, cr, uid, ids, context=None):
         res = super(hr_payslip_run, self).draft_payslip_run(cr, uid, ids, context=context)

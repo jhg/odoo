@@ -13,12 +13,12 @@ HW_INIT   = '\x1b\x40'         # Clear data in buffer and reset modes
 HW_SELECT = '\x1b\x3d\x01'     # Printer select
 HW_RESET  = '\x1b\x3f\x0a\x00' # Reset printer hardware
 # Cash Drawer
-CD_KICK_2 = '\x1b\x70\x00'     # Sends a pulse to pin 2 [] 
-CD_KICK_5 = '\x1b\x70\x01'     # Sends a pulse to pin 5 [] 
+CD_KICK_2 = '\x1b\x70\x00'     # Sends a pulse to pin 2 []
+CD_KICK_5 = '\x1b\x70\x01'     # Sends a pulse to pin 5 []
 # Paper
 PAPER_FULL_CUT  = '\x1d\x56\x00' # Full cut paper
 PAPER_PART_CUT  = '\x1d\x56\x01' # Partial cut paper
-# Text format   
+# Text format
 TXT_NORMAL      = '\x1b\x21\x00' # Normal text
 TXT_2HEIGHT     = '\x1b\x21\x10' # Double height text
 TXT_2WIDTH      = '\x1b\x21\x20' # Double width text
@@ -45,11 +45,11 @@ TXT_ENC_PC860   = '\x1b\x74\x03' # PC860 Portuguese
 TXT_ENC_PC863   = '\x1b\x74\x04' # PC863 Canadian-French
 TXT_ENC_PC865   = '\x1b\x74\x05' # PC865 Nordic
 TXT_ENC_KANJI6  = '\x1b\x74\x06' # One-pass Kanji, Hiragana
-TXT_ENC_KANJI7  = '\x1b\x74\x07' # One-pass Kanji 
+TXT_ENC_KANJI7  = '\x1b\x74\x07' # One-pass Kanji
 TXT_ENC_KANJI8  = '\x1b\x74\x08' # One-pass Kanji
 TXT_ENC_PC851   = '\x1b\x74\x0b' # PC851 Greek
 TXT_ENC_PC853   = '\x1b\x74\x0c' # PC853 Turkish
-TXT_ENC_PC857   = '\x1b\x74\x0d' # PC857 Turkish 
+TXT_ENC_PC857   = '\x1b\x74\x0d' # PC857 Turkish
 TXT_ENC_PC737   = '\x1b\x74\x0e' # PC737 Greek
 TXT_ENC_8859_7  = '\x1b\x74\x0f' # ISO8859-7 Greek
 TXT_ENC_WPC1252 = '\x1b\x74\x10' # WPC1252
@@ -63,7 +63,7 @@ TXT_ENC_TCVN3   = '\x1b\x74\x1e' # TCVN3 Vietnamese
 TXT_ENC_TCVN3B  = '\x1b\x74\x1f' # TCVN3 Vietnamese
 TXT_ENC_PC720   = '\x1b\x74\x20' # PC720 Arabic
 TXT_ENC_WPC775  = '\x1b\x74\x21' # WPC775 Baltic Rim
-TXT_ENC_PC855   = '\x1b\x74\x22' # PC855 Cyrillic 
+TXT_ENC_PC855   = '\x1b\x74\x22' # PC855 Cyrillic
 TXT_ENC_PC861   = '\x1b\x74\x23' # PC861 Icelandic
 TXT_ENC_PC862   = '\x1b\x74\x24' # PC862 Hebrew
 TXT_ENC_PC864   = '\x1b\x74\x25' # PC864 Arabic
@@ -171,7 +171,7 @@ BARCODE_EAN8    = '\x1d\x6b\x03' # Barcode type EAN8
 BARCODE_CODE39  = '\x1d\x6b\x04' # Barcode type CODE39
 BARCODE_ITF     = '\x1d\x6b\x05' # Barcode type ITF
 BARCODE_NW7     = '\x1d\x6b\x06' # Barcode type NW7
-# Image format  
+# Image format
 S_RASTER_N      = '\x1d\x76\x30\x00' # Set raster image normal size
 S_RASTER_2W     = '\x1d\x76\x30\x01' # Set raster image double width
 S_RASTER_2H     = '\x1d\x76\x30\x02' # Set raster image double height

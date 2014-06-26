@@ -68,7 +68,7 @@ class TestORM(common.TransactionCase):
         with self.assertRaises(Exception):
             self.partner.unlink(cr, uid2, [p1])
 
-        # Prepare mixed case 
+        # Prepare mixed case
         self.partner.unlink(cr, uid, [p2])
         # read mixed records: some deleted and some filtered
         with self.assertRaises(Exception):
@@ -141,7 +141,7 @@ class TestORM(common.TransactionCase):
         self.assertEqual(len(read_group('month')), len(partners_by_month))
         self.assertEqual(len(read_group('year')), len(partners_by_year))
 
-        rg = self.partner.read_group(self.cr, self.uid, [('id', 'in', all_partners)], 
+        rg = self.partner.read_group(self.cr, self.uid, [('id', 'in', all_partners)],
                         ['date'], ['date:month', 'date:day'], lazy=False)
         self.assertEqual(len(rg), len(all_partners))
 

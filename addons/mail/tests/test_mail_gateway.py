@@ -88,7 +88,7 @@ Delivered-To: raoul@grosbedon.fr
 Received: by mail1.grosbedon.com (Postfix, from userid 10002)
     id E8166BFACA; Fri, 23 Aug 2013 13:18:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on mail1.grosbedon.com
-X-Spam-Level: 
+X-Spam-Level:
 X-Spam-Status: No, score=-2.6 required=5.0 tests=BAYES_00,FREEMAIL_FROM,
     HTML_MESSAGE,RCVD_IN_DNSWL_LOW autolearn=unavailable version=3.3.1
 Received: from mail-ie0-f173.google.com (mail-ie0-f173.google.com [209.85.223.173])
@@ -125,7 +125,7 @@ Content-Type: text/plain; charset=ISO-8859-1
 
 Should create a multipart/mixed: from gmail, *bold*, with attachment.
 
--- 
+--
 Marcel Boitempoils.
 
 --089e01536c4ed4d16d04e49b8e94

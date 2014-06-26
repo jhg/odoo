@@ -53,8 +53,8 @@ class mrp_product_produce(osv.osv_memory):
     }
 
     def on_change_qty(self, cr, uid, ids, product_qty, consume_lines, context=None):
-        """ 
-            When changing the quantity of products to be produced it will 
+        """
+            When changing the quantity of products to be produced it will
             recalculate the number of raw materials needed according
             to the scheduled products and the already consumed/produced products
             It will return the consume lines needed for the products to be produced
@@ -110,7 +110,7 @@ class mrp_product_produce(osv.osv_memory):
          'product_qty': _get_product_qty,
          'mode': lambda *x: 'consume_produce',
          'product_id': _get_product_id,
-         'track_production': _get_track, 
+         'track_production': _get_track,
     }
 
     def do_produce(self, cr, uid, ids, context=None):

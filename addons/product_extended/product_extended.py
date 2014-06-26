@@ -1,5 +1,5 @@
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2014 OpenERP S.A. (<http://www.openerp.com>).
 #
@@ -14,7 +14,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -46,7 +46,7 @@ class product_product(osv.osv):
                     #Call compute_price on these subproducts
                     prod_set = set([x.product_id.id for x in bom_obj.browse(cr, uid, boms, context=context)])
                     res = self.compute_price(cr, uid, list(prod_set), recursive=recursive, test=test, real_time_accounting = real_time_accounting, context=context)
-                    if test: 
+                    if test:
                         testdict.update(res)
                 #Use calc price to calculate and put the price on the product of the BoM if necessary
                 price = self._calc_price(cr, uid, bom_obj.browse(cr, uid, bom_id, context=context), test=test, real_time_accounting = real_time_accounting, context=context)

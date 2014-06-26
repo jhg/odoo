@@ -144,7 +144,7 @@ class purchase_order(osv.osv):
         res = journal_obj.search(cr, uid, [('type', '=', 'purchase'),
                                             ('company_id', '=', company_id)],
                                                 limit=1)
-        return res and res[0] or False  
+        return res and res[0] or False
 
     def _get_picking_in(self, cr, uid, context=None):
         obj_data = self.pool.get('ir.model.data')
@@ -170,7 +170,7 @@ class purchase_order(osv.osv):
         return {
             purchase.id: {
                 'shipment_count': len(purchase.picking_ids),
-                'invoice_count': len(purchase.invoice_ids),                
+                'invoice_count': len(purchase.invoice_ids),
             }
             for purchase in self.browse(cr, uid, ids, context=context)
         }
@@ -256,7 +256,7 @@ class purchase_order(osv.osv):
         'bid_validity': fields.date('Bid Valid Until', help="Date on which the bid expired"),
         'picking_type_id': fields.many2one('stock.picking.type', 'Deliver To', help="This will determine picking type of incoming shipment", required=True,
                                            states={'confirmed': [('readonly', True)], 'approved': [('readonly', True)], 'done': [('readonly', True)]}),
-        'related_location_id': fields.related('picking_type_id', 'default_location_dest_id', type='many2one', relation='stock.location', string="Related location", store=True),        
+        'related_location_id': fields.related('picking_type_id', 'default_location_dest_id', type='many2one', relation='stock.location', string="Related location", store=True),
         'shipment_count': fields.function(_count_all, type='integer', string='Incoming Shipments', multi=True),
         'invoice_count': fields.function(_count_all, type='integer', string='Invoices', multi=True)
     }
@@ -327,7 +327,7 @@ class purchase_order(osv.osv):
             return {}
         return {'value': {'currency_id': self.pool.get('product.pricelist').browse(cr, uid, pricelist_id, context=context).currency_id.id}}
 
-   #Destination address is used when dropshipping 
+   #Destination address is used when dropshipping
     def onchange_dest_address_id(self, cr, uid, ids, address_id):
         if not address_id:
             return {}
@@ -465,7 +465,7 @@ class purchase_order(osv.osv):
         try:
             compose_form_id = ir_model_data.get_object_reference(cr, uid, 'mail', 'email_compose_message_wizard_form')[1]
         except ValueError:
-            compose_form_id = False 
+            compose_form_id = False
         ctx = dict(context)
         ctx.update({
             'default_model': 'purchase.order',
@@ -501,7 +501,7 @@ class purchase_order(osv.osv):
                 raise osv.except_osv(_('Error!'),_('You cannot confirm a purchase order without any purchase order line.'))
             for line in po.order_line:
                 if line.state=='draft':
-                    todo.append(line.id)        
+                    todo.append(line.id)
         self.pool.get('purchase.order.line').action_confirm(cr, uid, todo, context)
         for id in ids:
             self.write(cr, uid, [id], {'state' : 'confirmed', 'validator' : uid})
@@ -1129,7 +1129,7 @@ class purchase_order_line(osv.osv):
         return res
 
     product_id_change = onchange_product_id
-    product_uom_change = onchange_product_uom 
+    product_uom_change = onchange_product_uom
 
     def action_confirm(self, cr, uid, ids, context=None):
         self.write(cr, uid, ids, {'state': 'confirmed'}, context=context)
@@ -1301,7 +1301,7 @@ class procurement_order(osv.osv):
                 res[procurement.id] = False
             else:
                 schedule_date = self._get_purchase_schedule_date(cr, uid, procurement, company, context=context)
-                purchase_date = self._get_purchase_order_date(cr, uid, procurement, company, schedule_date, context=context) 
+                purchase_date = self._get_purchase_order_date(cr, uid, procurement, company, schedule_date, context=context)
                 line_vals = self._get_po_line_values_from_proc(cr, uid, procurement, partner, company, schedule_date, context=context)
                 #look for any other draft PO for the same supplier, to attach the new line on instead of creating a new draft one
                 available_draft_po_ids = po_obj.search(cr, uid, [
@@ -1397,7 +1397,7 @@ class product_product(osv.Model):
     def _purchase_count(self, cr, uid, ids, field_name, arg, context=None):
         Purchase = self.pool['purchase.order']
         return {
-            product_id: Purchase.search_count(cr,uid, [('order_line.product_id', '=', product_id)], context=context) 
+            product_id: Purchase.search_count(cr,uid, [('order_line.product_id', '=', product_id)], context=context)
             for product_id in ids
         }
 

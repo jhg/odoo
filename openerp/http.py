@@ -268,7 +268,7 @@ class WebRequest(object):
     def _handle_exception(self, exception):
         """Called within an except block to allow converting exceptions
            to abitrary responses. Anything returned (except None) will
-           be used as response.""" 
+           be used as response."""
         self._failed = exception # prevent tx commit
         raise
 
@@ -514,7 +514,7 @@ def to_jsonable(o):
     return u"%s" % o
 
 def jsonrequest(f):
-    """ 
+    """
         .. deprecated:: 8.0
             Use the :func:`~openerp.http.route` decorator instead.
     """
@@ -600,7 +600,7 @@ class HttpRequest(WebRequest):
         return werkzeug.exceptions.NotFound(description)
 
 def httprequest(f):
-    """ 
+    """
         .. deprecated:: 8.0
 
         Use the :func:`~openerp.http.route` decorator instead.

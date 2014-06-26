@@ -455,7 +455,7 @@ class account_bank_statement(osv.osv):
     _name = "account.bank.statement"
 
     def _prepare_bank_move_line(self, cr, uid, st_line, move_id, amount, company_currency_id, context=None):
-        result = super(account_bank_statement,self)._prepare_bank_move_line(cr, uid, st_line, 
+        result = super(account_bank_statement,self)._prepare_bank_move_line(cr, uid, st_line,
             move_id, amount, company_currency_id, context=context)
         result['analytics_id'] = st_line.analytics_id.id
         return result

@@ -42,7 +42,7 @@ class TestMoveExplode(common.TransactionCase):
         self.partner_id = self.ir_model_data.get_object_reference(cr, uid, 'base', 'res_partner_1')[1]
 
     def test_00_sale_move_explode(self):
-        """check that when creating a sale order with a product that has a phantom BoM, move explode into content of the 
+        """check that when creating a sale order with a product that has a phantom BoM, move explode into content of the
             BoM"""
         cr, uid, context = self.cr, self.uid, {}
         #create sale order with one sale order line containing product with a phantom bom

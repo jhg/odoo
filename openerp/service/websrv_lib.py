@@ -207,7 +207,7 @@ class HttpOptions:
         self.send_response(200)
         self.send_header("Content-Length", 0)
         if 'Microsoft' in self.headers.get('User-Agent', ''):
-            self.send_header('MS-Author-Via', 'DAV') 
+            self.send_header('MS-Author-Via', 'DAV')
             # Microsoft's webdav lib ass-umes that the server would
             # be a FrontPage(tm) one, unless we send a non-standard
             # header that we are not an elephant.
@@ -224,7 +224,7 @@ class HttpOptions:
         """Prepare the OPTIONS response, if needed
 
         Sometimes, like in special DAV folders, the OPTIONS may contain
-        extra keywords, perhaps also dependant on the request url. 
+        extra keywords, perhaps also dependant on the request url.
         :param opts: MUST be copied before being altered
         :returns: the updated options.
 

@@ -144,7 +144,7 @@ class _rml_styles(object,):
                 sname = style.get('name')
                 self.styles[sname] = self._para_style_update(style)
                 if self.default_style.has_key(sname):
-                    for key, value in self.styles[sname].items():                    
+                    for key, value in self.styles[sname].items():
                         setattr(self.default_style[sname], key, value)
                 else:
                     self.styles_obj[sname] = reportlab.lib.styles.ParagraphStyle(sname, self.default_style["Normal"], **self.styles[sname])
@@ -260,7 +260,7 @@ class _rml_doc(object):
                 fname = font.get('fontFile').encode('ascii')
                 if name not in pdfmetrics._fonts:
                     pdfmetrics.registerFont(TTFont(name, fname))
-                #by default, we map the fontName to each style (bold, italic, bold and italic), so that 
+                #by default, we map the fontName to each style (bold, italic, bold and italic), so that
                 #if there isn't any font defined for one of these style (via a font family), the system
                 #will fallback on the normal font.
                 addMapping(name, 0, 0, name)    #normal
@@ -617,7 +617,7 @@ class _rml_Illustration(platypus.flowables.Flowable):
         drw = _rml_draw(self.localcontext ,self.node,self.styles, images=self.self2.images, path=self.self2.path, title=self.self2.title)
         drw.render(self.canv, None)
 
-# Workaround for issue #15: https://bitbucket.org/rptlab/reportlab/issue/15/infinite-pages-produced-when-splitting 
+# Workaround for issue #15: https://bitbucket.org/rptlab/reportlab/issue/15/infinite-pages-produced-when-splitting
 original_pto_split = platypus.flowables.PTOContainer.split
 def split(self, availWidth, availHeight):
     res = original_pto_split(self, availWidth, availHeight)
@@ -649,7 +649,7 @@ class _rml_flowable(object):
                 if key in ('rml_except', 'rml_loop', 'rml_tag'):
                     del txt_n.attrib[key]
             if not n.tag == 'bullet':
-                if n.tag == 'pageNumber': 
+                if n.tag == 'pageNumber':
                     txt_n.text = self.canvas and str(self.canvas.getPageNumber()) or ''
                 else:
                     txt_n.text = utils.xml2str(self._textual(n))

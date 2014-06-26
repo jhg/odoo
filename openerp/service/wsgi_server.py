@@ -188,7 +188,7 @@ def application_unproxied(environ, start_response):
     # web.session.OpenERPSession.send() and at RPC dispatch in
     # openerp.service.web_services.objects_proxy.dispatch().
     # /!\ The cleanup cannot be done at the end of this `application`
-    # method because werkzeug still produces relevant logging afterwards 
+    # method because werkzeug still produces relevant logging afterwards
     if hasattr(threading.current_thread(), 'uid'):
         del threading.current_thread().uid
     if hasattr(threading.current_thread(), 'dbname'):

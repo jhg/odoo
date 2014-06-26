@@ -158,8 +158,8 @@ class TestCleaner(unittest2.TestCase):
         test_str = '''<div>
         <span>
         </span>
-        <p>Hello, <span>Raoul</span> 
-    <bold>You</bold> are 
+        <p>Hello, <span>Raoul</span>
+    <bold>You</bold> are
     pretty</p>
 <span>Really</span>
 </div>
@@ -179,8 +179,8 @@ class TestCleaner(unittest2.TestCase):
         self.assertIn('read more', html, 'html_email_cleaner: shorten error about read more inclusion')
 
         # TEST: shorten in quote
-        test_str = '''<div> Blahble         
-            bluih      blouh   
+        test_str = '''<div> Blahble
+            bluih      blouh
         <blockquote>This is a quote
         <span>And this is quite a long quote, after all.</span>
         </blockquote>
@@ -368,11 +368,11 @@ class TestEmailTools(unittest2.TestCase):
 
     def test_email_split(self):
         cases = [
-            ("John <12345@gmail.com>", ['12345@gmail.com']), # regular form 
+            ("John <12345@gmail.com>", ['12345@gmail.com']), # regular form
             ("d@x; 1@2", ['d@x', '1@2']), # semi-colon + extra space
             ("'(ss)' <123@gmail.com>, 'foo' <foo@bar>", ['123@gmail.com','foo@bar']), # comma + single-quoting
             ('"john@gmail.com"<johnny@gmail.com>', ['johnny@gmail.com']), # double-quoting
-            ('"<jg>" <johnny@gmail.com>', ['johnny@gmail.com']), # double-quoting with brackets 
+            ('"<jg>" <johnny@gmail.com>', ['johnny@gmail.com']), # double-quoting with brackets
         ]
         for text, expected in cases:
             self.assertEqual(email_split(text), expected, 'email_split is broken')

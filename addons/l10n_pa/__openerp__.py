@@ -26,7 +26,7 @@ Panamenian accounting chart and tax localization.
 
 Plan contable panameño e impuestos de acuerdo a disposiciones vigentes
 
-Con la Colaboración de 
+Con la Colaboración de
 - AHMNET CORP http://www.ahmnet.com
 
     """,

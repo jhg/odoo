@@ -29,7 +29,7 @@ class base_import_module(osv.TransientModel):
         res = module_obj.import_zipfile(cr, uid, fp, force=data.force, context=context)
         self.write(cr, uid, ids, {'state': 'done', 'import_message': res[0]}, context=context)
         context = dict(context, module_name=res[1])
-        # Return wizard otherwise it will close wizard and will not show result message to user. 
+        # Return wizard otherwise it will close wizard and will not show result message to user.
         return {
             'name': 'Import Module',
             'view_type': 'form',

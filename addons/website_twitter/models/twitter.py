@@ -56,7 +56,7 @@ class TwitterClient(osv.osv):
             if not all((website.twitter_api_key, website.twitter_api_secret,
                        website.twitter_screen_name)):
                 _logger.debug("Skip fetching favorite tweets for unconfigured website %s",
-                              website) 
+                              website)
                 continue
             params = {'screen_name': website.twitter_screen_name}
             last_tweet = website_tweets.search_read(
@@ -77,7 +77,7 @@ class TwitterClient(osv.osv):
                             {
                               'website_id': website.id,
                               'tweet': json.dumps(tweet_dict),
-                              'tweet_id': tweet_id, # stored in NUMERIC PG field 
+                              'tweet_id': tweet_id, # stored in NUMERIC PG field
                               'screen_name': website.twitter_screen_name,
                             },
                             context=context)
@@ -110,6 +110,6 @@ class WebsiteTwitterTweet(osv.osv):
         # Twitter IDs are 64-bit unsigned ints, so we need to store them in
         # unlimited precision NUMERIC columns, which can be done with a
         # float field. Used digits=(0,0) to indicate unlimited.
-        # Using VARCHAR would work too but would have sorting problems.  
+        # Using VARCHAR would work too but would have sorting problems.
         'tweet_id': fields.float("Tweet ID", digits=(0,0)), # Twitter
     }

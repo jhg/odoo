@@ -432,7 +432,7 @@ class TestNoModel(ViewCase):
         self.registry('res.lang').load_lang(self.cr, self.uid, 'fr_FR')
         orig_text = "Copyright copyrighter"
         translated_text = u"Copyrighter, tous droits réservés"
-        self.text_para.text = orig_text 
+        self.text_para.text = orig_text
         self.registry('ir.translation').create(self.cr, self.uid, {
             'name': 'website',
             'type': 'view',

@@ -731,8 +731,8 @@ class MergePartnerAutomatic(osv.TransientModel):
         # select partner who have one least invoice
         partner_treated = ['@gmail.com']
         cr.execute("""  SELECT p.id, p.email
-                        FROM res_partner as p 
-                        LEFT JOIN account_invoice as a 
+                        FROM res_partner as p
+                        LEFT JOIN account_invoice as a
                         ON p.id = a.partner_id AND a.state in ('open','paid')
                         WHERE p.grade_id is NOT NULL
                         GROUP BY p.id

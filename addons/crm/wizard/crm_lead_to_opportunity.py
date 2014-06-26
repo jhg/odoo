@@ -195,7 +195,7 @@ class crm_lead2opportunity_mass_convert(osv.osv_memory):
     _columns = {
         'user_ids':  fields.many2many('res.users', string='Salesmen'),
         'section_id': fields.many2one('crm.case.section', 'Sales Team'),
-        'deduplicate': fields.boolean('Apply deduplication', help='Merge with existing leads/opportunities of each partner'),        
+        'deduplicate': fields.boolean('Apply deduplication', help='Merge with existing leads/opportunities of each partner'),
         'action': fields.selection([
                 ('each_exist_or_create', 'Use existing partner or create'),
                 ('nothing', 'Do not link to a customer')
@@ -223,7 +223,7 @@ class crm_lead2opportunity_mass_convert(osv.osv_memory):
     def on_change_action(self, cr, uid, ids, action, context=None):
         vals = {}
         if action != 'exist':
-            vals = {'value': {'partner_id': False}} 
+            vals = {'value': {'partner_id': False}}
         return vals
 
     def on_change_deduplicate(self, cr, uid, ids, deduplicate, context=None):

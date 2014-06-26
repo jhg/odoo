@@ -1,5 +1,5 @@
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -14,7 +14,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -35,7 +35,7 @@ class CompanyLDAP(osv.osv):
     _rec_name = 'ldap_server'
 
     def get_ldap_dicts(self, cr, ids=None):
-        """ 
+        """
         Retrieve res_company_ldap resources from the database in dictionary
         format.
 
@@ -61,7 +61,7 @@ class CompanyLDAP(osv.osv):
         return cr.dictfetchall()
 
     def connect(self, conf):
-        """ 
+        """
         Connect to an LDAP server specified by an ldap
         configuration dictionary.
 
@@ -115,7 +115,7 @@ class CompanyLDAP(osv.osv):
         return entry
 
     def query(self, conf, filter, retrieve_attributes=None):
-        """ 
+        """
         Query an LDAP server with the filter argument and scope subtree.
 
         Allow for all authentication methods of the simple authentication
@@ -207,7 +207,7 @@ class CompanyLDAP(osv.osv):
             ondelete='cascade'),
         'ldap_server': fields.char('LDAP Server address', required=True),
         'ldap_server_port': fields.integer('LDAP Server port', required=True),
-        'ldap_binddn': fields.char('LDAP binddn', 
+        'ldap_binddn': fields.char('LDAP binddn',
             help=("The user account on the LDAP server that is used to query "
                   "the directory. Leave empty to connect anonymously.")),
         'ldap_password': fields.char('LDAP password',

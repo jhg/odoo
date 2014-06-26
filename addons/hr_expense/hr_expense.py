@@ -77,7 +77,7 @@ class hr_expense_expense(osv.osv):
         'account_move_id': fields.many2one('account.move', 'Ledger Posting'),
         'line_ids': fields.one2many('hr.expense.line', 'expense_id', 'Expense Lines', readonly=True, states={'draft':[('readonly',False)]} ),
         'note': fields.text('Note'),
-        'amount': fields.function(_amount, string='Total Amount', digits_compute=dp.get_precision('Account'), 
+        'amount': fields.function(_amount, string='Total Amount', digits_compute=dp.get_precision('Account'),
             store={
                 'hr.expense.line': (_get_expense_from_line, ['unit_amount','unit_quantity'], 10)
             }),
@@ -253,11 +253,11 @@ class hr_expense_expense(osv.osv):
             eml.append({
                     'type': 'dest',
                     'name': '/',
-                    'price': total, 
-                    'account_id': acc, 
-                    'date_maturity': exp.date_confirm, 
-                    'amount_currency': diff_currency_p and total_currency or False, 
-                    'currency_id': diff_currency_p and exp.currency_id.id or False, 
+                    'price': total,
+                    'account_id': acc,
+                    'date_maturity': exp.date_confirm,
+                    'amount_currency': diff_currency_p and total_currency or False,
+                    'currency_id': diff_currency_p and exp.currency_id.id or False,
                     'ref': exp.name
                     })
 
@@ -324,7 +324,7 @@ class hr_expense_expense(osv.osv):
                 tax_code_found = True
                 res[-1]['tax_code_id'] = tax_code_id
                 res[-1]['tax_amount'] = cur_obj.compute(cr, uid, exp.currency_id.id, company_currency, tax_amount, context={'date': exp.date_confirm})
-                ## 
+                ##
                 is_price_include = tax_obj.read(cr,uid,tax['id'],['price_include'],context)['price_include']
                 if is_price_include:
                     ## We need to deduce the price for the tax

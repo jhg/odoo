@@ -426,7 +426,7 @@ class gamification_challenge(osv.Model):
                 user_without_goal_ids = list(set(participant_user_ids) - set([user['user_id'] for user in user_with_goal_ids]))
                 user_squating_challenge_ids = list(set([user['user_id'] for user in user_with_goal_ids]) - set(participant_user_ids))
                 if user_squating_challenge_ids:
-                    # users that used to match the challenge 
+                    # users that used to match the challenge
                     goal_to_remove_ids = goal_obj.search(cr, uid, [('challenge_id', '=', challenge.id), ('user_id', 'in', user_squating_challenge_ids)], context=context)
                     goal_obj.unlink(cr, uid, goal_to_remove_ids, context=context)
 
@@ -509,7 +509,7 @@ class gamification_challenge(osv.Model):
             'action': <{True,False}>,
             'display_mode': <{progress,boolean}>,
             'target': <challenge line target>,
-            'state': <gamification.goal state {draft,inprogress,reached,failed,canceled}>,                                
+            'state': <gamification.goal state {draft,inprogress,reached,failed,canceled}>,
             'completeness': <percentage>,
             'current': <current value>,
         }

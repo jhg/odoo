@@ -18,7 +18,7 @@ from openerp import http
 from openerp.http import request
 
 
-# drivers modules must add to drivers an object with a get_status() method 
+# drivers modules must add to drivers an object with a get_status() method
 # so that 'status' can return the status of all active drivers
 drivers = {}
 
@@ -112,7 +112,7 @@ class Proxy(http.Controller):
         resp += "</body>\n</html>\n\n"
 
         return request.make_response(resp,{
-            'Cache-Control': 'no-cache', 
+            'Cache-Control': 'no-cache',
             'Content-Type': 'text/html; charset=utf-8',
             'Access-Control-Allow-Origin':  '*',
             'Access-Control-Allow-Methods': 'GET',
@@ -153,7 +153,7 @@ class Proxy(http.Controller):
     @http.route('/hw_proxy/payment_request', type='json', auth='none', cors='*')
     def payment_request(self, price):
         """
-        The PoS will activate the method payment 
+        The PoS will activate the method payment
         """
         print "payment_request: price:"+str(price)
         return 'ok'
@@ -161,7 +161,7 @@ class Proxy(http.Controller):
     @http.route('/hw_proxy/payment_status', type='json', auth='none', cors='*')
     def payment_status(self):
         print "payment_status"
-        return { 'status':'waiting' } 
+        return { 'status':'waiting' }
 
     @http.route('/hw_proxy/payment_cancel', type='json', auth='none', cors='*')
     def payment_cancel(self):
@@ -193,12 +193,12 @@ class Proxy(http.Controller):
 
     @http.route('/hw_proxy/is_scanner_connected', type='json', auth='none', cors='*')
     def print_receipt(self, receipt):
-        print 'is_scanner_connected?' 
+        print 'is_scanner_connected?'
         return False
 
     @http.route('/hw_proxy/scanner', type='json', auth='none', cors='*')
     def print_receipt(self, receipt):
-        print 'scanner' 
+        print 'scanner'
         time.sleep(10)
         return ''
 

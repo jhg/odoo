@@ -25,7 +25,7 @@
     'category': 'Sales Management',
     'summary': 'Sales Team',
     'description': """
-Using this application you can manage Sales Team  with CRM and/or Sales 
+Using this application you can manage Sales Team  with CRM and/or Sales
 =======================================================================
  """,
     'website': 'http://www.openerp.com',

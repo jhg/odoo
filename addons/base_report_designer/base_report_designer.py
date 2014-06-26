@@ -52,8 +52,8 @@ class report_xml(osv.osv):
         if file_type=='odt':
             fp = open(get_module_resource('base_report_designer','openerp_sxw2rml', 'normalized_odt2rml.xsl'),'rb')
         report = self.pool['ir.actions.report.xml'].write(cr, uid, [report_id], {
-            'report_sxw_content': base64.decodestring(file_sxw), 
-            'report_rml_content': str(sxw2rml(sxwval, xsl=fp.read())), 
+            'report_sxw_content': base64.decodestring(file_sxw),
+            'report_rml_content': str(sxw2rml(sxwval, xsl=fp.read())),
         })
 
         return True

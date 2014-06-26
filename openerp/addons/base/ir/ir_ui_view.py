@@ -375,11 +375,11 @@ class view(osv.osv):
         view = self.browse(cr, uid, view_id, context)
         not_avail = _('n/a')
         message = ("%(msg)s\n\n" +
-                   _("Error context:\nView `%(view_name)s`") + 
+                   _("Error context:\nView `%(view_name)s`") +
                    "\n[view_id: %(viewid)s, xml_id: %(xmlid)s, "
                    "model: %(model)s, parent_id: %(parent)s]") % \
                         {
-                          'view_name': view.name or not_avail, 
+                          'view_name': view.name or not_avail,
                           'viewid': view_id or not_avail,
                           'xmlid': view.xml_id or not_avail,
                           'model': view.model or not_avail,
@@ -579,7 +579,7 @@ class view(osv.osv):
     #------------------------------------------------------
     # Postprocessing: translation, groups and modifiers
     #------------------------------------------------------
-    # TODO: 
+    # TODO:
     # - split postprocess so that it can be used instead of translate_qweb
     # - remove group processing from ir_qweb
     #------------------------------------------------------

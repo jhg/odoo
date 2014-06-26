@@ -325,7 +325,7 @@ class mrp_bom(osv.osv):
             else:
                 bom_id = self._bom_find(cr, uid, bom_line_id.product_uom.id, product_id=bom_line_id.product_id.id, properties=properties)
                 if bom_id:
-                    bom2 = self.browse(cr, uid, bom_id)  
+                    bom2 = self.browse(cr, uid, bom_id)
                     res = self._bom_explode(cr, uid, bom2, bom_line_id.product_id, factor,
                         properties=properties, level=level + 10, previous_products=all_prod, master_bom=master_bom)
                     result = result + res[0]

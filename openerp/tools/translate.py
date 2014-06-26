@@ -201,7 +201,7 @@ class GettextAlias(object):
                 lang = c.get('lang')
         if not lang:
             # Last resort: attempt to guess the language of the user
-            # Pitfall: some operations are performed in sudo mode, and we 
+            # Pitfall: some operations are performed in sudo mode, and we
             #          don't know the originial uid, so the language may
             #          be wrong when the admin language differs.
             pool = getattr(s, 'pool', None)
@@ -819,7 +819,7 @@ def trans_generate(lang, modules, cr):
                                                  keywords=extract_keywords):
                     # Babel 0.9.6 yields lineno, message, comments
                     # Babel 1.3 yields lineno, message, comments, context
-                    lineno, message, comments = extracted[:3] 
+                    lineno, message, comments = extracted[:3]
                     push_translation(module, trans_type, display_path, lineno,
                                      encode(message), comments + extra_comments)
             except Exception:

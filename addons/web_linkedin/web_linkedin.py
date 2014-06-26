@@ -67,8 +67,8 @@ class web_linkedin_fields(osv.Model):
         res = []
         res_partner = self.pool.get('res.partner')
         for linkedin_data in linkedin_datas:
-            partner_ids = res_partner.search(cr, uid, ["|", ("linkedin_id", "=", linkedin_data['id']), 
-                    "&", ("linkedin_id", "=", False), 
+            partner_ids = res_partner.search(cr, uid, ["|", ("linkedin_id", "=", linkedin_data['id']),
+                    "&", ("linkedin_id", "=", False),
                     "|", ("name", "ilike", linkedin_data['firstName'] + "%" + linkedin_data['lastName']), ("name", "ilike", linkedin_data['lastName'] + "%" + linkedin_data['firstName'])], context=context)
             if partner_ids:
                 partner = res_partner.read(cr, uid, partner_ids[0], ["image", "mobile", "phone", "parent_id", "name", "email", "function", "linkedin_id"], context=context)
@@ -87,6 +87,6 @@ class web_linkedin_fields(osv.Model):
     _columns = {
         'linkedin_id': fields.char(string="LinkedIn ID"),
         'linkedin_url': fields.char(string="LinkedIn url", store=True),
-        'linkedin_public_url': fields.function(_get_url, type='text', string="LinkedIn url", 
+        'linkedin_public_url': fields.function(_get_url, type='text', string="LinkedIn url",
             help="This url is set automatically when you join the partner with a LinkedIn account."),
     }

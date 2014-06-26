@@ -63,13 +63,13 @@ class Scale(Thread):
             if len(scales) > 0:
                 print join(self.input_dir,scales[0])
                 self.set_status('connected','Connected to '+scales[0])
-                return serial.Serial(join(self.input_dir,scales[0]), 
-                        baudrate = 9600, 
-                        bytesize = serial.SEVENBITS, 
-                        stopbits = serial.STOPBITS_ONE, 
-                        parity   = serial.PARITY_EVEN, 
+                return serial.Serial(join(self.input_dir,scales[0]),
+                        baudrate = 9600,
+                        bytesize = serial.SEVENBITS,
+                        stopbits = serial.STOPBITS_ONE,
+                        parity   = serial.PARITY_EVEN,
                         #xonxoff  = serial.XON,
-                        timeout  = 0.01, 
+                        timeout  = 0.01,
                         writeTimeout= 0.01)
             else:
                 self.set_status('disconnected','Scale Not Found')
@@ -100,14 +100,14 @@ class Scale(Thread):
 
                     while True:
                         char = self.device.read(1)
-                        if not char: 
+                        if not char:
                             break
                         else:
                             answer.append(char)
 
                     if '?' in answer:
                         stat = ord(answer[answer.index('?')+1])
-                        if stat == 0: 
+                        if stat == 0:
                             self.weight_info = 'ok'
                         else:
                             self.weight_info = []
@@ -141,7 +141,7 @@ class Scale(Thread):
     def set_zero(self):
         with self.scalelock:
             if self.device:
-                try: 
+                try:
                     self.device.write('Z')
                 except Exception as e:
                     self.set_status('error',str(e))
@@ -150,7 +150,7 @@ class Scale(Thread):
     def set_tare(self):
         with self.scalelock:
             if self.device:
-                try: 
+                try:
                     self.device.write('T')
                 except Exception as e:
                     self.set_status('error',str(e))
@@ -159,7 +159,7 @@ class Scale(Thread):
     def clear_tare(self):
         with self.scalelock:
             if self.device:
-                try: 
+                try:
                     self.device.write('C')
                 except Exception as e:
                     self.set_status('error',str(e))
@@ -168,7 +168,7 @@ class Scale(Thread):
     def run(self):
         self.device   = None
 
-        while True: 
+        while True:
             if self.device:
                 self.read_weight()
                 time.sleep(0.05)

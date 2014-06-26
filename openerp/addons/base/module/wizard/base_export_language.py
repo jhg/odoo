@@ -40,7 +40,7 @@ class base_language_export(osv.osv_memory):
 
     _columns = {
             'name': fields.char('File Name', readonly=True),
-            'lang': fields.selection(_get_languages, 'Language', required=True), 
+            'lang': fields.selection(_get_languages, 'Language', required=True),
             'format': fields.selection([('csv','CSV File'),
                                         ('po','PO File'),
                                         ('tgz', 'TGZ Archive')], 'File Format', required=True),
@@ -49,7 +49,7 @@ class base_language_export(osv.osv_memory):
             'state': fields.selection([('choose', 'choose'),   # choose language
                                        ('get', 'get')])        # get the file
     }
-    _defaults = { 
+    _defaults = {
         'state': 'choose',
         'name': 'lang.tar.gz',
         'lang': NEW_LANG_KEY,

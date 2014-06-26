@@ -290,7 +290,7 @@ class im_user(osv.osv):
         assert_uuid(uuid)
         id = self.get_my_id(cr, uid, uuid, context=context)
         current_status = self.read(cr, openerp.SUPERUSER_ID, id, ["im_status"], context=None)["im_status"]
-        self.write(cr, openerp.SUPERUSER_ID, id, {"im_last_status": new_one, 
+        self.write(cr, openerp.SUPERUSER_ID, id, {"im_last_status": new_one,
             "im_last_status_update": datetime.datetime.now().strftime(DEFAULT_SERVER_DATETIME_FORMAT)}, context=context)
         if current_status != new_one:
             notify_channel(cr, "im_channel", {'type': 'status', 'user': id})

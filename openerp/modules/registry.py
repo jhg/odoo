@@ -63,7 +63,7 @@ class Registry(Mapping):
         # special cursor for test mode; None means "normal" mode
         self.test_cr = None
 
-        # Indicates that the registry is 
+        # Indicates that the registry is
         self.ready = False
 
         # Inter-process signaling (used only when openerp.multi_process is True):

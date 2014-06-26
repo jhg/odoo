@@ -35,7 +35,7 @@ will be validated using the Belgian rules.
 There are two different levels of VAT number validation:
 --------------------------------------------------------
     * By default, a simple off-line check is performed using the known validation
-      rules for the country, usually a simple check digit. This is quick and 
+      rules for the country, usually a simple check digit. This is quick and
       always available, but allows numbers that are perhaps not truly allocated,
       or not valid anymore.
 

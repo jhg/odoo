@@ -117,7 +117,7 @@ class hr_holidays(osv.osv):
         },
     }
 
-    def _employee_get(self, cr, uid, context=None):        
+    def _employee_get(self, cr, uid, context=None):
         emp_id = context.get('default_employee_id', False)
         if emp_id:
             return emp_id
@@ -148,7 +148,7 @@ class hr_holidays(osv.osv):
                 result[holiday.id] = True
         return result
 
-    def _check_date(self, cr, uid, ids):        
+    def _check_date(self, cr, uid, ids):
         for holiday in self.browse(cr, uid, ids):
             holiday_ids = self.search(cr, uid, [('date_from', '<=', holiday.date_to), ('date_to', '>=', holiday.date_from),
                                                 ('employee_id', '=', holiday.employee_id.id), ('id', '!=', holiday.id),
@@ -199,10 +199,10 @@ class hr_holidays(osv.osv):
     _constraints = [
         (_check_date, 'You can not have 2 leaves that overlaps on same day!', ['date_from','date_to']),
         (_check_holidays, 'The number of remaining leaves is not sufficient for this leave type', ['state','number_of_days_temp'])
-    ] 
+    ]
 
     _sql_constraints = [
-        ('type_value', "CHECK( (holiday_type='employee' AND employee_id IS NOT NULL) or (holiday_type='category' AND category_id IS NOT NULL))", 
+        ('type_value', "CHECK( (holiday_type='employee' AND employee_id IS NOT NULL) or (holiday_type='category' AND category_id IS NOT NULL))",
          "The employee or employee category of this request is missing. Please make sure that your user login is linked to an employee."),
         ('date_check2', "CHECK ( (type='add') OR (date_from <= date_to))", "The start date must be anterior to the end date."),
         ('date_check', "CHECK ( number_of_days_temp >= 0 )", "The number of days must be greater than 0."),
@@ -377,8 +377,8 @@ class hr_holidays(osv.osv):
                     'allday': False,
                     'state': 'open',            # to block that meeting date in the calendar
                     'class': 'confidential'
-                }   
-                #Add the partner_id (if exist) as an attendee             
+                }
+                #Add the partner_id (if exist) as an attendee
                 if record.user_id and record.user_id.partner_id:
                     meeting_vals['partner_ids'] = [(4,record.user_id.partner_id.id)]
 
@@ -557,7 +557,7 @@ class hr_employee(osv.osv):
     def _leaves_count(self, cr, uid, ids, field_name, arg, context=None):
         Holidays = self.pool['hr.holidays']
         return {
-            employee_id: Holidays.search_count(cr,uid, [('employee_id', '=', employee_id)], context=context) 
+            employee_id: Holidays.search_count(cr,uid, [('employee_id', '=', employee_id)], context=context)
             for employee_id in ids
         }
 

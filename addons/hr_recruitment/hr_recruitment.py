@@ -123,7 +123,7 @@ class hr_applicant(osv.Model):
             company_id = department.company_id.id if department and department.company_id else False
         if not company_id:
             company_id = self.pool['res.company']._company_default_get(cr, uid, 'hr.applicant', context=context)
-        return company_id            
+        return company_id
 
     def _read_group_stage_ids(self, cr, uid, ids, domain, read_group_order=None, access_rights_uid=None, context=None):
         access_rights_uid = access_rights_uid or uid

@@ -28,7 +28,7 @@ class account_voucher(osv.osv):
     _inherit = 'account.voucher'
 
     def _make_journal_search(self, cr, uid, ttype, context=None):
-        if context is None: 
+        if context is None:
             context = {}
         journal_pool = self.pool.get('account.journal')
         if context.get('write_check',False):

@@ -170,7 +170,7 @@ class Cursor(object):
         self.dbname = dbname
 
         # Whether to enable snapshot isolation level for this cursor.
-        # see also the docstring of Cursor.  
+        # see also the docstring of Cursor.
         self._serialized = serialized
 
         self._cnx = pool.borrow(dsn(dbname))

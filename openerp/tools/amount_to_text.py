@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -48,7 +48,7 @@ def _convert_nn_fr(val):
 def _convert_nnn_fr(val):
     """ convert a value < 1000 to french
 
-        special cased because it is the level that kicks 
+        special cased because it is the level that kicks
         off the < 100 special case.  The rest are more general.  This also allows you to
         get strings in the form of 'forty-five hundred' if called directly.
     """
@@ -116,7 +116,7 @@ def _convert_nn_nl(val):
 def _convert_nnn_nl(val):
     """ convert a value < 1000 to Dutch
 
-        special cased because it is the level that kicks 
+        special cased because it is the level that kicks
         off the < 100 special case.  The rest are more general.  This also allows you to
         get strings in the form of 'forty-five hundred' if called directly.
     """
@@ -175,12 +175,12 @@ def amount_to_text(nbr, lang='fr', currency='euro'):
             1654: mille six cent cinquante-quatre.
     """
 #    if nbr > 1000000:
-##TODO: use logger   
+##TODO: use logger
 #        print "WARNING: number too large '%d', can't translate it!" % (nbr,)
 #        return str(nbr)
 
     if not _translate_funcs.has_key(lang):
-#TODO: use logger   
+#TODO: use logger
         print "WARNING: no translation function found for lang: '%s'" % (lang,)
 #TODO: (default should be en) same as above
         lang = 'fr'

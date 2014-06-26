@@ -783,7 +783,7 @@ class MonetaryConverter(osv.AbstractModel):
 
         lang_code = context.get('lang') or 'en_US'
         lang = self.pool['res.lang']
-        formatted_amount = lang.format(cr, uid, [lang_code], 
+        formatted_amount = lang.format(cr, uid, [lang_code],
             fmt, Currency.round(cr, uid, display_currency, from_amount),
             grouping=True, monetary=True)
 

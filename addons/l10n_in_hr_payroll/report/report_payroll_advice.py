@@ -74,7 +74,7 @@ class payroll_advice_report(report_sxw.rml_parse):
                     'debit_credit': l.debit_credit,
                     })
             self.total_bysal += l.bysal
-            result.append(res) 
+            result.append(res)
         return result
 
 class wrapped_report_payroll_advice(osv.AbstractModel):

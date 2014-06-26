@@ -213,7 +213,7 @@ class HttpCase(TransactionCase):
                     # when error occurs the execution stack may be sent as as JSON
                     try:
                         line_ = json.loads(line_)
-                    except ValueError: 
+                    except ValueError:
                         pass
                     self.fail(line_ or "phantomjs test failed")
 

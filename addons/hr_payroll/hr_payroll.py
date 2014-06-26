@@ -69,7 +69,7 @@ class hr_payroll_structure(osv.osv):
     }
 
     _constraints = [
-        (osv.osv._check_recursion, 'Error ! You cannot create a recursive Salary Structure.', ['parent_id']) 
+        (osv.osv._check_recursion, 'Error ! You cannot create a recursive Salary Structure.', ['parent_id'])
     ]
 
     def copy(self, cr, uid, id, default=None, context=None):

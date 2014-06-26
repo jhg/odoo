@@ -19,7 +19,7 @@ class delivery_carrier(orm.Model):
 class SaleOrder(orm.Model):
     _inherit = 'sale.order'
 
-    def _amount_all_wrapper(self, cr, uid, ids, field_name, arg, context=None):        
+    def _amount_all_wrapper(self, cr, uid, ids, field_name, arg, context=None):
         """ Wrapper because of direct method passing as parameter for function fields """
         return self._amount_all(cr, uid, ids, field_name, arg, context=context)
 
@@ -66,7 +66,7 @@ class SaleOrder(orm.Model):
             order.write({'carrier_id': None}, context=context)
             self.pool['sale.order']._delivery_unset(cr, SUPERUSER_ID, [order.id], context=context)
             return True
-        else: 
+        else:
             carrier_id = force_carrier_id or order.carrier_id.id
             carrier_ids = self._get_delivery_methods(cr, uid, order, context=context)
             if carrier_id:
@@ -85,7 +85,7 @@ class SaleOrder(orm.Model):
             if carrier_id:
                 order.delivery_set(context=context)
             else:
-                order._delivery_unset(context=context)                    
+                order._delivery_unset(context=context)
 
         return bool(carrier_id)
 
@@ -104,7 +104,7 @@ class SaleOrder(orm.Model):
     def _get_errors(self, cr, uid, order, context=None):
         errors = super(SaleOrder, self)._get_errors(cr, uid, order, context=context)
         if not self._get_delivery_methods(cr, uid, order, context=context):
-            errors.append(('No delivery method available', 'There is no available delivery method for your order'))            
+            errors.append(('No delivery method available', 'There is no available delivery method for your order'))
         return errors
 
     def _get_website_data(self, cr, uid, order, context=None):

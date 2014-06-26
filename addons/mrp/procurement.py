@@ -52,7 +52,7 @@ class procurement_order(osv.osv):
         return super(procurement_order, self)._run(cr, uid, procurement, context=context)
 
     def _check(self, cr, uid, procurement, context=None):
-        if procurement.production_id and procurement.production_id.state == 'done':  # TOCHECK: no better method? 
+        if procurement.production_id and procurement.production_id.state == 'done':  # TOCHECK: no better method?
             return True
         return super(procurement_order, self)._check(cr, uid, procurement, context=context)
 

@@ -90,7 +90,7 @@ class AcquirerBuckaroo(osv.Model):
         })
         if buckaroo_tx_values.get('return_url'):
             buckaroo_tx_values['add_returndata'] = {'return_url': '%s' % buckaroo_tx_values.pop('return_url')}
-        else: 
+        else:
             buckaroo_tx_values['add_returndata'] = ''
         buckaroo_tx_values['Brq_signature'] = self._buckaroo_generate_digital_sign(acquirer, 'in', buckaroo_tx_values)
         return partner_values, buckaroo_tx_values
@@ -145,7 +145,7 @@ class TxBuckaroo(osv.Model):
             _logger.error(error_msg)
             raise ValidationError(error_msg)
 
-        return tx 
+        return tx
 
     def _buckaroo_form_get_invalid_parameters(self, cr, uid, tx, data, context=None):
         invalid_parameters = []

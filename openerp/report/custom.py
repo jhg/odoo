@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -49,7 +49,7 @@ class external_pdf(render.render):
 theme.use_color = 1
 
 
-#TODO: devrait heriter de report_rml a la place de report_int 
+#TODO: devrait heriter de report_rml a la place de report_int
 # -> pourrait overrider que create_xml a la place de tout create
 # heuu, ca marche pas ds tous les cas car graphs sont generes en pdf directment
 # par pychart, et on passe donc pas par du rml
@@ -121,7 +121,7 @@ class report_custom(report_int):
                         result += self._row_get(cr, uid, objs, field_new, cond_new, row, group_by)
                     else:
                         result.append(row)
-        return result 
+        return result
 
 
     def create(self, cr, uid, ids, datas, context=None):
@@ -365,7 +365,7 @@ class report_custom(report_int):
 
         abscissa = []
 
-        idx = 0 
+        idx = 0
         date_idx = None
         fct = {}
         for f in fields:
@@ -374,7 +374,7 @@ class report_custom(report_int):
                 type = pool['ir.model.fields'].read(cr, uid, [field_id],['ttype'])
                 if type[0]['ttype'] == 'date':
                     date_idx = idx
-                    fct[idx] = process_date[report['frequency']] 
+                    fct[idx] = process_date[report['frequency']]
                 else:
                     fct[idx] = lambda x : x
             else:
@@ -466,7 +466,7 @@ class report_custom(report_int):
             x_axis = axis.X(label = fields[0]['name'], format="/a-30{}%s"),
             y_axis = axis.Y(label = ', '.join(map(lambda x : x['name'], fields[1:]))))
 
-        idx = 0 
+        idx = 0
         date_idx = None
         fct = {}
         for f in fields:
@@ -475,7 +475,7 @@ class report_custom(report_int):
                 type = pool['ir.model.fields'].read(cr, uid, [field_id],['ttype'])
                 if type[0]['ttype'] == 'date':
                     date_idx = idx
-                    fct[idx] = process_date[report['frequency']] 
+                    fct[idx] = process_date[report['frequency']]
                 else:
                     fct[idx] = lambda x : x
             else:

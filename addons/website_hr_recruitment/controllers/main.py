@@ -100,7 +100,7 @@ class website_hr_recruitment(http.Controller):
 
         value = {
             'source_id' : imd.xmlid_to_res_id(cr, SUPERUSER_ID, 'hr_recruitment.source_website_company'),
-            'name': '%s\'s Application' % post.get('partner_name'), 
+            'name': '%s\'s Application' % post.get('partner_name'),
         }
         for f in ['email_from', 'partner_name', 'description']:
             value[f] = post.get(f)

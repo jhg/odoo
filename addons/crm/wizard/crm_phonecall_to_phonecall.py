@@ -35,7 +35,7 @@ class crm_phonecall2phonecall(osv.osv_memory):
         'phone':fields.char('Phone'),
         'categ_id': fields.many2one('crm.case.categ', 'Category', \
                 domain="['|',('section_id','=',False),('section_id','=',section_id),\
-                ('object_id.model', '=', 'crm.phonecall')]"), 
+                ('object_id.model', '=', 'crm.phonecall')]"),
         'date': fields.datetime('Date'),
         'section_id':fields.many2one('crm.case.section','Sales Team'),
         'action': fields.selection([('schedule','Schedule a call'), ('log','Log a call')], 'Action', required=True),

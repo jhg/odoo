@@ -29,10 +29,10 @@ class TableExporter(http.Controller):
         # Step 1: writing headers
         headers = jdata['headers']
 
-        # x,y: current coordinates 
+        # x,y: current coordinates
         # carry: queue containing cell information when a cell has a >= 2 height
         #      and the drawing code needs to add empty cells below
-        x, y, carry = 1, 0, deque()  
+        x, y, carry = 1, 0, deque()
         for i, header_row in enumerate(headers):
             worksheet.write(i,0, '', header_plain)
             for header in header_row:

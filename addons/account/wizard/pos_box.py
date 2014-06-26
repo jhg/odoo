@@ -6,7 +6,7 @@ class CashBox(osv.osv_memory):
     _register = False
     _columns = {
         'name' : fields.char('Reason', required=True),
-        # Attention, we don't set a domain, because there is a journal_type key 
+        # Attention, we don't set a domain, because there is a journal_type key
         # in the context of the action
         'amount' : fields.float('Amount',
                                 digits_compute = dp.get_precision('Account'),

@@ -297,7 +297,7 @@ class res_company(osv.osv):
     def _get_font(self, cr, uid, ids):
         font_obj = self.pool.get('res.font')
         res = font_obj.search(cr, uid, [('family', '=', 'Helvetica'), ('mode', '=', 'all')], limit=1)
-        return res and res[0] or False       
+        return res and res[0] or False
 
     _header = """
 <header>
@@ -317,7 +317,7 @@ class res_company(osv.osv):
         <stroke color="#000000"/>
         <lines>%s</lines>
         <!-- Set here the default font to use for all <drawString> tags -->
-        <!-- don't forget to change the 2 other occurence of <setFont> above if needed --> 
+        <!-- don't forget to change the 2 other occurence of <setFont> above if needed -->
         <setFont name="DejaVuSans" size="8"/>
     </pageGraphics>
 </pageTemplate>

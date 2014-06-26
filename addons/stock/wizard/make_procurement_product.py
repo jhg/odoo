@@ -31,9 +31,9 @@ class make_procurement(osv.osv_memory):
          @param self: The object pointer.
          @param cr: A database cursor
          @param uid: ID of the user currently logged in
-         @param ids: List of IDs selected 
-         @param prod_id: Changed ID of Product 
-         @return: A dictionary which gives the UoM of the changed Product 
+         @param ids: List of IDs selected
+         @param prod_id: Changed ID of Product
+         @return: A dictionary which gives the UoM of the changed Product
         """
         product = self.pool.get('product.product').browse(cr, uid, prod_id)
         return {'value': {'uom_id': product.uom_id.id}}

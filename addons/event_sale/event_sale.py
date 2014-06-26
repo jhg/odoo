@@ -61,7 +61,7 @@ class sale_order_line(osv.osv):
     }
 
     def product_id_change(self, cr, uid, ids,
-                          pricelist, 
+                          pricelist,
                           product,
                           qty=0,
                           uom=False,
@@ -142,7 +142,7 @@ class event_event(osv.osv):
         return []
 
     def _get_ticket_events(self, cr, uid, ids, context=None):
-        # `self` is the event.event.ticket model when called by ORM! 
+        # `self` is the event.event.ticket model when called by ORM!
         return list(set(ticket.event_id.id
                             for ticket in self.browse(cr, uid, ids, context)))
 

@@ -80,7 +80,7 @@ class TestOwnDefaults(FiltersCase):
     def setUp(self):
         super(TestOwnDefaults, self).setUp()
         self.USER = self.registry('res.users').name_search(self.cr, self.uid, 'demo')[0]
-        self.USER_ID = self.USER[0]                 
+        self.USER_ID = self.USER[0]
 
     def test_new_no_filter(self):
         """

@@ -27,7 +27,7 @@ class project_issue(osv.osv):
     _description = 'project issue'
     _columns = {
         'timesheet_ids': fields.one2many('hr.analytic.timesheet', 'issue_id', 'Timesheets'),
-        'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account'), 
+        'analytic_account_id': fields.many2one('account.analytic.account', 'Analytic Account'),
     }
 
     def on_change_project(self, cr, uid, ids, project_id, context=None):

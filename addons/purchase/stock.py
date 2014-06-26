@@ -114,7 +114,7 @@ class stock_picking(osv.osv):
 class stock_warehouse(osv.osv):
     _inherit = 'stock.warehouse'
     _columns = {
-        'buy_to_resupply': fields.boolean('Purchase to resupply this warehouse', 
+        'buy_to_resupply': fields.boolean('Purchase to resupply this warehouse',
                                           help="When products are bought, they can be delivered to this warehouse"),
         'buy_pull_id': fields.many2one('procurement.rule', 'BUY rule'),
     }
@@ -139,7 +139,7 @@ class stock_warehouse(osv.osv):
             'route_id': buy_route_id,
             'action': 'buy',
             'picking_type_id': warehouse.in_type_id.id,
-            'propagate': False, 
+            'propagate': False,
             'warehouse_id': warehouse.id,
         }
 

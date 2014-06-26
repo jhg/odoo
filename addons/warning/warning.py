@@ -134,7 +134,7 @@ class account_invoice(osv.osv):
                 return {'value': {'partner_id': False}, 'warning': warning}
 
         result =  super(account_invoice, self).onchange_partner_id(cr, uid, ids, type, partner_id,
-            date_invoice=date_invoice, payment_term=payment_term, 
+            date_invoice=date_invoice, payment_term=payment_term,
             partner_bank_id=partner_bank_id, company_id=company_id)
 
         if result.get('warning',False):

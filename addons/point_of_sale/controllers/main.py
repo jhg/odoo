@@ -32,8 +32,8 @@ html_template = """<!DOCTYPE html>
         <link rel="apple-touch-icon" sizes="152x152" href="/point_of_sale/static/src/img/touch-icon-ipad-retina.png">
 
         <link rel="shortcut icon" href="/web/static/src/img/favicon.ico" type="image/x-icon"/>
-        <link rel="stylesheet" href="/point_of_sale/static/src/fonts/lato/stylesheet.css" /> 
-        <link rel="stylesheet" href="/point_of_sale/static/src/fonts/font-awesome-4.0.3/css/font-awesome.min.css" /> 
+        <link rel="stylesheet" href="/point_of_sale/static/src/fonts/lato/stylesheet.css" />
+        <link rel="stylesheet" href="/point_of_sale/static/src/fonts/font-awesome-4.0.3/css/font-awesome.min.css" />
         <link rel="stylesheet" href="/point_of_sale/static/src/css/pos.css" />
         <link rel="stylesheet" href="/point_of_sale/static/src/css/keyboard.css" />
         <script type="text/javascript" src="/web/js/web.assets_common"></script>
