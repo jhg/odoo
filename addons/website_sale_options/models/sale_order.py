@@ -33,7 +33,7 @@ class sale_order(osv.Model):
     def _cart_update(self, cr, uid, ids, product_id=None, line_id=None, add_qty=0, set_qty=0, context=None, **kwargs):
         """ Add or set product quantity, add_qty can be negative """
         value = super(sale_order, self)._cart_update(cr, uid, ids, product_id, line_id, add_qty, set_qty, context=context, **kwargs)
-        
+
         linked_line_id = kwargs.get('linked_line_id')
         sol = self.pool.get('sale.order.line')
         line = sol.browse(cr, SUPERUSER_ID, value.get('line_id'), context=context)
